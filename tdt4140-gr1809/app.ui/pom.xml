@@ -11,8 +11,8 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>tdt4140-gr18nn</groupId>
-			<artifactId>tdt4140-gr18nn.app.core</artifactId>
+			<groupId>tdt4140-gr1809</groupId>
+			<artifactId>tdt4140-gr1809.app.core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
