@@ -1,8 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
 
-<Pane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="tdt4140.gr1809.app.ui.FxAppController"
-            prefHeight="750" prefWidth="1000">
+<Pane prefHeight="750" prefWidth="1000" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.FxAppController">
+   <children>
+      <TabPane layoutY="77.0" prefHeight="671.0" prefWidth="999.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Login">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#deebf8" height="231.0" layoutX="303.0" layoutY="180.0" stroke="BLACK" strokeType="INSIDE" width="393.0" />
+                        <TextField fx:id="testTextField" layoutX="442.0" layoutY="239.0" />
+                        <PasswordField layoutX="442.0" layoutY="296.0" />
+                        <Label layoutX="367.0" layoutY="243.0" text="Username:" />
+                        <Label layoutX="369.0" layoutY="300.0" text="Password:" />
+                        <Button fx:id="LoginButton" layoutX="442.0" layoutY="356.0" mnemonicParsing="false" onAction="#initialLoginRequest" prefHeight="32.0" prefWidth="148.0" text="Login" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Grafer">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
 </Pane>
