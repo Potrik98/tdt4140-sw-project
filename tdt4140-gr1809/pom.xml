@@ -27,6 +27,18 @@
 			<modules>
 				<module>app.server</module>
 			</modules>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.2.1</version>
+						<configuration>
+							<mainClass>tdt4140.gr1809.app.server.Server</mainClass>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 		<profile>
 			<id>test-profile</id>
