@@ -24,7 +24,8 @@
                         <Label layoutX="367.0" layoutY="243.0" text="Username:" />
                         <Label layoutX="369.0" layoutY="300.0" text="Password:" />
                         <Button fx:id="LoginButton" layoutX="321.0" layoutY="354.0" mnemonicParsing="false" onAction="#initialLoginRequest" prefHeight="32.0" prefWidth="148.0" text="Login" />
-                        <Button fx:id="CreateUserButton" layoutX="517.0" layoutY="354.0" mnemonicParsing="false" onAction="#initialCreateuserRequest" prefHeight="32.0" prefWidth="148.0" text="Login" />
+                        <Button fx:id="CreateUserButton" layoutX="517.0" layoutY="354.0" mnemonicParsing="false" onAction="#initialCreateuserRequest" prefHeight="32.0" prefWidth="148.0" text="Create user" />
+                        <Label fx:id="LoginStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="428.0" layoutY="205.0" prefHeight="18.0" prefWidth="186.0" textAlignment="CENTER" />
                      </children>
                   </AnchorPane>
             </content>
