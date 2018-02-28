@@ -22,6 +22,16 @@ public class FxAppController implements Initializable {
 	@FXML private Button graphViewButton;
 	@FXML private Button heartRateViewButton;
 
+	
+	public void goToLoginView(ActionEvent event) throws IOException{
+		//first get graphView
+				Parent graphView = FXMLLoader.load(getClass().getResource("FxApp.fxml"));
+				Scene graphViewScene = new Scene(graphView);
+
+				Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				window.setScene(graphViewScene);
+				window.show();
+	}
 
 	public void goToGraphView(ActionEvent event) throws IOException {
 
