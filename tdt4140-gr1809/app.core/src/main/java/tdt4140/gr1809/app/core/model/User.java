@@ -13,8 +13,6 @@ public class User {
 	private final LocalDateTime birthDate;
 	
 
-
-
 	public User(UUID id, 
 			String firstName, 
 			String lastName, 
