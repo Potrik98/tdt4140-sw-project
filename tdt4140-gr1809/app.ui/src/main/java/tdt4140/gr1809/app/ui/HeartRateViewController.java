@@ -1,6 +1,5 @@
 package tdt4140.gr1809.app.ui;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +17,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.Function;
 
-public class GraphViewController implements Initializable {
+public class HeartRateViewController implements Initializable {
 	@FXML Button backButton;
 
 	@FXML
@@ -54,13 +53,13 @@ public class GraphViewController implements Initializable {
 	@FXML
 	private Button clearButton;
 
-	private MyGraph mathsGraph;
-	private MyGraph areaMathsGraph;
+	private HeartRateGraph mathsGraph;
+	private HeartRateGraph areaMathsGraph;
 
 	@Override
 	public void initialize(final URL url, final ResourceBundle rb) {
-		mathsGraph = new MyGraph(lineGraph, 10);
-		areaMathsGraph = new MyGraph(areaGraph, 10);
+		mathsGraph = new HeartRateGraph(lineGraph, 10);
+		areaMathsGraph = new HeartRateGraph(areaGraph, 10);
 	}
 
 	@FXML
@@ -77,7 +76,15 @@ public class GraphViewController implements Initializable {
 
 	@FXML
 	private void handleXYButtonAction(final ActionEvent event) {
-		plotLine(x -> x);
+		plotHeartRate(150);
+	}
+
+	private void plotHeartRate(int avg) {
+		if (lineGraph.isVisible()) {
+			mathsGraph.plotHeartRateLine(avg);
+		} else {
+			areaMathsGraph.plotHeartRateLine(avg);
+		}
 	}
 
 	private void plotLine(Function<Double, Double> function) {

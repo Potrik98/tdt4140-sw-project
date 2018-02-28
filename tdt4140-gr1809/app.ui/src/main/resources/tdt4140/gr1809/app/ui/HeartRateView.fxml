@@ -26,7 +26,7 @@
                                 <Cursor fx:constant="CROSSHAIR" />
                             </cursor>
                         </LineChart>
-                        <AreaChart fx:id="areaGraph" createSymbols="false" legendVisible="false" prefHeight="372.0" prefWidth="423.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AreaChart fx:id="areaGraph" createSymbols="false" legendVisible="false" prefHeight="750.0" prefWidth="817.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <xAxis>
                                 <NumberAxis autoRanging="false" label="Time" side="BOTTOM" tickLength="3.0" tickUnit="1.0" upperBound="10.0" />
                             </xAxis>
@@ -37,13 +37,7 @@
                                 <Cursor fx:constant="CROSSHAIR" />
                             </cursor>
                         </AreaChart>
-                        <HBox layoutX="33.0" layoutY="366.0" prefHeight="29.0" prefWidth="377.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="13.0">
-                            <children>
-                                <Button fx:id="lineGraphButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleLineGraphButtonAction" prefHeight="29.0" prefWidth="183.0" text="Line Graph" HBox.hgrow="ALWAYS" />
-                                <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAreaGraphButtonAction" prefHeight="29.0" prefWidth="184.0" text="Area Graph" HBox.hgrow="ALWAYS" />
-                            </children>
-                        </HBox>
-                  <Button fx:id="backButton" layoutX="2.0" layoutY="683.0" mnemonicParsing="false" onAction="#goBackToFxApp" text="Back" />
+                  <Button fx:id="backButton" layoutY="718.0" mnemonicParsing="false" onAction="#goBackToFxApp" text="Back" />
                     </children>
                 </AnchorPane>
                 <VBox prefHeight="398.0" prefWidth="183.0" HBox.hgrow="NEVER">

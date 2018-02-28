@@ -49,5 +49,6 @@
         </tabs>
       </TabPane>
       <Button fx:id="graphViewButton" layoutX="891.0" layoutY="33.0" mnemonicParsing="false" onAction="#goToGraphView" prefHeight="26.0" prefWidth="95.0" text="GraphView" />
+      <Button fx:id="heartRateViewButton" layoutX="796.0" layoutY="33.0" mnemonicParsing="false" onAction="#goToHeartRateView" prefHeight="26.0" prefWidth="95.0" text="Heart Rate" />
    </children>
 </Pane>

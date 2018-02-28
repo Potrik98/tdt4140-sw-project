@@ -18,6 +18,8 @@ import java.util.ResourceBundle;
 public class FxAppController implements Initializable {
 	@FXML private TextField testTextField;
 	@FXML private Button graphViewButton;
+	@FXML private Button heartRateViewButton;
+
 
 
 
@@ -25,6 +27,17 @@ public class FxAppController implements Initializable {
 
 		//first get graphView
 		Parent graphView = FXMLLoader.load(getClass().getResource("GraphView.fxml"));
+		Scene graphViewScene = new Scene(graphView);
+
+		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		window.setScene(graphViewScene);
+		window.show();
+	}
+
+	public void goToHeartRateView(ActionEvent event) throws IOException {
+
+		//first get graphView
+		Parent graphView = FXMLLoader.load(getClass().getResource("HeartRateView.fxml"));
 		Scene graphViewScene = new Scene(graphView);
 
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
