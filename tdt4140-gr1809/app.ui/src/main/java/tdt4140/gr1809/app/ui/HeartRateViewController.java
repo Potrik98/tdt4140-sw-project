@@ -17,7 +17,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HeartRateViewController implements Initializable {
-	@FXML Button backButton;
 	@FXML Label timePeriodLabel;
 
 	@FXML
@@ -88,19 +87,6 @@ public class HeartRateViewController implements Initializable {
 
 
 
-	//method to go back to main view
-	public void goBackToFxApp(ActionEvent event) throws IOException {
-
-		//first get the parent view
-		Parent parentView = FXMLLoader.load(getClass().getResource("FxApp.fxml"));
-		Scene parentViewScene = new Scene(parentView);
-
-		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		window.setScene(parentViewScene);
-		window.show();
-
-	}
-	
 	public void goToLoginView(ActionEvent event) throws IOException{
 		//first get graphView
 				Parent graphView = FXMLLoader.load(getClass().getResource("FxApp.fxml"));
