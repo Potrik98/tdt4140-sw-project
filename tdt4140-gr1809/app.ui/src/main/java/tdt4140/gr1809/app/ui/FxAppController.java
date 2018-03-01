@@ -17,15 +17,24 @@ import java.util.ResourceBundle;
 
 public class FxAppController implements Initializable {
 
-
-	@FXML private Button graphViewButton;
-	@FXML private Button heartRateViewButton;
-
-
 	@FXML private TextField UsernameTextfield;
 	@FXML private TextField PasswordTextfield;
 	@FXML private Label LoginStatus;
 
+	@FXML private Button graphViewButton;
+	@FXML private Button heartRateViewButton;
+
+	
+	public void goToLoginView(ActionEvent event) throws IOException{
+		//first get graphView
+				Parent graphView = FXMLLoader.load(getClass().getResource("FxApp.fxml"));
+				Scene graphViewScene = new Scene(graphView);
+
+
+				Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				window.setScene(graphViewScene);
+				window.show();
+	}
 
 	public void goToGraphView(ActionEvent event) throws IOException {
 
@@ -49,10 +58,6 @@ public class FxAppController implements Initializable {
 		window.show();
 
 
-	}
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// If you want something to run when the application starts, put it here
 
 	}
 	
@@ -87,6 +92,10 @@ public class FxAppController implements Initializable {
 		LoginStatus.setText("Welcome " + UsernameTextfield.getText());
 		UsernameTextfield.setText("");
 		PasswordTextfield.setText("");
+	}
+	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		
 		//TODO kode for � �pne vinduet som gir info til brukeren
