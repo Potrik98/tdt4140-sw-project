@@ -14,18 +14,13 @@ public class HeartRateGraph {
         this.range = range;
     }
 
-    public void plotLine(final Function<Double, Double> function) {
+    public void plotHeartRateLine(int avg, double range) {
         final XYChart.Series<Double, Double> series = new XYChart.Series<Double, Double>();
-        for (double x = 0; x <= 5; x = x + 1) {
-            plotPoint(x, 150, series);
-        }
-        graph.getData().add(series);
-    }
+        for (double x = 0; x <= range; x = x + 1) {
+            //just som random numbers around an average heart rate
+            double variation = (Math.random() *10) + avg - (Math.random()*12);
+            plotPoint(x, variation, series);
 
-    public void plotHeartRateLine(int avg) {
-        final XYChart.Series<Double, Double> series = new XYChart.Series<Double, Double>();
-        for (double x = 0; x <= 10; x = x + 1) {
-            plotPoint(x, avg, series);
         }
         graph.getData().add(series);
     }
