@@ -11,80 +11,95 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="750" maxWidth="1000" minHeight="400.0" minWidth="600.0" prefHeight="750" prefWidth="1000" styleClass="root" stylesheets="" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.HeartRateViewController">
     <children>
-        <HBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane maxHeight="750.0" maxWidth="120.0" minHeight="750.0" minWidth="80.0" prefHeight="750.0" prefWidth="80.0">
             <children>
-                <AnchorPane prefHeight="400.0" prefWidth="420.0" HBox.hgrow="ALWAYS">
+                <VBox maxHeight="750.0" maxWidth="120.0" minHeight="541.0" minWidth="80.0" prefHeight="541.0" prefWidth="80.0">
                     <children>
-                        <LineChart fx:id="lineGraph" createSymbols="false" legendVisible="false" prefHeight="750.0" prefWidth="817.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <xAxis>
-                                <NumberAxis label="Time" lowerBound="0" side="BOTTOM" tickUnit="1" upperBound="10" />
-                            </xAxis>
-                            <yAxis>
-                                <NumberAxis forceZeroInRange="false" label="BPM" lowerBound="0" side="LEFT" tickUnit="5" upperBound="200" />
-                            </yAxis>
-                            <cursor>
-                                <Cursor fx:constant="CROSSHAIR" />
-                            </cursor>
-                        </LineChart>
-
-                  <Button fx:id="backButton" layoutY="723.0" mnemonicParsing="false" onAction="#goBackToFxApp" text="Back" />
+                        <Button fx:id="profileViewButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToLoginView" prefHeight="80.0" prefWidth="80.0" text="Profile" textAlignment="CENTER" wrapText="true" />
+                        <Button fx:id="heartRateViewButton" mnemonicParsing="false" onAction="#goToHeartRateView" prefHeight="80.0" prefWidth="80.0" text="Heart Rate" textAlignment="CENTER" wrapText="true" />
+                        <Button fx:id="GraphViewButton" mnemonicParsing="false" onAction="#goToGraphView" prefHeight="80.0" prefWidth="80.0" text="(Test) Graph" textAlignment="CENTER" wrapText="true" />
                     </children>
-                </AnchorPane>
-                <VBox prefHeight="398.0" prefWidth="183.0" HBox.hgrow="NEVER">
+                </VBox>
+                <VBox alignment="BOTTOM_LEFT" layoutY="656.0" prefHeight="94.0" prefWidth="80.0">
                     <children>
-                  <HBox prefHeight="260.0" prefWidth="183.0">
-                     <children>
-                        <VBox prefHeight="213.0" prefWidth="148.0">
-                           <children>
-                              <Label text="Statistics">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font></Label>
-                              <Label text="Avg:" />
-                              <Label text="Max" />
-                              <Label text="Min" />
-                           </children>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </VBox>
-                        <VBox prefHeight="100.0" prefWidth="173.0">
-                           <children>
-                              <Label fx:id="timePeriodLabel" text="Last Hour">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font></Label>
-                              <Label text="150" />
-                              <Label text="180" />
-                              <Label text="45" />
-                           </children>
-                        </VBox>
-                     </children>
-                     <padding>
-                        <Insets top="20.0" />
-                     </padding>
-                  </HBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label prefHeight="172.0" prefWidth="183.0" text="Maybe something  about time spent in different heart rate zones. Maybe a bar chart.." wrapText="true" />
-                     </children>
-                  </VBox>
-                        <Button fx:id="hourButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotHeartRateLastHour" prefHeight="66.0" prefWidth="266.0" text="Hour" VBox.vgrow="ALWAYS" />
-                        <Button fx:id="hour24Button" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotHeartRateLast24Hours" prefHeight="66.0" prefWidth="266.0" text="24Hours" VBox.vgrow="ALWAYS" />
-                        <Button fx:id="weekButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotHeartRateLastWeek" prefHeight="66.0" prefWidth="266.0" text="Week" VBox.vgrow="ALWAYS" />
-                        <Button fx:id="monthButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotHeartRateLastMonth" prefHeight="66.0" prefWidth="266.0" text="Month" VBox.vgrow="ALWAYS" />
-                        <Button fx:id="yearButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotHeartRateLastYear" prefHeight="66.0" prefWidth="266.0" text="Year" VBox.vgrow="ALWAYS" />
-
-                        <Button fx:id="clearButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#handleClearButtonAction" prefHeight="67.0" prefWidth="266.0" text="clear" VBox.vgrow="ALWAYS" />
+                        <Button fx:id="LoginViewButton" mnemonicParsing="false" onAction="#goToLoginView" prefHeight="31.0" prefWidth="80.0" text="Login">
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </Button>
                     </children>
                 </VBox>
             </children>
-        </HBox>
+        </AnchorPane>
+          <AnchorPane layoutX="79.0" prefHeight="750.0" prefWidth="738.0">
+              <children>
+                  <LineChart fx:id="lineGraph" createSymbols="false" layoutX="-6.0" layoutY="6.0" legendVisible="false" prefHeight="750.0" prefWidth="738.0" title="Heart Rate" visible="true" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="-8.0" AnchorPane.topAnchor="6.0">
+                      <xAxis>
+                          <NumberAxis label="Time" lowerBound="0" side="BOTTOM" tickUnit="1" upperBound="10" />
+                      </xAxis>
+                      <yAxis>
+                          <NumberAxis forceZeroInRange="false" label="BPM" lowerBound="0" side="LEFT" tickUnit="5" upperBound="200" />
+                      </yAxis>
+                      <cursor>
+                          <Cursor fx:constant="CROSSHAIR" />
+                      </cursor>
+                  </LineChart>
+              </children>
+          </AnchorPane>
+          <VBox layoutX="820.0" prefHeight="750.0" prefWidth="180.0">
+              <children>
+            <HBox prefHeight="260.0" prefWidth="183.0">
+               <children>
+                  <VBox prefHeight="213.0" prefWidth="148.0">
+                     <children>
+                        <Label text="Statistics">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label text="Avg:" />
+                        <Label text="Max" />
+                        <Label text="Min" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox prefHeight="100.0" prefWidth="173.0">
+                     <children>
+                        <Label fx:id="timePeriodLabel" text="Last Hour">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label text="150" />
+                        <Label text="180" />
+                        <Label text="45" />
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+            </HBox>
+            <VBox prefHeight="200.0" prefWidth="172.0">
+               <children>
+                  <Label prefHeight="172.0" prefWidth="183.0" text="Maybe something  about time spent in different heart rate zones. Maybe a bar chart.." wrapText="true" />
+               </children>
+            </VBox>
+                  <Button fx:id="hourButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotHeartRateLastHour" prefHeight="66.0" prefWidth="266.0" text="Hour" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="hour24Button" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotHeartRateLast24Hours" prefHeight="66.0" prefWidth="266.0" text="24Hours" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="weekButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotHeartRateLastWeek" prefHeight="66.0" prefWidth="266.0" text="Week" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="monthButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotHeartRateLastMonth" prefHeight="66.0" prefWidth="266.0" text="Month" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="yearButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotHeartRateLastYear" prefHeight="66.0" prefWidth="266.0" text="Year" VBox.vgrow="ALWAYS" />
+
+                  <Button fx:id="clearButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#handleClearButtonAction" prefHeight="67.0" prefWidth="266.0" text="clear" VBox.vgrow="ALWAYS" />
+              </children>
+          </VBox>
     </children>
 </AnchorPane>

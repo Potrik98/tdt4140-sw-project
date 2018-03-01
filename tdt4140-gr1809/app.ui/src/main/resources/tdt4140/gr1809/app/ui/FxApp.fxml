@@ -10,31 +10,35 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<Pane maxHeight="750.0" maxWidth="1000.0" minHeight="750.0" minWidth="1000.0" prefHeight="750" prefWidth="1000" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.FxAppController">
+<Pane maxHeight="750.0" maxWidth="1000.0" minHeight="750.0" minWidth="1000.0" prefHeight="750" prefWidth="1000" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.FxAppController">
    <children>
-      <AnchorPane layoutX="120.0" minHeight="750.0" prefHeight="630.0" prefWidth="880.0">
+      <AnchorPane layoutX="80.0" minHeight="750.0" prefHeight="750.0" prefWidth="920.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#deebf8" height="231.0" layoutX="303.0" layoutY="180.0" stroke="BLACK" strokeType="INSIDE" width="393.0" />
-            <TextField fx:id="UsernameTextfield" layoutX="442.0" layoutY="239.0" />
-            <PasswordField fx:id="PasswordTextfield" layoutX="442.0" layoutY="296.0" />
-            <Label layoutX="367.0" layoutY="243.0" text="Username:" />
-            <Label layoutX="369.0" layoutY="300.0" text="Password:" />
-            <Button fx:id="LoginButton" layoutX="321.0" layoutY="354.0" mnemonicParsing="false" onAction="#initialLoginRequest" prefHeight="32.0" prefWidth="148.0" text="Login" />
-            <Button fx:id="CreateUserButton" layoutX="517.0" layoutY="354.0" mnemonicParsing="false" onAction="#initialCreateuserRequest" prefHeight="32.0" prefWidth="148.0" text="Create user" />
-            <Label fx:id="LoginStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="428.0" layoutY="205.0" prefHeight="18.0" prefWidth="186.0" textAlignment="CENTER" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#deebf8" height="231.0" layoutX="263.0" layoutY="230.0" stroke="BLACK" strokeType="INSIDE" width="393.0" />
+            <TextField fx:id="UsernameTextfield" layoutX="402.0" layoutY="291.0" />
+            <PasswordField fx:id="PasswordTextfield" layoutX="402.0" layoutY="330.0" />
+            <Label layoutX="323.0" layoutY="296.0" text="Username:" />
+            <Label layoutX="323.0" layoutY="336.0" text="Password:" />
+            <Button fx:id="LoginButton" layoutX="292.0" layoutY="394.0" mnemonicParsing="false" onAction="#initialLoginRequest" prefHeight="32.0" prefWidth="148.0" text="Login" />
+            <Button fx:id="CreateUserButton" layoutX="488.0" layoutY="394.0" mnemonicParsing="false" onAction="#initialCreateuserRequest" prefHeight="32.0" prefWidth="148.0" text="Create user" />
          </children>
       </AnchorPane>
-      <AnchorPane maxHeight="750.0" maxWidth="120.0" minHeight="750.0" minWidth="120.0" prefHeight="750.0" prefWidth="120.0">
+      <AnchorPane maxHeight="750.0" maxWidth="120.0" minHeight="750.0" minWidth="80.0" prefHeight="750.0" prefWidth="80.0">
          <children>
-            <VBox maxHeight="750.0" maxWidth="120.0" minHeight="750.0" minWidth="120.0" prefHeight="750.0" prefWidth="120.0">
+            <VBox maxHeight="750.0" maxWidth="120.0" minHeight="541.0" minWidth="80.0" prefHeight="541.0" prefWidth="80.0">
                <children>
-                  <Button fx:id="LoginViewButton" mnemonicParsing="false" onAction="#goToLoginView" prefHeight="120.0" prefWidth="120.0" text="Login">
+                  <Button fx:id="profileViewButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToLoginView" prefHeight="80.0" prefWidth="80.0" text="Profile" textAlignment="CENTER" wrapText="true" />
+                  <Button fx:id="heartRateViewButton" mnemonicParsing="false" onAction="#goToHeartRateView" prefHeight="80.0" prefWidth="80.0" text="Heart Rate" textAlignment="CENTER" wrapText="true" />
+                  <Button fx:id="GraphViewButton" mnemonicParsing="false" onAction="#goToGraphView" prefHeight="80.0" prefWidth="80.0" text="(Test) Graph" textAlignment="CENTER" wrapText="true" />
+               </children>
+            </VBox>
+            <VBox alignment="BOTTOM_LEFT" layoutY="656.0" prefHeight="94.0" prefWidth="80.0">
+               <children>
+                  <Button fx:id="LoginViewButton" mnemonicParsing="false" onAction="#goToLoginView" prefHeight="31.0" prefWidth="80.0" text="Login">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="heartRateViewButton" mnemonicParsing="false" onAction="#goToHeartRateView" prefHeight="120.0" prefWidth="120.0" text="Heart Rate" />
-                  <Button fx:id="GraphViewButton" mnemonicParsing="false" onAction="#goToGraphView" prefHeight="120.0" prefWidth="120.0" text="GraphView" />
                </children>
             </VBox>
          </children>

@@ -56,10 +56,9 @@ public class FxAppController implements Initializable {
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		window.setScene(graphViewScene);
 		window.show();
-
-
-
 	}
+
+
 	
 	@FXML
 	private void initialLoginRequest() {
