@@ -28,11 +28,21 @@ public class UserDBManager extends DBManager {
         return Optional.of(user);
     }
 
-    public void putUser(final User user) {
-
+    public void putUser(final User user) throws SQLException {
+    	Statement stmt = null;
+    	String update = "INSERT INTO " + this.dbName + ".Users" + 
+    	"VALUES ( " + user.getFirstName() + ", " + user.getLastName() + ", " +
+    			 user.getGender() + ", " + user.getBirthDate() + ");";
+		stmt = conn.createStatement();
+		stmt.executeUpdate(update);
     }
 
-    public void deleteUser(final UUID userId) {
+    public void deleteUser(final UUID userId) throws SQLException {
+    	Statement stmt = null;
+    	String update = "INSERT INTO " + this.dbName + ".Users (Deleted)" +
+    	"VALUES (1);";
+		stmt = conn.createStatement();
+		stmt.executeUpdate(update);
         // Soft delete user
     }
 }
