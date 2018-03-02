@@ -21,11 +21,12 @@ public class UserDBManager extends DBManager {
     					"WHERE PersonID = " + userId.toString();
 		stmt = conn.createStatement();
 		ResultSet result = stmt.executeQuery(query);
-		final User user = new User(
-                result.getString("FirstName"),
-                result.getString("LastName"),
-                result.getString("gender"),
-                LocalDateTime.now());
+		final User user = User.builder()
+                .firstName(result.getString("FirstName"))
+                .lastName(result.getString("LastName"))
+                .gender(result.getString("gender"))
+                .birthDate(LocalDateTime.now())
+                .build();
         return Optional.of(user);
     }
     
