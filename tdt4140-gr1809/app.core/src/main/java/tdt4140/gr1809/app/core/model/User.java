@@ -26,13 +26,9 @@ public class User {
 	}
 
 
-
-
 	public UUID getId() {
 		return id;
 	}
-
-
 
 
 	public String getFirstName() {
@@ -40,13 +36,9 @@ public class User {
 	}
 
 
-
-
 	public String getLastName() {
 		return lastName;
 	}
-
-
 
 
 	public String getGender() {
@@ -54,12 +46,8 @@ public class User {
 	}
 
 
-
-
 	public LocalDateTime getBirthDate() {
 		return birthDate;
 	}
-	
-	
 	
 }
