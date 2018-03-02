@@ -8,25 +8,35 @@ import java.util.UUID;
 
 @JsonDeserialize(builder=DataPoint.DataPointBuilder.class)
 public class DataPoint {
+	public static enum DataType {
+		STEPS,
+		TEMPERATURE,
+		HEART_RATE;
+	}
+
+	private final DataType dataType;
 	private final UUID id;
 	private final LocalDateTime time;
 	private final int value;
 
-	private DataPoint(UUID id, LocalDateTime time, int value) {
+	private DataPoint(UUID id, LocalDateTime time, int value, DataType dataType) {
 		this.id = id;
 		this.time = time;
 		this.value = value;
+		this.dataType = dataType;
 	}
 
 	public static class DataPointBuilder {
 		private UUID id;
 		private LocalDateTime time;
 		private int value;
+		private DataType dataType;
 
 		private DataPointBuilder(final DataPoint dataPoint) {
 			id = dataPoint.id;
 			time = dataPoint.time;
 			value = dataPoint.value;
+			dataType = dataPoint.dataType;
 		}
 
 		private DataPointBuilder() {
@@ -51,10 +61,17 @@ public class DataPoint {
 			return this;
 		}
 
+		@JsonProperty("dataType")
+		public DataPointBuilder dataType(final DataType dataType) {
+			this.dataType = dataType;
+			return this;
+		}
+
 		public DataPoint build() {
 			return new DataPoint(id,
 					time,
-					value);
+					value,
+					dataType);
 		}
 	}
 
@@ -76,5 +93,9 @@ public class DataPoint {
 
 	public UUID getId() {
 		return id;
+	}
+
+	public DataType getDataType() {
+		return dataType;
 	}
 }
