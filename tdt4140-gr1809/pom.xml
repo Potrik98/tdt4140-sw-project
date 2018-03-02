@@ -32,10 +32,7 @@
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>exec-maven-plugin</artifactId>
-						<version>1.2.1</version>
-						<configuration>
-							<mainClass>tdt4140.gr1809.app.server.Server</mainClass>
-						</configuration>
+						<version>1.6.0</version>
 					</plugin>
 				</plugins>
 			</build>
