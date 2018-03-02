@@ -14,11 +14,11 @@ public class UserDBManager extends DBManager {
         return Optional.empty();
     }
 
-    public void createUser(final User user) {
+    public void putUser(final User user) {
 
     }
 
-    public void updateUser(final User user) {
-
+    public void deleteUser(final UUID userId) {
+        // Soft delete user
     }
 }
