@@ -1,3 +1,5 @@
+package tdt4140.gr1809.app.core.model;
+
 import java.time.LocalDateTime;
 
 public class DataPoint {
