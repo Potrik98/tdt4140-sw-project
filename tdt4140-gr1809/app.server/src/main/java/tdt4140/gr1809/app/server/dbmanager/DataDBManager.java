@@ -7,25 +7,28 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
+import tdt4140.gr1809.app.core.model.DataPoint;
+
 public class DataDBManager extends DBManager {
 
 	protected DataDBManager() throws SQLException {
 		super();
 	}
 	
-	public Optional<Data> getDataById(final UUID userId, DataPoint) throws SQLException {
+	public Optional<DataPoint> getDataById(final UUID userId, DataPoint.DataType type) throws SQLException {
     	Statement stmt = null;    	
-    	String query = "select Steps, Pulse, Temperature" +
+    	String query = "select Value, Type, Temperature, Time, Id" +
     					"FROM " + this.dbName + ".Data" + 
     					"WHERE PersonID = " + userId.toString();
 		stmt = conn.createStatement();
 		ResultSet result = stmt.executeQuery(query);
-		final Data data = new Data(
-                result.getString("FirstName"),
-                result.getString("LastName"),
-                result.getString("Service"),
-                LocalDateTime.now());
-        return Optional.of(sp);
+		final DataPoint data =  DataPoint.builder()
+                .id(UUID.fromString(result.getString("ID")))
+                .time(result.getTimestamp("Time").toLocalDateTime())
+                .value(result.getInt("Value"))
+                .dataType(DataPoint.DataType.valueOf(result.getString("Type")))
+                .build();
+        return Optional.of(data);
     }
 
 }
