@@ -6,13 +6,11 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public abstract class DBManager {
-	
-    protected Object userName;
-	protected Object password;
+	protected String dbName = "localhost";
+    protected String userName = "root";
+	protected String password = "root";
 	protected Connection conn;
-	protected String serverName;
-	protected String portNumber;
-	protected String dbName;
+	
 	
 
 	protected DBManager() throws SQLException {
@@ -21,9 +19,7 @@ public abstract class DBManager {
         connectionProps.put("user", this.userName);
         connectionProps.put("password", this.password);
         conn = DriverManager.getConnection(
-                "jdbc:" + this.dbName + "://" +
-                this.serverName +
-                ":" + this.portNumber + "/",
+                "jdbc:pu09://" + this.dbName + ":3306/",
                 connectionProps);
 
     }
