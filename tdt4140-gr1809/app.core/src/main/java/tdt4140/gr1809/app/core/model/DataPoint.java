@@ -1,10 +1,12 @@
 package tdt4140.gr1809.app.core.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@JsonDeserialize(builder=DataPoint.DataPointBuilder.class)
 public class DataPoint {
 	private final UUID id;
 	private final LocalDateTime time;
