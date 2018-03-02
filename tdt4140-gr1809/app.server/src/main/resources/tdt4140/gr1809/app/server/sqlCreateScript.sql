@@ -1,6 +1,7 @@
 CREATE TABLE Users (
 	PRIMARY KEY PersonID int,
-	Name varchar(255),
+	FirstName varchar(255),
+	LastName varchar (255),
 	Gender varchar(255),
 	Password varchar(255),
 	PhoneNum int
@@ -8,7 +9,8 @@ CREATE TABLE Users (
 
 CREATE TABLE ServiceProvider (
 	PRIMARY KEY PersonID int,
-	Name varchar(255),
+	FirstName varchar(255),
+	LastName varchar (255),
 	Password varchar(255),
 	PhoneNum int
 	Service varchar(255)

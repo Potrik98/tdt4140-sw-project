@@ -5,6 +5,7 @@ import org.junit.Test;
 import tdt4140.gr1809.app.core.model.User;
 import tdt4140.gr1809.app.server.dbmanager.UserDBManager;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
@@ -14,13 +15,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UserDBManagerTest extends DBManagerTest {
     private UserDBManager dbManager;
 
-    public UserDBManagerTest() {
+    public UserDBManagerTest() throws SQLException {
         super();
         dbManager = new UserDBManager();
     }
 
     @Test
-    public void testCreateAndGetUser() {
+    public void testCreateAndGetUser() throws SQLException {
         final User user = new User(
                 "Firstname",
                 "Lastname",
@@ -37,7 +38,7 @@ public class UserDBManagerTest extends DBManagerTest {
     }
 
     @Test
-    public void testGetUserInvalidId() {
+    public void testGetUserInvalidId() throws SQLException {
         final UUID invalidUserId = UUID.randomUUID();
 
         final Optional<User> retrievedUser = dbManager.getUserById(invalidUserId);
@@ -46,7 +47,7 @@ public class UserDBManagerTest extends DBManagerTest {
     }
 
     @Test
-    public void testUpdateUser() {
+    public void testUpdateUser() throws SQLException {
         final User user = new User(
                 "Firstname",
                 "Lastname",
@@ -72,7 +73,7 @@ public class UserDBManagerTest extends DBManagerTest {
     }
 
     @Test
-    public void testDeleteUser() {
+    public void testDeleteUser() throws SQLException {
         final User user = new User(
                 "Firstname",
                 "Lastname",
