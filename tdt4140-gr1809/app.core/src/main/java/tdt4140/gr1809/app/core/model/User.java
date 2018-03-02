@@ -49,5 +49,65 @@ public class User {
 	public LocalDateTime getBirthDate() {
 		return birthDate;
 	}
-	
+
+	public static class UserBuilder {
+		private UUID userId;
+		private String firstName;
+		private String lastName;
+		private String gender;
+		private LocalDateTime birthDate;
+
+		private UserBuilder(final User user) {
+			userId = user.id;
+			firstName = user.firstName;
+			lastName = user.lastName;
+			gender = user.gender;
+			birthDate = user.birthDate;
+		}
+
+		private UserBuilder() {
+			userId = UUID.randomUUID();
+		}
+
+		public UserBuilder userId(final UUID userId) {
+			this.userId = userId;
+			return this;
+		}
+
+		public UserBuilder firstName(final String firstName) {
+			this.firstName = firstName;
+			return this;
+		}
+
+		public UserBuilder lastName(final String lastName) {
+			this.lastName = lastName;
+			return this;
+		}
+
+		public UserBuilder gender(final String gender) {
+			this.gender = gender;
+			return this;
+		}
+
+		public UserBuilder birthDate(final LocalDateTime birthDate) {
+			this.birthDate = birthDate;
+			return this;
+		}
+
+		public User build() {
+			return new User(userId,
+					firstName,
+					lastName,
+					gender,
+					birthDate);
+		}
+	}
+
+	public static UserBuilder builder() {
+		return new UserBuilder();
+	}
+
+	public static UserBuilder from(final User user) {
+		return new UserBuilder(user);
+	}
 }
