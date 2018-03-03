@@ -11,31 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="750" maxWidth="1000" minHeight="400.0" minWidth="600.0" prefHeight="750" prefWidth="1000" styleClass="root" stylesheets="" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.HeartRateViewController">
+<AnchorPane maxHeight="750" maxWidth="880" minHeight="400.0" minWidth="600.0" prefHeight="750" prefWidth="880" styleClass="root" stylesheets="" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.HeartRateViewController">
     <children>
-        <AnchorPane maxHeight="750.0" maxWidth="120.0" minHeight="750.0" minWidth="80.0" prefHeight="750.0" prefWidth="80.0">
-            <children>
-                <VBox maxHeight="750.0" maxWidth="120.0" minHeight="541.0" minWidth="80.0" prefHeight="541.0" prefWidth="80.0">
-                    <children>
-                        <Button fx:id="profileViewButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToLoginView" prefHeight="80.0" prefWidth="80.0" text="Profile" textAlignment="CENTER" wrapText="true" />
-                        <Button fx:id="heartRateViewButton" mnemonicParsing="false" onAction="#goToHeartRateView" prefHeight="80.0" prefWidth="80.0" text="Heart Rate" textAlignment="CENTER" wrapText="true" />
-                        <Button fx:id="GraphViewButton" mnemonicParsing="false" onAction="#goToGraphView" prefHeight="80.0" prefWidth="80.0" text="(Test) Graph" textAlignment="CENTER" wrapText="true" />
-                    </children>
-                </VBox>
-                <VBox alignment="BOTTOM_LEFT" layoutY="656.0" prefHeight="94.0" prefWidth="80.0">
-                    <children>
-                        <Button fx:id="LoginViewButton" mnemonicParsing="false" onAction="#goToLoginView" prefHeight="31.0" prefWidth="80.0" text="Login">
-                            <padding>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                            </padding>
-                        </Button>
-                    </children>
-                </VBox>
-            </children>
-        </AnchorPane>
           <AnchorPane layoutX="79.0" prefHeight="750.0" prefWidth="738.0">
               <children>
-                  <LineChart fx:id="lineGraph" createSymbols="false" layoutX="-6.0" layoutY="6.0" legendVisible="false" prefHeight="750.0" prefWidth="738.0" title="Heart Rate" visible="true" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="-8.0" AnchorPane.topAnchor="6.0">
+                  <LineChart fx:id="lineGraph" createSymbols="false" layoutX="-80.0" legendVisible="false" prefHeight="757.0" prefWidth="697.0" title="Heart Rate" visible="true" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="-80.0" AnchorPane.rightAnchor="121.0" AnchorPane.topAnchor="0.0">
                       <xAxis>
                           <NumberAxis label="Time" lowerBound="0" side="BOTTOM" tickUnit="1" upperBound="10" />
                       </xAxis>
@@ -48,7 +28,7 @@
                   </LineChart>
               </children>
           </AnchorPane>
-          <VBox layoutX="820.0" prefHeight="750.0" prefWidth="180.0">
+          <VBox layoutX="700.0" prefHeight="750.0" prefWidth="180.0">
               <children>
             <HBox prefHeight="260.0" prefWidth="183.0">
                <children>
@@ -101,5 +81,6 @@
                   <Button fx:id="clearButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#handleClearButtonAction" prefHeight="67.0" prefWidth="266.0" text="clear" VBox.vgrow="ALWAYS" />
               </children>
           </VBox>
+
     </children>
 </AnchorPane>

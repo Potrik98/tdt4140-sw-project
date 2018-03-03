@@ -83,41 +83,6 @@ public class HeartRateViewController implements Initializable {
 			heartRateGraph.clear();
 		}
 
+
 	}
-
-
-
-	public void goToLoginView(ActionEvent event) throws IOException{
-		//first get graphView
-				Parent graphView = FXMLLoader.load(getClass().getResource("FxApp.fxml"));
-				Scene graphViewScene = new Scene(graphView);
-
-				Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-				window.setScene(graphViewScene);
-				window.show();
-	}
-
-	public void goToGraphView(ActionEvent event) throws IOException {
-
-		//first get graphView
-		Parent graphView = FXMLLoader.load(getClass().getResource("GraphView.fxml"));
-		Scene graphViewScene = new Scene(graphView);
-
-		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		window.setScene(graphViewScene);
-		window.show();
-	}
-
-	public void goToHeartRateView(ActionEvent event) throws IOException {
-
-		//first get graphView
-		Parent graphView = FXMLLoader.load(getClass().getResource("HeartRateView.fxml"));
-		Scene graphViewScene = new Scene(graphView);
-
-		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		window.setScene(graphViewScene);
-		window.show();
-	}
-
-
 }
