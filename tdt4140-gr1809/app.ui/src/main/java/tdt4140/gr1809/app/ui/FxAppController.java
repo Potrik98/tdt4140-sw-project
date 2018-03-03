@@ -20,13 +20,13 @@ import javafx.scene.layout.Pane;
 
 
 public class FxAppController implements Initializable{
+
 	
 	@FXML private Pane rightPane;
 
 	public void goToLoginView(ActionEvent event) throws IOException{
 		rightPane.getChildren().clear();
 		rightPane.getChildren().add(FXMLLoader.load(getClass().getResource("Login.fxml")));
-
 	}
 
 	public void goToGraphView(ActionEvent event) throws IOException {
@@ -40,7 +40,8 @@ public class FxAppController implements Initializable{
 
 	}
 
-	@Override
+
+
 	public void initialize(URL arg0, ResourceBundle arg1){
 		// TODO Auto-generated method stub
 		rightPane.getChildren().clear();
