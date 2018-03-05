@@ -2,7 +2,6 @@ package tdt4140.gr1809.app.client;
 
 import tdt4140.gr1809.app.core.model.User;
 
-import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
