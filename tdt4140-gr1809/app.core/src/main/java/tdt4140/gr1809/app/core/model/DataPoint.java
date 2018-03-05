@@ -16,11 +16,13 @@ public class DataPoint {
 
 	private final DataType dataType;
 	private final UUID id;
+	private final UUID userId;
 	private final LocalDateTime time;
 	private final int value;
 
-	private DataPoint(UUID id, LocalDateTime time, int value, DataType dataType) {
+	private DataPoint(UUID id, UUID userId, LocalDateTime time, int value, DataType dataType) {
 		this.id = id;
+		this.userId = userId;
 		this.time = time;
 		this.value = value;
 		this.dataType = dataType;
@@ -28,12 +30,14 @@ public class DataPoint {
 
 	public static class DataPointBuilder {
 		private UUID id;
+		private UUID userId;
 		private LocalDateTime time;
 		private int value;
 		private DataType dataType;
 
 		private DataPointBuilder(final DataPoint dataPoint) {
 			id = dataPoint.id;
+			userId = dataPoint.userId;
 			time = dataPoint.time;
 			value = dataPoint.value;
 			dataType = dataPoint.dataType;
@@ -46,6 +50,12 @@ public class DataPoint {
 		@JsonProperty("id")
 		public DataPointBuilder id(final UUID id) {
 			this.id = id;
+			return this;
+		}
+
+		@JsonProperty("userId")
+		public DataPointBuilder userId(final UUID userId) {
+			this.userId = userId;
 			return this;
 		}
 
@@ -68,7 +78,9 @@ public class DataPoint {
 		}
 
 		public DataPoint build() {
-			return new DataPoint(id,
+			return new DataPoint(
+					id,
+					userId,
 					time,
 					value,
 					dataType);
@@ -93,6 +105,10 @@ public class DataPoint {
 
 	public UUID getId() {
 		return id;
+	}
+
+	public UUID getUserId() {
+		return userId;
 	}
 
 	public DataType getDataType() {

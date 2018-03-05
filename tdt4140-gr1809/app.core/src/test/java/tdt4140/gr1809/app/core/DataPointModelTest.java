@@ -6,6 +6,7 @@ import tdt4140.gr1809.app.core.model.DataPoint;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,6 +17,8 @@ public class DataPointModelTest {
     @Test
     public void testParseDataPointModelToJson() throws IOException {
         final DataPoint dataPoint = DataPoint.builder()
+                .dataType(DataPoint.DataType.TEMPERATURE)
+                .userId(UUID.randomUUID())
                 .time(LocalDateTime.now())
                 .value(123)
                 .build();
