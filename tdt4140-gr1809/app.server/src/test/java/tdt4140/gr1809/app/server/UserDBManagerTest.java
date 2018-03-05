@@ -1,6 +1,10 @@
 package tdt4140.gr1809.app.server;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import tdt4140.gr1809.app.core.model.User;
+import tdt4140.gr1809.app.server.dbmanager.UserDBManager;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -13,13 +17,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
-import tdt4140.gr1809.app.core.model.User;
-import tdt4140.gr1809.app.server.dbmanager.UserDBManager;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserDBManagerTest {
     private UserDBManager dbManager;
@@ -61,16 +59,15 @@ public class UserDBManagerTest {
                 .birthDate(LocalDateTime.now())
                 .build();
 
-        dbManager.putUser(user);
+        dbManager.createUser(user);
 
         final Optional<User> retrievedUser = dbManager.getUserById(user.getId());
 
         assertThat(retrievedUser).isPresent();
-        assertThat(retrievedUser.get()).isEqualTo(user);
+        assertThat(retrievedUser.get()).isEqualToComparingFieldByField(user);
     }
 
     @Test
-    @Ignore
     public void testGetUserInvalidId() throws SQLException {
         final UUID invalidUserId = UUID.randomUUID();
 
@@ -80,7 +77,6 @@ public class UserDBManagerTest {
     }
 
     @Test
-    @Ignore
     public void testUpdateUser() throws SQLException {
         final User user = User.builder()
                 .firstName("Firstname")
@@ -89,7 +85,7 @@ public class UserDBManagerTest {
                 .birthDate(LocalDateTime.now())
                 .build();
 
-        dbManager.putUser(user);
+        dbManager.createUser(user);
 
         final User updatedUser = User.from(user)
                 .firstName("Newfirstname")
@@ -98,16 +94,15 @@ public class UserDBManagerTest {
                 .birthDate(LocalDateTime.now())
                 .build();
 
-        dbManager.putUser(user);
+        dbManager.updateUser(updatedUser);
 
         final Optional<User> retrievedUser = dbManager.getUserById(user.getId());
 
         assertThat(retrievedUser).isPresent();
-        assertThat(retrievedUser.get()).isEqualTo(updatedUser);
+        assertThat(retrievedUser.get()).isEqualToComparingFieldByField(updatedUser);
     }
 
     @Test
-    @Ignore
     public void testDeleteUser() throws SQLException {
         final User user = User.builder()
                 .firstName("Firstname")
@@ -116,12 +111,12 @@ public class UserDBManagerTest {
                 .birthDate(LocalDateTime.now())
                 .build();
 
-        dbManager.putUser(user);
+        dbManager.createUser(user);
 
         final Optional<User> retrievedUser = dbManager.getUserById(user.getId());
 
         assertThat(retrievedUser).isPresent();
-        assertThat(retrievedUser.get()).isEqualTo(user);
+        assertThat(retrievedUser.get()).isEqualToComparingFieldByField(user);
 
         dbManager.deleteUser(user.getId());
 

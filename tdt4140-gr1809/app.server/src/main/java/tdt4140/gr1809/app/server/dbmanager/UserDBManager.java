@@ -19,13 +19,12 @@ public class UserDBManager extends DBManager {
 	}
 
     public Optional<User> getUserById(final UUID userId) throws SQLException {
-    	String query = "select count(*) as count, firstName, lastName, gender, birthDate from Users" +
+    	String query = "select firstName, lastName, gender, birthDate from Users" +
 				" where userId = :userId: and deleted = 0;";
     	NamedParameterStatement statement = new NamedParameterStatement(query, conn);
     	statement.setString("userId", userId.toString());
 		ResultSet result = statement.getStatement().executeQuery();
-		result.first();
-		if (result.getInt("count") == 0) {
+		if(!result.first()) {
 			return Optional.empty();
 		}
 		final User user = User.builder()
@@ -38,10 +37,9 @@ public class UserDBManager extends DBManager {
         return Optional.of(user);
     }
 
-    public void putUser(final User user) throws SQLException {
+    public void createUser(final User user) throws SQLException {
     	String query = "insert into Users (userId, firstName, lastName, gender, birthDate)" +
-				" values (:userId:, :firstName:, :lastName:, :gender:, :birthDate:);" ;//+
-				//" on duplicate key update firstName, lastName, gender, birthDate, deleted = 0;";
+				" values (:userId:, :firstName:, :lastName:, :gender:, :birthDate:);";
     	NamedParameterStatement statement = new NamedParameterStatement(query, conn);
     	statement.setString("userId", user.getId().toString());
     	statement.setString("firstName", user.getFirstName());
@@ -51,10 +49,27 @@ public class UserDBManager extends DBManager {
 		statement.getStatement().executeUpdate();
     }
 
+	public void updateUser(final User user) throws SQLException {
+		String query = "update Users set" +
+				" firstName = :firstName:," +
+				" lastName = :lastName:," +
+				" gender = :gender:," +
+				" birthDate = :birthDate:" +
+				" where userId = :userId:";
+		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
+		statement.setString("userId", user.getId().toString());
+		statement.setString("firstName", user.getFirstName());
+		statement.setString("lastName", user.getLastName());
+		statement.setString("gender", user.getGender());
+		statement.setTimestamp("birthDate", user.getBirthDate());
+		statement.getStatement().executeUpdate();
+	}
+
     // Soft delete user
     public boolean deleteUser(final UUID userId) throws SQLException {
     	String query = "update Users set deleted = 1 where userId = :userId:;";
 		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
+		statement.setString("userId", userId.toString());
 		return statement.getStatement().executeUpdate() == 1;
     }
 }
