@@ -10,9 +10,9 @@ public class Server {
         port(80);
         System.out.println("Starting server...");
         path("/user", () -> {
+            put("", UserResource::putUser);
+            post("", UserResource::putUser);
             get("/:id", UserResource::getUserById);
-            put("/:id", UserResource::putUser);
-            post("/:id", UserResource::putUser);
             delete("/:id", UserResource::deleteUser);
         });
 

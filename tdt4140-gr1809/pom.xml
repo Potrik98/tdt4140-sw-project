@@ -13,6 +13,7 @@
 
 	<modules>
 		<module>app.core</module>
+		<module>app.client</module>
 	</modules>
 
 	<profiles>
