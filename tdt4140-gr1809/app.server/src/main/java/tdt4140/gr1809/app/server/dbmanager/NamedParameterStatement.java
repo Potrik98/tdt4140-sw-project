@@ -17,13 +17,15 @@ public class NamedParameterStatement {
         StringBuilder preparedStatement = new StringBuilder();
         int i0 = 0, i1 = -1;
         int paramNumber = 1;
-        while ((i0 = statement.indexOf('{', i1 + 1)) > 0) {
+        while ((i0 = statement.indexOf(':', i1 + 1)) > 0) {
             preparedStatement.append(statement.subSequence(i1 + 1, i0));
             preparedStatement.append('?');
-            i1 = statement.indexOf('}', i0 + 1);
+            i1 = statement.indexOf(':', i0 + 1);
             String parameter = statement.substring(i0 + 1, i1);
             parameterIndexMap.put(parameter, paramNumber++);
         }
+
+        preparedStatement.append(statement.subSequence(i1 + 1, statement.length()));
 
         this.statement = conn.prepareStatement(preparedStatement.toString());
     }
