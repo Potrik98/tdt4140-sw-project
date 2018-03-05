@@ -2,6 +2,7 @@ package tdt4140.gr1809.app.server.dbmanager;
 
 import tdt4140.gr1809.app.core.model.DataPoint;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,6 +14,10 @@ public class DataDBManager extends DBManager {
 	protected DataDBManager() throws SQLException {
 		super();
 	}
+
+	public DataDBManager(Connection connection) {
+	    super(connection);
+    }
 	
 	public List<DataPoint> getDataByUserId(final UUID userId) throws SQLException {
     	String query = "select dataId, dataValue, dataType, dataTime from DataPoints" +

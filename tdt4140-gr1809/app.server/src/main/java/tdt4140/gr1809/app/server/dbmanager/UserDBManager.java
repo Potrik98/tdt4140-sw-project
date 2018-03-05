@@ -2,6 +2,7 @@ package tdt4140.gr1809.app.server.dbmanager;
 
 import tdt4140.gr1809.app.core.model.User;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -12,6 +13,10 @@ public class UserDBManager extends DBManager {
     public UserDBManager() throws SQLException {
         super();
     }
+
+    public UserDBManager(Connection connection) {
+    	super(connection);
+	}
 
     public Optional<User> getUserById(final UUID userId) throws SQLException {
     	String query = "select firstName, lastName, gender, birthDate from Users" +
