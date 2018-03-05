@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -22,14 +23,14 @@ import tdt4140.gr1809.app.server.dbmanager.UserDBManager;
 
 public class UserDBManagerTest {
     private UserDBManager dbManager;
+    private Connection connection;
 
     @Before
     public void openConnection() throws Exception {
         Class.forName("org.h2.Driver");
-        Connection connection = DriverManager.getConnection("jdbc:h2:mem:test");
+        connection = DriverManager.getConnection("jdbc:h2:mem:test");
 
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        InputStream input = classLoader.getResourceAsStream("sqlCreateScriptTest.sql");
+        InputStream input = UserDBManager.class.getResourceAsStream("sqlCreateScriptTest.sql");
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
         StringBuilder out = new StringBuilder();
@@ -44,6 +45,11 @@ public class UserDBManagerTest {
         System.out.println("Successfully loaded test db");
 
         dbManager = new UserDBManager(connection);
+    }
+
+    @After
+    public void closeConnection() throws SQLException {
+        connection.close();
     }
 
     @Test
