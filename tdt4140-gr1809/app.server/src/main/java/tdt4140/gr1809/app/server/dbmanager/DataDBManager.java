@@ -38,7 +38,7 @@ public class DataDBManager extends DBManager {
 				"on duplicate key update userId, dataValue, dataType, dataTime, deleted = 0;";
 		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
 		statement.setString("dataId", dataPoint.getId().toString());
-		statement.setString("userId", dataPoint.getUserId());
+		statement.setString("userId", dataPoint.getUserId().toString());
 		statement.setInt("dataValue", dataPoint.getValue());
 		statement.setString("dataType", dataPoint.getDataType().name());
 		statement.setTimestamp("dataTime", dataPoint.getTime());
