@@ -19,11 +19,15 @@ public class UserDBManager extends DBManager {
 	}
 
     public Optional<User> getUserById(final UUID userId) throws SQLException {
-    	String query = "select firstName, lastName, gender, birthDate from Users" +
-				"where userId = :userId: and deleted = 0;";
+    	String query = "select count(*) as count, firstName, lastName, gender, birthDate from Users" +
+				" where userId = :userId: and deleted = 0;";
     	NamedParameterStatement statement = new NamedParameterStatement(query, conn);
     	statement.setString("userId", userId.toString());
-		ResultSet result = statement.getStatement().executeQuery(query);
+		ResultSet result = statement.getStatement().executeQuery();
+		result.first();
+		if (result.getInt("count") == 0) {
+			return Optional.empty();
+		}
 		final User user = User.builder()
 				.id(userId)
                 .firstName(result.getString("firstName"))
@@ -36,8 +40,8 @@ public class UserDBManager extends DBManager {
 
     public void putUser(final User user) throws SQLException {
     	String query = "insert into Users (userId, firstName, lastName, gender, birthDate)" +
-				"values (:userId:, :firstName:, :lastName:, :gender: :birthDate:)" +
-				"on duplicate key update firstName, lastName, gender, birthDate, deleted = 0;";
+				" values (:userId:, :firstName:, :lastName:, :gender:, :birthDate:);" ;//+
+				//" on duplicate key update firstName, lastName, gender, birthDate, deleted = 0;";
     	NamedParameterStatement statement = new NamedParameterStatement(query, conn);
     	statement.setString("userId", user.getId().toString());
     	statement.setString("firstName", user.getFirstName());
