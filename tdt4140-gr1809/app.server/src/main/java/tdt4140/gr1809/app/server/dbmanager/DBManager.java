@@ -23,4 +23,8 @@ public abstract class DBManager {
                 connectionProps);
 
     }
+
+    protected DBManager(Connection connection) {
+	    this.conn = connection;
+    }
 }

@@ -1,0 +1,1 @@
+# Resources for the tests of the client Java code 
