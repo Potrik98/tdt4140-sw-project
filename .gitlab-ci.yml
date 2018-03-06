@@ -20,11 +20,10 @@ build-job:
     - "mvn clean compile -f tdt4140-gr1809/pom.xml $MAVEN_CLI_OPTS"
 
 pre-unit-test:
-  script: test.txt
-    artifacts:
-      paths:
-        - test.txt
-      expire_in: 1 week
+  artifacts:
+    paths:
+    - test.txt
+    expire_in: 1 week
 
 unittest-job:
   stage: test
