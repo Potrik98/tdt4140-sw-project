@@ -48,11 +48,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>tdt4140-gr1809</groupId>
-			<artifactId>tdt4140-gr1809.app.client</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>org.testfx</groupId>
 			<artifactId>testfx-core</artifactId>
 			<version>4.0.10-alpha</version>
