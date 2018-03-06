@@ -38,3 +38,4 @@ integrationtest-job:
     - tdt4140-gr1809/app.client/target/site
     - tdt4140-gr1809/app.server/target/site
     - tdt4140-gr1809/app.ui/target/site
+    expire_in: 5h
