@@ -1,9 +1,14 @@
 package tdt4140.gr1809.app.ui;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import tdt4140.gr1809.app.client.UserClient;
+import tdt4140.gr1809.app.core.model.User;
 
 public class LoginController {
 	@FXML private TextField UsernameTextfield;
@@ -28,7 +33,13 @@ public class LoginController {
 		String username = getLoginUsername();
 		String password = getLoginPassword();
 		if(username != null && password != null) {
+			
 			//TODO Create User request to controller in main java code
+			
+			UserClient userClient = new UserClient();
+			final User user = new User(null, password, password, password, null);
+			userClient.createUser(user);
+			UUID id = user.getId();
 		}
 	}
 
