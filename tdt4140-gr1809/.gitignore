@@ -7,5 +7,8 @@ target/
 // temporary generated files
 *.xtendbin
 *._trace
+*.html
+*.classpath
+*.project
 
 node_modules/
