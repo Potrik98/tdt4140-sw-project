@@ -20,7 +20,7 @@ build-job:
     - "mvn clean compile -f tdt4140-gr1809/pom.xml $MAVEN_CLI_OPTS"
   artifacts:
     paths:
-    - test.txt
+    - tdt4140-gr1809/app.core/target/site
 
 unittest-job:
   stage: test
