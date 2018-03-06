@@ -12,11 +12,16 @@ import java.util.UUID;
 public class UserClient extends BasicClient {
 
     public UserClient() {
-        super("/users");
+        super();
+    }
+
+    public UserClient(String path) {
+        super(path);
     }
 
     public Optional<User> getUserById(final UUID userId) {
         final Response response = target
+                .path("/user")
                 .path(userId.toString())
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .get();
@@ -32,6 +37,7 @@ public class UserClient extends BasicClient {
 
     public void createUser(final User user) {
         final Response response = target
+                .path("/user")
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .post(Entity.json(user));
         if (response.getStatus() != HttpURLConnection.HTTP_CREATED) {
@@ -42,6 +48,7 @@ public class UserClient extends BasicClient {
 
     public void updateUser(final User user) {
         final Response response = target
+                .path("/user")
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .post(Entity.json(user));
         if (response.getStatus() != HttpURLConnection.HTTP_OK) {
@@ -52,6 +59,7 @@ public class UserClient extends BasicClient {
 
     public void deleteUser(final UUID userId) {
         final Response response = target
+                .path("/user")
                 .path(userId.toString())
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .delete();
