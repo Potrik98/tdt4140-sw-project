@@ -7,117 +7,70 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.Function;
 
 public class HeartRateViewController implements Initializable {
-	@FXML Button backButton;
+	@FXML Label timePeriodLabel;
 
 	@FXML
 	private LineChart<Double, Double> lineGraph;
 
-	@FXML
-	private AreaChart<Double, Double> areaGraph;
-
-	@FXML
-	private Button lineGraphButton;
-
-	@FXML
-	private Button areaGraphButton;
-
-	@FXML
-	private Button xyButton;
-
-	@FXML
-	private Button xyButton2;
-
-	@FXML
-	private Button squaredButton;
-
-	@FXML
-	private Button squaredButton2;
-
-	@FXML
-	private Button cubedButton;
-
-	@FXML
-	private Button cubedButton2;
 
 	@FXML
 	private Button clearButton;
 
-	private HeartRateGraph mathsGraph;
-	private HeartRateGraph areaMathsGraph;
+	private HeartRateGraph heartRateGraph;
+
 
 	@Override
 	public void initialize(final URL url, final ResourceBundle rb) {
-		mathsGraph = new HeartRateGraph(lineGraph, 10);
-		areaMathsGraph = new HeartRateGraph(areaGraph, 10);
+		heartRateGraph = new HeartRateGraph(lineGraph, 10);
+
+	}
+
+
+	// Methods just to illustrate that we can plot different time intervals.
+	// The range can possibly be the length of the input data array?
+	@FXML
+	private void plotHeartRateLastHour(final ActionEvent event) {
+		plotHeartRate(150, 60);
+		timePeriodLabel.setText("Last Hour");
 	}
 
 	@FXML
-	private void handleLineGraphButtonAction(final ActionEvent event) {
-		lineGraph.setVisible(true);
-		areaGraph.setVisible(false);
+	private void plotHeartRateLast24Hours(final ActionEvent event) {
+		plotHeartRate(150, 24);
+		timePeriodLabel.setText("24 Hours");}
+
+	@FXML
+	private void plotHeartRateLastWeek(final ActionEvent event) {
+		plotHeartRate(150, 24*7);
+		timePeriodLabel.setText("Last Week");}
+
+	@FXML
+	private void plotHeartRateLastMonth(final ActionEvent event) {
+		plotHeartRate(150, 31);
+		timePeriodLabel.setText("Last Month");
 	}
 
 	@FXML
-	private void handleAreaGraphButtonAction(final ActionEvent event) {
-		areaGraph.setVisible(true);
-		lineGraph.setVisible(false);
+	private void plotHeartRateLastYear(final ActionEvent event) {
+		plotHeartRate(150, 365);
+		timePeriodLabel.setText("Last Year");
 	}
 
-	@FXML
-	private void handleXYButtonAction(final ActionEvent event) {
-		plotHeartRate(150);
-	}
 
-	private void plotHeartRate(int avg) {
-		if (lineGraph.isVisible()) {
-			mathsGraph.plotHeartRateLine(avg);
-		} else {
-			areaMathsGraph.plotHeartRateLine(avg);
-		}
-	}
 
-	private void plotLine(Function<Double, Double> function) {
-		if (lineGraph.isVisible()) {
-			mathsGraph.plotLine(function);
-		} else {
-			areaMathsGraph.plotLine(function);
-		}
-	}
-
-	@FXML
-	private void handleXYButton2Action(final ActionEvent event) {
-		plotLine(x -> x - 3);
-	}
-
-	@FXML
-	private void handleSquaredButtonAction(final ActionEvent event) {
-		plotLine(x -> Math.pow(x, 2));
-	}
-
-	@FXML
-	private void handleSquaredButton2Action(final ActionEvent event) {
-		plotLine(x -> Math.pow(x, 2) + 2);
-	}
-
-	@FXML
-	private void handleCubedButtonAction(final ActionEvent event) {
-		plotLine(x -> Math.pow(x, 3));
-	}
-
-	@FXML
-	private void handleCubedButton2Action(final ActionEvent event) {
-		plotLine(x -> Math.pow(x - 3, 3) - 1);
+	private void plotHeartRate(int avg, double range) {
+		heartRateGraph.clear();
+		heartRateGraph.plotHeartRateLine(avg, range);
 	}
 
 	@FXML
@@ -127,11 +80,9 @@ public class HeartRateViewController implements Initializable {
 
 	private void clear() {
 		if (lineGraph.isVisible()) {
-			mathsGraph.clear();
-		} else {
-			areaMathsGraph.clear();
+			heartRateGraph.clear();
 		}
+
+
 	}
-
-
 }

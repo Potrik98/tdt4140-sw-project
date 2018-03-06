@@ -4,6 +4,8 @@ import java.util.function.Function;
 
 import javafx.scene.chart.XYChart;
 
+
+// Just a reference implementation of the the Graph..
 public class MyGraph {
 
     private XYChart<Double, Double> graph;

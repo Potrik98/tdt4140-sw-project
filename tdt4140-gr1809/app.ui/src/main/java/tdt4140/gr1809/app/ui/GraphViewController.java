@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.Function;
 
+// Just a reference implementation of the the GraphController
 public class GraphViewController implements Initializable {
 	@FXML Button backButton;
 
