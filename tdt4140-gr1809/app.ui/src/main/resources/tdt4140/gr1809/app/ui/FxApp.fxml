@@ -15,10 +15,11 @@
 
 		      <VBox maxHeight="750.0" maxWidth="120.0" minHeight="750.0" minWidth="120.0" prefHeight="750.0">
          		<children>
-            		<Button fx:id="LoginViewButton" maxHeight="-Infinity" maxWidth="120.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToLoginView" prefHeight="120.0" prefWidth="120.0" text="Login" VBox.vgrow="ALWAYS" />
+            		<Button fx:id="ProfileViewButton" maxHeight="-Infinity" maxWidth="120.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToProfileView" prefHeight="120.0" prefWidth="120.0" text="Profile" VBox.vgrow="ALWAYS" />
             		<Button fx:id="heartRateViewButton" maxWidth="120.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToHeartRateView" prefHeight="120.0" prefWidth="120.0" text="Heart Rate" VBox.vgrow="ALWAYS" />
             		<Button fx:id="GraphViewButton" maxHeight="-Infinity" maxWidth="120.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToGraphView" prefHeight="120.0" prefWidth="120.0" text="GraphView" VBox.vgrow="ALWAYS" />
-         		</children>
+                    <Button fx:id="LoginViewButton" maxHeight="-Infinity" maxWidth="120.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToLoginView" prefHeight="120.0" prefWidth="120.0" text="Login" VBox.vgrow="ALWAYS" />
+                </children>
       		</VBox>
 
 		   </children>
