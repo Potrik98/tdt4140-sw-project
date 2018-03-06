@@ -1,30 +1,1 @@
-CREATE TABLE Users (
-	PRIMARY KEY PersonID int,
-	FirstName varchar(255),
-	LastName varchar (255),
-	Gender varchar(255),
-	Password varchar(255),
-	PhoneNum int
-	);
-
-CREATE TABLE ServiceProvider (
-	PRIMARY KEY PersonID int,
-	FirstName varchar(255),
-	LastName varchar (255),
-	Password varchar(255),
-	PhoneNum int
-	Service varchar(255)
-	);
-
-CREATE TABLE AccessTo (
-	FOREIGN KEY UserID int REFERENCES Users(PersonID),
-	FOREIGN KEY ServiceProviderID REFERENCES ServiceProvider(PersonID)
-	);
-
-CREATE TABLE Data(
-	FOREIGN KEY PersonID REFERENCES Users(PersonID),
-	Steps int,
-	Pulse int,
-	Temperature int,
-	Time Timestamp
-);
+CREATE TABLE Users(  userId varchar(36) NOT NULL PRIMARY KEY,  firstName varchar(255),  lastName varchar(255),  gender varchar(255),  birthDate TIMESTAMP);CREATE TABLE DataPoints(  dataId varchar(36) NOT NULL PRIMARY KEY,  userId varchar(36),  dataValue integer,  dataType varchar(30),  dataTime TIMESTAMP,  FOREIGN KEY (userId) REFERENCES Users(userId));
