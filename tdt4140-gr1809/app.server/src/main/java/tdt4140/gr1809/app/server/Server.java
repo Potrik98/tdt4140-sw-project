@@ -6,12 +6,18 @@ import tdt4140.gr1809.app.server.resource.UserResource;
 import static spark.Spark.*;
 
 public class Server {
-    public static void main(String[] args) {
-        port(80);
+    public static void main(String[] args) throws Exception {
+        startServer(80);
+        UserResource.init();
+    }
+
+    public static void startServer(int port) throws Exception {
+        port(port);
         System.out.println("Starting server...");
+
         path("/user", () -> {
-            put("", UserResource::putUser);
-            post("", UserResource::putUser);
+            post("/:id", UserResource::updateUser);
+            post("", UserResource::createUser);
             get("/:id", UserResource::getUserById);
             delete("/:id", UserResource::deleteUser);
         });
