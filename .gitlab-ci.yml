@@ -35,3 +35,6 @@ integrationtest-job:
   artifacts:
     paths:
     - tdt4140-gr1809/app.core/target/site
+    - tdt4140-gr1809/app.client/target/site
+    - tdt4140-gr1809/app.server/target/site
+    - tdt4140-gr1809/app.ui/target/site
