@@ -24,6 +24,7 @@ pre-unit-test:
     artifacts:
       paths:
         - test.txt
+      expire_in: 1 week
 
 unittest-job:
   stage: test
