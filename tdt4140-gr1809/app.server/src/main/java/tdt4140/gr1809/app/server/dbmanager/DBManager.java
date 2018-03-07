@@ -13,7 +13,7 @@ public abstract class DBManager {
 
 	protected DBManager() throws Exception {
         Connection conn = null;
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
         Properties connectionProps = new Properties();
         connectionProps.put("user", this.userName);
         connectionProps.put("password", this.password);

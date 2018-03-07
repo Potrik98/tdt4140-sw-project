@@ -33,6 +33,7 @@ public class UserClient extends BasicClient {
             response.close();
             return Optional.empty();
         }
+        System.out.println("Response: " + response.getStatus());
         response.close();
         throw new ClientException("Failed to get user "
                 .concat(userId.toString()));
