@@ -12,7 +12,6 @@ public abstract class DBManager {
 	protected Connection conn;
 
 	protected DBManager() throws Exception {
-        Connection conn = null;
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
         Properties connectionProps = new Properties();
         connectionProps.put("user", this.userName);
@@ -20,7 +19,7 @@ public abstract class DBManager {
         conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/" + dbName,
                 connectionProps);
-
+        System.out.println("Opened connection");
     }
 
     protected DBManager(Connection connection) {
