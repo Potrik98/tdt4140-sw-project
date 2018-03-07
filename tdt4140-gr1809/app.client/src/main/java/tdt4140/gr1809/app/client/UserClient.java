@@ -21,7 +21,7 @@ public class UserClient extends BasicClient {
 
     public Optional<User> getUserById(final UUID userId) {
         final Response response = target
-                .path("/user")
+                .path("/user/")
                 .path(userId.toString())
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .get();
@@ -52,20 +52,21 @@ public class UserClient extends BasicClient {
 
     public void updateUser(final User user) {
         final Response response = target
-                .path("/user")
+                .path("/user/")
+                .path(user.getId().toString())
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .post(Entity.json(user));
         if (response.getStatus() != HttpURLConnection.HTTP_OK) {
             response.close();
-            throw new ClientException("Failed to update user:\n"
-                    .concat(response.getEntity().toString()));
+            throw new ClientException("Failed to update user:"
+                    .concat(user.getId().toString()));
         }
         response.close();
     }
 
     public void deleteUser(final UUID userId) {
         final Response response = target
-                .path("/user")
+                .path("/user/")
                 .path(userId.toString())
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .delete();

@@ -40,7 +40,7 @@ public class UserResource {
     public static String createUser(Request req, Response res) throws Exception {
         try {
             final User user = User.mapper.readValue(req.body(), User.class);
-            System.out.print("Recieved user with id : " + user.getId());
+            System.out.print("Create: Recieved user with id : " + user.getId());
             dbManager.createUser(user);
             res.status(HttpStatus.CREATED_201);
         } catch (IOException e) {
@@ -52,6 +52,7 @@ public class UserResource {
 
     public static String updateUser(Request req, Response res) throws Exception {
         UUID userId = UUID.fromString(req.params("id"));
+        System.out.print("Update: recieved user with id: " + userId);
         final User user = User.from(User.mapper.readValue(req.body(), User.class))
                 .id(userId)
                 .build();
