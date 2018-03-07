@@ -10,8 +10,6 @@ public abstract class DBManager {
     protected String userName = "root";
 	protected String password = "root";
 	protected Connection conn;
-	
-	
 
 	protected DBManager() throws Exception {
         Connection conn = null;

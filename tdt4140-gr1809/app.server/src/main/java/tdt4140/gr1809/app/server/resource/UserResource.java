@@ -15,7 +15,7 @@ import java.util.UUID;
 public class UserResource {
     private static UserDBManager dbManager;
 
-    public static void init() throws SQLException {
+    public static void init() throws Exception {
         dbManager = new UserDBManager();
     }
 
