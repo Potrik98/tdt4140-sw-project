@@ -14,8 +14,7 @@ public abstract class BasicClient {
     protected final ResteasyWebTarget target;
 
     public BasicClient() {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        InputStream input = classLoader.getResourceAsStream("client.properties");
+        InputStream input = BasicClient.class.getResourceAsStream("client.properties");
         Properties properties = new Properties();
         try {
             properties.load(input);
