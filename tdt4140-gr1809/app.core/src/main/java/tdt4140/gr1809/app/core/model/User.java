@@ -1,6 +1,7 @@
 package tdt4140.gr1809.app.core.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.time.LocalDateTime;
@@ -13,7 +14,9 @@ public class User {
 	private final String lastName;
 	private final String gender;
 	private final LocalDateTime birthDate;
-	
+
+	public static final ObjectMapper mapper = new ObjectMapper()
+			.findAndRegisterModules();
 
 	public User(UUID id, 
 			String firstName, 

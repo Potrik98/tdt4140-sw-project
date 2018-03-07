@@ -10,9 +10,6 @@ import java.time.LocalDateTime;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserModelTest {
-    private static final ObjectMapper mapper = new ObjectMapper()
-            .findAndRegisterModules();
-
     @Test
     public void testParseUserModelToJson() throws IOException {
         final User user = User.builder()
@@ -22,8 +19,8 @@ public class UserModelTest {
                 .birthDate(LocalDateTime.now())
                 .build();
 
-        final String json = mapper.writeValueAsString(user);
-        final User parsedUser = mapper.readValue(json, User.class);
+        final String json = User.mapper.writeValueAsString(user);
+        final User parsedUser = User.mapper.readValue(json, User.class);
         assertThat(parsedUser).isEqualToComparingFieldByField(user);
     }
 }

@@ -1,22 +1,19 @@
 package tdt4140.gr1809.app.server.resource;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.jetty.http.HttpStatus;
 import spark.Request;
 import spark.Response;
 import tdt4140.gr1809.app.core.model.User;
 import tdt4140.gr1809.app.server.dbmanager.UserDBManager;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
 public class UserResource {
     private static UserDBManager dbManager;
-    private static final ObjectMapper mapper = new ObjectMapper()
-            .findAndRegisterModules();
 
     public static void init() throws SQLException {
         dbManager = new UserDBManager();
@@ -32,7 +29,7 @@ public class UserResource {
 
         if (user.isPresent()) {
             res.status(HttpStatus.OK_200);
-            res.body(mapper.writeValueAsString(user));
+            res.body(User.mapper.writeValueAsString(user));
         } else {
             res.status(HttpStatus.NOT_FOUND_404);
         }
@@ -42,10 +39,12 @@ public class UserResource {
 
     public static Response createUser(Request req, Response res) throws Exception {
         try {
-            final User user = mapper.readValue(req.body(), User.class);
+            final User user = User.mapper.readValue(req.body(), User.class);
+            System.out.print("Recieved user with id : " + user.getId());
             dbManager.createUser(user);
             res.status(HttpStatus.CREATED_201);
-        } catch (IOException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
             res.status(HttpStatus.BAD_REQUEST_400);
         }
         return res;
@@ -53,7 +52,7 @@ public class UserResource {
 
     public static Response updateUser(Request req, Response res) throws Exception {
         UUID userId = UUID.fromString(req.params("id"));
-        final User user = User.from(mapper.readValue(req.body(), User.class))
+        final User user = User.from(User.mapper.readValue(req.body(), User.class))
                 .id(userId)
                 .build();
         dbManager.updateUser(user);
