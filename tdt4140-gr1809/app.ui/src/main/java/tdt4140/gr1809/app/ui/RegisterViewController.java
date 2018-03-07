@@ -2,8 +2,10 @@ package tdt4140.gr1809.app.ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+
 import tdt4140.gr1809.app.client.UserClient;
 import tdt4140.gr1809.app.core.model.User;
 
@@ -13,9 +15,6 @@ import java.util.ResourceBundle;
 public class RegisterViewController implements Initializable {
 
 	@FXML Button registerProfileButton;
-
-
-
 	@FXML Label firstNameLabel;
 	@FXML Label lastNameLabel;
 	@FXML Label birthdateLabel;
@@ -26,6 +25,12 @@ public class RegisterViewController implements Initializable {
 	@FXML DatePicker birthdateInput;
 	@FXML ChoiceBox genderChoiceBox;
 
+	public void clearInput(){
+		firstNameInput.setText("");
+		lastNameInput.setText("");
+		birthdateInput.getEditor().clear();
+		genderChoiceBox.setValue("Male");
+	}
 
 	public void registerButtonClicked(ActionEvent event){
 		//TODO: send data to database
@@ -38,8 +43,10 @@ public class RegisterViewController implements Initializable {
 				.gender(genderChoiceBox.getValue().toString())
 				.birthDate(birthdateInput.getValue().atStartOfDay())
 				.build();
-		client.createUser(user);
+		client.createUser(user); //TODO: can throw exception
 
+		clearInput();
+		System.out.println("Created user");
 	}
 
 
@@ -49,7 +56,6 @@ public class RegisterViewController implements Initializable {
 	public void initialize(final URL url, final ResourceBundle rb) {
 		genderChoiceBox.getItems().addAll("Male", "Female");
 		genderChoiceBox.setValue("Male");
-
 
 	}
 
