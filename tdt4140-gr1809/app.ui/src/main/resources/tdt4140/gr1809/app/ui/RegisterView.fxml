@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,14 +10,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="750" maxWidth="880" minHeight="400.0" minWidth="600.0" prefHeight="750" prefWidth="880" styleClass="root" stylesheets="" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.ProfileViewController">
+<AnchorPane maxHeight="750" maxWidth="880" minHeight="400.0" minWidth="600.0" prefHeight="750" prefWidth="880" styleClass="root" stylesheets="" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.RegisterViewController">
    <children>
       <VBox layoutX="27.0" prefHeight="750.0" prefWidth="327.0">
          <children>
             <HBox alignment="CENTER" prefHeight="72.0" prefWidth="327.0">
                <children>
-                  <Label prefHeight="25.0" prefWidth="329.0" text="Profile">
+                  <Label prefHeight="25.0" prefWidth="329.0" text="Register">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -29,19 +29,32 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label prefHeight="25.0" prefWidth="62.0" text="Name">
+                              <Label fx:id="firstNameLabel" prefHeight="25.0" prefWidth="97.0" text="First Name">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="nameLabel" text="John Anderson">
+                           </children>
+                        </HBox>
+                        <TextField fx:id="firstNameInput" maxWidth="-Infinity" prefHeight="26.0" prefWidth="200.0" promptText="John" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="51.0" prefWidth="327.0">
+               <children>
+                  <VBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="327.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="lastNameLabel" prefHeight="25.0" prefWidth="96.0" text="Last Name">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
                            </children>
                         </HBox>
-                        <TextField fx:id="nameInput" maxWidth="-Infinity" prefHeight="26.0" prefWidth="200.0" promptText="John Anderson" />
+                        <TextField fx:id="lastNameInput" maxWidth="-Infinity" prefHeight="26.0" prefWidth="200.0" promptText="Anderson" />
                      </children>
                   </VBox>
                </children>
@@ -52,19 +65,14 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label prefHeight="26.0" prefWidth="60.0" text="Phone">
+                              <Label fx:id="birthdateLabel" prefHeight="26.0" prefWidth="89.0" text="Birthdate">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="phoneLabel" text="98787890">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
                            </children>
                         </HBox>
-                        <TextField fx:id="phoneInput" maxWidth="-Infinity" prefHeight="26.0" prefWidth="200.0" promptText="41424344" />
+                        <DatePicker fx:id="birthdateInput" />
                      </children>
                   </VBox>
                </children>
@@ -75,14 +83,9 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label prefHeight="30.0" prefWidth="72.0" text="Gender">
+                              <Label fx:id="genderLabel" prefHeight="30.0" prefWidth="72.0" text="Gender">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="genderLabel" text="Male">
-                                 <font>
-                                    <Font size="14.0" />
                                  </font>
                               </Label>
                            </children>
@@ -99,8 +102,7 @@
             </HBox>
             <AnchorPane prefHeight="51.0" prefWidth="327.0">
                <children>
-                  <Button fx:id="saveProfileButton" layoutX="4.0" layoutY="15.0" mnemonicParsing="false" onAction="#saveProfileButtonClicked" prefHeight="26.0" prefWidth="64.0" text="Save" />
-                  <Button fx:id="editProfileButton" layoutX="4.0" layoutY="15.0" mnemonicParsing="false" onAction="#editProfileButtonClicked" prefHeight="26.0" prefWidth="64.0" text="Edit" />
+                  <Button fx:id="registerProfileButton" layoutX="4.0" layoutY="15.0" mnemonicParsing="false" onAction="#registerButtonClicked" prefHeight="26.0" prefWidth="81.0" text="Register" />
                </children>
             </AnchorPane>
          </children>

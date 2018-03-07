@@ -3,73 +3,52 @@ package tdt4140.gr1809.app.ui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import tdt4140.gr1809.app.client.UserClient;
+import tdt4140.gr1809.app.core.model.User;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class RegisterViewController implements Initializable {
 
-	@FXML Button editProfileButton;
-	@FXML Button saveProfileButton;
+	@FXML Button registerProfileButton;
 
 
-	@FXML Label nameLabel;
-	@FXML Label phoneLabel;
+
+	@FXML Label firstNameLabel;
+	@FXML Label lastNameLabel;
+	@FXML Label birthdateLabel;
 	@FXML Label genderLabel;
 
-	@FXML TextField nameInput;
-	@FXML TextField phoneInput;
+	@FXML TextField firstNameInput;
+	@FXML TextField lastNameInput;
+	@FXML DatePicker birthdateInput;
 	@FXML ChoiceBox genderChoiceBox;
 
 
-	public void editProfileButtonClicked(ActionEvent event){
-		genderChoiceBox.setVisible(true);
-		nameInput.setVisible(true);
-		phoneInput.setVisible(true);
+	public void registerButtonClicked(ActionEvent event){
+		//TODO: send data to database
 
-		nameLabel.setVisible(false);
-		phoneLabel.setVisible(false);
-		genderLabel.setVisible(false);
+		final UserClient client = new UserClient();
 
-		editProfileButton.setVisible(false);
-		saveProfileButton.setVisible(true);
+		final User user = User.builder()
+				.firstName(firstNameInput.getText())
+				.lastName(lastNameInput.getText())
+				.gender(genderChoiceBox.getValue().toString())
+				.birthDate(birthdateInput.getValue().atStartOfDay())
+				.build();
+		client.createUser(user);
+
 	}
 
 
-	//TODO: validate user input
-
-	public void saveProfileButtonClicked(ActionEvent event){
-
-		//TODO: send updated user data to database
-
-
-		genderChoiceBox.setVisible(false);
-		nameInput.setVisible(false);
-		phoneInput.setVisible(false);
-
-		nameLabel.setVisible(true);
-		phoneLabel.setVisible(true);
-		genderLabel.setVisible(true);
-
-		editProfileButton.setVisible(true);
-		saveProfileButton.setVisible(false);
-	}
 
 
 	@Override
 	public void initialize(final URL url, final ResourceBundle rb) {
 		genderChoiceBox.getItems().addAll("Male", "Female");
 		genderChoiceBox.setValue("Male");
-
-
-		nameInput.setVisible(false);
-		phoneInput.setVisible(false);
-		genderChoiceBox.setVisible(false);
-		saveProfileButton.setVisible(false);
 
 
 	}
