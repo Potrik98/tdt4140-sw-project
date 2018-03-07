@@ -1,6 +1,6 @@
 package tdt4140.gr1809.app.server;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import tdt4140.gr1809.app.client.UserClient;
 import tdt4140.gr1809.app.core.model.User;
@@ -20,10 +20,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserIntegrationTest {
     public static final int TEST_PORT = 8192;
-    private UserClient client;
+    private static UserClient client;
 
-    @Before
-    public void setupIntegrationTest() throws Exception {
+    @BeforeClass
+    public static void setupIntegrationTest() throws Exception {
         Server.startServer(TEST_PORT);
 
         // Open connection to local h2 db in memory
@@ -63,5 +63,30 @@ public class UserIntegrationTest {
 
         assertThat(retrievedUser).isPresent();
         assertThat(retrievedUser.get()).isEqualToComparingFieldByField(user);
+    }
+
+    @Test
+    public void testUpdateUser() {
+        final User user = User.builder()
+                .firstName("FirstName")
+                .lastName("LastName")
+                .birthDate(LocalDateTime.now())
+                .gender("gender")
+                .build();
+        client.createUser(user);
+
+        System.out.println("\nuser created");
+
+        final User newUser = User.from(user)
+                .firstName("NewFirstName")
+                .lastName("NewLastName")
+                .birthDate(LocalDateTime.now())
+                .build();
+        client.updateUser(newUser);
+
+        final Optional<User> updatedUser = client.getUserById(user.getId());
+
+        assertThat(updatedUser).isPresent();
+        assertThat(updatedUser.get()).isEqualToComparingFieldByField(newUser);
     }
 }
