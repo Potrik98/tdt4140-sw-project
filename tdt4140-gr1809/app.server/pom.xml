@@ -25,6 +25,16 @@
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.9.3</version>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jdk8</artifactId>
+			<version>2.9.3</version>
+		</dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.9.3</version>
+        </dependency>
 
 		<dependency>
 			<groupId>com.sparkjava</groupId>
@@ -36,6 +46,13 @@
 			<groupId>tdt4140-gr1809</groupId>
 			<artifactId>tdt4140-gr1809.app.core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>tdt4140-gr1809</groupId>
+			<artifactId>tdt4140-gr1809.app.client</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>

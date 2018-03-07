@@ -12,52 +12,69 @@ import java.util.UUID;
 public class UserClient extends BasicClient {
 
     public UserClient() {
-        super("/users");
+        super();
+    }
+
+    public UserClient(String path) {
+        super(path);
     }
 
     public Optional<User> getUserById(final UUID userId) {
         final Response response = target
+                .path("/user/")
                 .path(userId.toString())
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .get();
         if (response.getStatus() == HttpURLConnection.HTTP_OK) {
-            return Optional.of(response.readEntity(User.class));
+            final User user = response.readEntity(User.class);
+            response.close();
+            return Optional.of(user);
         } else if (response.getStatus() == HttpURLConnection.HTTP_NOT_FOUND) {
+            response.close();
             return Optional.empty();
         }
+        response.close();
         throw new ClientException("Failed to get user "
-                .concat(userId.toString()).concat("\n")
-                .concat(response.getEntity().toString()));
+                .concat(userId.toString()));
     }
 
     public void createUser(final User user) {
         final Response response = target
+                .path("/user")
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .post(Entity.json(user));
         if (response.getStatus() != HttpURLConnection.HTTP_CREATED) {
-            throw new ClientException("Failed to create user:\n"
-                    .concat(response.getEntity().toString()));
+            response.close();
+            throw new ClientException("Failed to create user:\n");
         }
+        response.close();
     }
 
     public void updateUser(final User user) {
         final Response response = target
+                .path("/user/")
+                .path(user.getId().toString())
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .post(Entity.json(user));
         if (response.getStatus() != HttpURLConnection.HTTP_OK) {
-            throw new ClientException("Failed to update user:\n"
-                    .concat(response.getEntity().toString()));
+            response.close();
+            throw new ClientException("Failed to update user:"
+                    .concat(user.getId().toString()));
         }
+        response.close();
     }
 
     public void deleteUser(final UUID userId) {
         final Response response = target
+                .path("/user/")
                 .path(userId.toString())
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .delete();
         if (response.getStatus() != HttpURLConnection.HTTP_NO_CONTENT) {
+            response.close();
             throw new ClientException("Failed to delete user:\n"
                     .concat(response.getEntity().toString()));
         }
+        response.close();
     }
 }
