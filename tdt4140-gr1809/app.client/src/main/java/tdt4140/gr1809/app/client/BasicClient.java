@@ -3,6 +3,8 @@ package tdt4140.gr1809.app.client;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+import org.jboss.resteasy.plugins.providers.jackson.ResteasyJackson2Provider;
+import tdt4140.gr1809.app.core.model.User;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,12 +24,17 @@ public abstract class BasicClient {
         }
 
         final String serverUri = properties.getProperty("serverurl");
-        ResteasyClient client = new ResteasyClientBuilder().build();
+
+        ResteasyJackson2Provider resteasyJackson2Provider = new ResteasyJackson2Provider();
+        resteasyJackson2Provider.setMapper(User.mapper);
+        ResteasyClient client = new ResteasyClientBuilder().register(resteasyJackson2Provider).build();
         target = client.target(serverUri);
     }
 
     public BasicClient(final String serverUri) {
-        ResteasyClient client = new ResteasyClientBuilder().build();
+        ResteasyJackson2Provider resteasyJackson2Provider = new ResteasyJackson2Provider();
+        resteasyJackson2Provider.setMapper(User.mapper);
+        ResteasyClient client = new ResteasyClientBuilder().register(resteasyJackson2Provider).build();
         target = client.target(serverUri);
     }
 }
