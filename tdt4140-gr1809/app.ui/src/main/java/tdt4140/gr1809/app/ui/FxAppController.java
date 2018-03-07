@@ -24,6 +24,11 @@ public class FxAppController implements Initializable{
 	
 	@FXML private Pane rightPane;
 
+	public void goToRegisterView(ActionEvent event) throws IOException{
+		rightPane.getChildren().clear();
+		rightPane.getChildren().add(FXMLLoader.load(getClass().getResource("RegisterView.fxml")));
+	}
+
 	public void goToProfileView(ActionEvent event) throws IOException{
 		rightPane.getChildren().clear();
 		rightPane.getChildren().add(FXMLLoader.load(getClass().getResource("ProfileView.fxml")));
