@@ -28,4 +28,8 @@ public class Server {
             response.body("{\"message\":\"" + exception.getMessage() + "\"}");
         });
     }
+
+    public static void stopServer() {
+        stop();
+    }
 }

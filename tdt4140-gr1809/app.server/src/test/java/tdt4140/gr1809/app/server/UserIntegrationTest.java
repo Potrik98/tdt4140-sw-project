@@ -1,5 +1,6 @@
 package tdt4140.gr1809.app.server;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import tdt4140.gr1809.app.client.UserClient;
@@ -21,6 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UserIntegrationTest {
     public static final int TEST_PORT = 8192;
     private static UserClient client;
+    private static Connection connection;
 
     @BeforeClass
     public static void setupIntegrationTest() throws Exception {
@@ -28,7 +30,7 @@ public class UserIntegrationTest {
 
         // Open connection to local h2 db in memory
         Class.forName("org.h2.Driver");
-        Connection connection = DriverManager.getConnection("jdbc:h2:mem:test");
+        connection = DriverManager.getConnection("jdbc:h2:mem:test");
 
         // Read sql test create script
         InputStream input = UserDBManager.class.getResourceAsStream("sqlCreateScriptTest.sql");
@@ -47,6 +49,12 @@ public class UserIntegrationTest {
         UserResource.init(connection);
 
         client = new UserClient("http://localhost:" + TEST_PORT);
+    }
+
+    @AfterClass
+    public static void closeConnections() throws Exception {
+        connection.close();
+        Server.stopServer();
     }
 
     @Test

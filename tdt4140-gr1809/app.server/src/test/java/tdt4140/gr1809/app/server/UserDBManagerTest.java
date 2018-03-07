@@ -1,8 +1,6 @@
 package tdt4140.gr1809.app.server;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import tdt4140.gr1809.app.core.model.User;
 import tdt4140.gr1809.app.server.dbmanager.UserDBManager;
 
@@ -20,11 +18,11 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserDBManagerTest {
-    private UserDBManager dbManager;
-    private Connection connection;
+    private static UserDBManager dbManager;
+    private static Connection connection;
 
-    @Before
-    public void openConnection() throws Exception {
+    @BeforeClass
+    public static void openConnection() throws Exception {
         Class.forName("org.h2.Driver");
         connection = DriverManager.getConnection("jdbc:h2:mem:test");
 
@@ -45,8 +43,8 @@ public class UserDBManagerTest {
         dbManager = new UserDBManager(connection);
     }
 
-    @After
-    public void closeConnection() throws SQLException {
+    @AfterClass
+    public static void closeConnection() throws SQLException {
         connection.close();
     }
 
