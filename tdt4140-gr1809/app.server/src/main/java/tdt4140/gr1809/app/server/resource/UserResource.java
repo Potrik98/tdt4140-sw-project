@@ -6,9 +6,9 @@ import spark.Response;
 import tdt4140.gr1809.app.core.model.User;
 import tdt4140.gr1809.app.server.dbmanager.UserDBManager;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,46 +23,47 @@ public class UserResource {
         dbManager = new UserDBManager(connection);
     }
 
-    public static Response getUserById(Request req, Response res) throws Exception {
+    public static String getUserById(Request req, Response res) throws Exception {
         UUID userId = UUID.fromString(req.params("id"));
         Optional<User> user = dbManager.getUserById(userId);
 
         if (user.isPresent()) {
+            res.type("application/json");
             res.status(HttpStatus.OK_200);
-            res.body(User.mapper.writeValueAsString(user));
         } else {
             res.status(HttpStatus.NOT_FOUND_404);
         }
 
-        return res;
+        return User.mapper.writeValueAsString(user);
     }
 
-    public static Response createUser(Request req, Response res) throws Exception {
+    public static String createUser(Request req, Response res) throws Exception {
         try {
             final User user = User.mapper.readValue(req.body(), User.class);
             System.out.print("Recieved user with id : " + user.getId());
             dbManager.createUser(user);
             res.status(HttpStatus.CREATED_201);
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
             res.status(HttpStatus.BAD_REQUEST_400);
         }
-        return res;
+        return "";
     }
 
-    public static Response updateUser(Request req, Response res) throws Exception {
+    public static String updateUser(Request req, Response res) throws Exception {
         UUID userId = UUID.fromString(req.params("id"));
         final User user = User.from(User.mapper.readValue(req.body(), User.class))
                 .id(userId)
                 .build();
         dbManager.updateUser(user);
         res.status(HttpStatus.OK_200);
-        return res;
+        return "";
     }
 
-    public static Response deleteUser(Request req, Response res) throws Exception {
+    public static String deleteUser(Request req, Response res) throws Exception {
         UUID userId = UUID.fromString(req.params("id"));
         dbManager.deleteUser(userId);
-        return res;
+        res.status(HttpStatus.NO_CONTENT_204);
+        return "";
     }
 }
