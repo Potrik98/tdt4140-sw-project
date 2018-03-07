@@ -42,6 +42,8 @@ public class LoginController {
 		if (uid != null) {
 			System.out.println(fxAppController);
 			fxAppController.goToProfileView(null);
+			
+			fxAppController.changeNavbarVisibility();
 		}
 		
 //		String username = getLoginUsername();

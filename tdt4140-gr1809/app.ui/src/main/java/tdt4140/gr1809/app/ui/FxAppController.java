@@ -2,6 +2,7 @@ package tdt4140.gr1809.app.ui;
 
 import java.io.IOException;
 
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -77,6 +78,7 @@ public class FxAppController implements Initializable{
 
 
 	public void initialize(URL arg0, ResourceBundle arg1){
+		changeNavbarVisibility();
 		rightPane.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("Login.fxml"));
@@ -94,5 +96,15 @@ public class FxAppController implements Initializable{
 	
 	public void setController(FxAppController controller) {
 		Appcontroller = controller;
+	}
+	
+	public void changeNavbarVisibility() {
+		if(NavBar.isDisabled()) {
+			NavBar.setVisible(true);
+			NavBar.setDisable(false);
+		}else {
+			NavBar.setVisible(false);
+			NavBar.setDisable(true);
+		}
 	}
 }
