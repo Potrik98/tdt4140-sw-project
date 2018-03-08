@@ -46,7 +46,7 @@ public class UserClient extends BasicClient {
                 .post(Entity.json(user));
         if (response.getStatus() != HttpURLConnection.HTTP_CREATED) {
             response.close();
-            throw new ClientException("Failed to create user:\n");
+            throw new ClientException("Failed to create user.");
         }
         response.close();
     }
@@ -59,7 +59,7 @@ public class UserClient extends BasicClient {
                 .post(Entity.json(user));
         if (response.getStatus() != HttpURLConnection.HTTP_OK) {
             response.close();
-            throw new ClientException("Failed to update user:"
+            throw new ClientException("Failed to update user "
                     .concat(user.getId().toString()));
         }
         response.close();
@@ -73,8 +73,8 @@ public class UserClient extends BasicClient {
                 .delete();
         if (response.getStatus() != HttpURLConnection.HTTP_NO_CONTENT) {
             response.close();
-            throw new ClientException("Failed to delete user:\n"
-                    .concat(response.getEntity().toString()));
+            throw new ClientException("Failed to delete user "
+                    .concat(userId.toString()));
         }
         response.close();
     }
