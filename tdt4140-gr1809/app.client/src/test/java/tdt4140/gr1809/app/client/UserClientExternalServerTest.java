@@ -103,11 +103,4 @@ public class UserClientExternalServerTest {
         assertThatExceptionOfType(ClientException.class)
                 .isThrownBy(() -> client.updateUser(user));
     }
-
-    @Test
-    public void testDeleteInvalidUser() {
-        final UUID invalidUserId = UUID.randomUUID();
-        assertThatExceptionOfType(ClientException.class)
-                .isThrownBy(() -> client.deleteUser(invalidUserId));
-    }
 }
