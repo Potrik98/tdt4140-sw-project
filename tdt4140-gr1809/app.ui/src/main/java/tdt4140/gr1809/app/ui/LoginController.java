@@ -1,9 +1,19 @@
 package tdt4140.gr1809.app.ui;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+
+import java.util.UUID;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import tdt4140.gr1809.app.client.UserClient;
+import tdt4140.gr1809.app.core.model.User;
+import tdt4140.gr1809.app.ui.FxAppController;
+import javafx.scene.layout.AnchorPane;
+
 
 public class LoginController {
 	@FXML private TextField UsernameTextfield;
@@ -11,6 +21,9 @@ public class LoginController {
 	@FXML private Label LoginStatus;
 	@FXML private Button graphViewButton;
 	@FXML private Button heartRateViewButton;
+	@FXML private AnchorPane NavBar;
+	
+	private FxAppController fxAppController;
 	
 	@FXML
 	private void initialLoginRequest() {
@@ -23,13 +36,31 @@ public class LoginController {
 	}
 	
 	@FXML
-	private void initialCreateuserRequest() {
+	private void initialCreateuserRequest() throws IOException {
 		LoginStatus.setText("");
-		String username = getLoginUsername();
-		String password = getLoginPassword();
-		if(username != null && password != null) {
-			//TODO Create User request to controller in main java code
+		UUID uid = getUUIDUsername();
+		if (uid != null) {
+			fxAppController.goToProfileView(null);
+			
+			fxAppController.changeNavbarVisibility();
 		}
+		
+//		String username = getLoginUsername();
+//		String password = getLoginPassword();
+//		if(username != null && password != null) {
+//			
+//			//TODO Create User request to controller in main java code
+//			
+//			UserClient userClient = new UserClient();
+//			final User user = User.builder()
+//					.firstName(username)
+//					.lastName("noe")
+//					.birthDate(LocalDateTime.now())
+//					.gender("Genderless")
+//					.build();
+//			userClient.createUser(user);
+//			UUID userID = user.getId();
+//		}
 	}
 
 	private void WrongLoginCredentials() {
@@ -60,6 +91,17 @@ public class LoginController {
 		}
 	}
 	
+	private UUID getUUIDUsername() {
+		try {
+			UUID uid = UUID.fromString(UsernameTextfield.getText());
+			return uid;
+		} catch (Exception e) {
+			UsernameTextfield.setText("");
+			LoginStatus.setText("Invalid UUID as username");
+			return null;
+		}
+	}
+	
 	private String getLoginPassword() {
 		String password = PasswordTextfield.getText();
 		if(!password.matches("[A-Za-z0-9]+")) {
@@ -73,5 +115,8 @@ public class LoginController {
 		else {
 			return password;
 		}
+	}
+	public void setfxAppController(FxAppController controller) {
+		fxAppController = controller;
 	}
 }

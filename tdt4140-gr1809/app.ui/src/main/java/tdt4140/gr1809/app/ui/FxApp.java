@@ -8,10 +8,15 @@ import javafx.stage.Stage;
 
 public class FxApp extends Application {
 
+	
+	public FxAppController controller;
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FxApp.fxml"));
-        Scene scene = new Scene(root);
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("FxApp.fxml"));
+    	
+        Scene scene = new Scene(loader.load());
+        controller = loader.<FxAppController>getController();
+        controller.setController(controller);
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
