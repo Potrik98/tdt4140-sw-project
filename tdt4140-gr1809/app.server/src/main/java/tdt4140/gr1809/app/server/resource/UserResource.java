@@ -69,8 +69,11 @@ public class UserResource {
 
     public static String deleteUser(Request req, Response res) throws Exception {
         UUID userId = UUID.fromString(req.params("id"));
-        dbManager.deleteUser(userId);
-        res.status(HttpStatus.NO_CONTENT_204);
+        if (dbManager.deleteUser(userId)) {
+            res.status(HttpStatus.NO_CONTENT_204);
+        } else {
+            res.status(HttpStatus.NOT_FOUND_404);
+        }
         return "";
     }
 }
