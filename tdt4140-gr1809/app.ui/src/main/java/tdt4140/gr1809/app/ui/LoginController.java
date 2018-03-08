@@ -40,7 +40,6 @@ public class LoginController {
 		LoginStatus.setText("");
 		UUID uid = getUUIDUsername();
 		if (uid != null) {
-			System.out.println(fxAppController);
 			fxAppController.goToProfileView(null);
 			
 			fxAppController.changeNavbarVisibility();
@@ -119,6 +118,5 @@ public class LoginController {
 	}
 	public void setfxAppController(FxAppController controller) {
 		fxAppController = controller;
-		System.out.println(controller);
 	}
 }
