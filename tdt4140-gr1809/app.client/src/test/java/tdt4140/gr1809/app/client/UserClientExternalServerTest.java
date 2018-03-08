@@ -21,7 +21,6 @@ public class UserClientExternalServerTest {
             .birthDate(LocalDate.of(1990, Month.MAY, 11).atStartOfDay())
             .build();
 
-    @Ignore
     @Test
     public void testGetUser() {
         final UserClient userClient = new UserClient();
