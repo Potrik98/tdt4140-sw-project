@@ -1,6 +1,8 @@
 package tdt4140.gr1809.app.server.resource;
 
 import org.eclipse.jetty.http.HttpStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import spark.Request;
 import spark.Response;
 import tdt4140.gr1809.app.core.model.User;
@@ -14,6 +16,7 @@ import java.util.UUID;
 
 public class UserResource {
     private static UserDBManager dbManager;
+    private static final Logger log = LoggerFactory.getLogger(UserResource.class);
 
     public static void init() throws Exception {
         dbManager = new UserDBManager();
@@ -24,7 +27,10 @@ public class UserResource {
     }
 
     public static String getUserById(Request req, Response res) throws Exception {
+        System.out.println("recieved request");
+        log.error("recieved request");
         UUID userId = UUID.fromString(req.params("id"));
+        System.out.println("Get userId: " + userId.toString());
         Optional<User> user = dbManager.getUserById(userId);
 
         if (user.isPresent()) {
