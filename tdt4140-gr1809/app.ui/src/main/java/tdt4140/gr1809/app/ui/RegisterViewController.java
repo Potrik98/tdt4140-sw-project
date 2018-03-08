@@ -25,6 +25,8 @@ public class RegisterViewController implements Initializable {
 	@FXML DatePicker birthdateInput;
 	@FXML ChoiceBox genderChoiceBox;
 
+	private FxAppController fxAppController;
+
 	public void clearInput(){
 		firstNameInput.setText("");
 		lastNameInput.setText("");
@@ -59,5 +61,7 @@ public class RegisterViewController implements Initializable {
 
 	}
 
-
+	public void setfxAppController(FxAppController controller) {
+		fxAppController = controller;
+	}
 }

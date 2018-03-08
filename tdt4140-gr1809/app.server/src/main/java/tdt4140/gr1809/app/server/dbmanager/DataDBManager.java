@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public class DataDBManager extends DBManager {
 
-	protected DataDBManager() throws SQLException {
+	protected DataDBManager() throws Exception {
 		super();
 	}
 

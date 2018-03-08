@@ -25,6 +25,8 @@ public class ProfileViewController implements Initializable {
 	@FXML TextField nameInput;
 	@FXML TextField phoneInput;
 	@FXML ChoiceBox genderChoiceBox;
+	
+	private FxAppController fxAppController;
 
 
 	public void editProfileButtonClicked(ActionEvent event){
@@ -75,5 +77,8 @@ public class ProfileViewController implements Initializable {
 
 	}
 
+	public void setfxAppController(FxAppController controller) {
+		fxAppController = controller;
+	}
 
 }

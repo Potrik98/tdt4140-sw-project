@@ -57,6 +57,7 @@ public class GraphViewController implements Initializable {
 
 	private MyGraph mathsGraph;
 	private MyGraph areaMathsGraph;
+	private FxAppController fxAppController;
 
 	@Override
 	public void initialize(final URL url, final ResourceBundle rb) {
@@ -126,6 +127,8 @@ public class GraphViewController implements Initializable {
 			areaMathsGraph.clear();
 		}
 	}
-
+	public void setfxAppController(FxAppController controller) {
+		fxAppController = controller;
+	}
 
 }

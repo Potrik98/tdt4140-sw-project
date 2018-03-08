@@ -10,7 +10,7 @@ import java.util.UUID;
 
 
 public class UserDBManager extends DBManager {
-    public UserDBManager() throws SQLException {
+    public UserDBManager() throws Exception {
         super();
     }
 

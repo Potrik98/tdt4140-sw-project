@@ -27,6 +27,8 @@ public class HeartRateViewController implements Initializable {
 	private Button clearButton;
 
 	private HeartRateGraph heartRateGraph;
+	
+	private FxAppController fxAppController;
 
 
 	@Override
@@ -84,5 +86,8 @@ public class HeartRateViewController implements Initializable {
 		}
 
 
+	}
+	public void setfxAppController(FxAppController controller) {
+		fxAppController = controller;
 	}
 }
