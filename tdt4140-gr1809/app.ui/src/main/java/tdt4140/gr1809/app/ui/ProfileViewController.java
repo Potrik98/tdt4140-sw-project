@@ -3,76 +3,37 @@ package tdt4140.gr1809.app.ui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import tdt4140.gr1809.app.client.UserClient;
 import tdt4140.gr1809.app.core.model.User;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ProfileViewController implements Initializable {
 
-	@FXML Button editProfileButton;
-	@FXML Button saveProfileButton;
-
-
 	@FXML Label nameLabel;
-	@FXML Label phoneLabel;
+	@FXML Label birthdateLabel;
 	@FXML Label genderLabel;
-
-	@FXML TextField nameInput;
-	@FXML TextField phoneInput;
-	@FXML ChoiceBox genderChoiceBox;
 	
 	private FxAppController fxAppController;
 
-
-	public void editProfileButtonClicked(ActionEvent event){
-		genderChoiceBox.setVisible(true);
-		nameInput.setVisible(true);
-		phoneInput.setVisible(true);
-
-		nameLabel.setVisible(false);
-		phoneLabel.setVisible(false);
-		genderLabel.setVisible(false);
-
-		editProfileButton.setVisible(false);
-		saveProfileButton.setVisible(true);
-	}
-
-
 	//TODO: validate user input
 
-	public void saveProfileButtonClicked(ActionEvent event){
-
-		//TODO: send updated user data to database
-
-
-		genderChoiceBox.setVisible(false);
-		nameInput.setVisible(false);
-		phoneInput.setVisible(false);
-
-		nameLabel.setVisible(true);
-		phoneLabel.setVisible(true);
-		genderLabel.setVisible(true);
-
-		editProfileButton.setVisible(true);
-		saveProfileButton.setVisible(false);
+	@FXML
+	public void deleteUser() throws IOException {
+		final UserClient client = new UserClient();
+		client.deleteUser(fxAppController.user.getId());
+		fxAppController.goToLoginView(null);
+		fxAppController.changeNavbarVisibility(false);
 	}
-
 
 	@Override
 	public void initialize(final URL url, final ResourceBundle rb) {
-		genderChoiceBox.getItems().addAll("Male", "Female");
-		genderChoiceBox.setValue("Male");
-
-
-		nameInput.setVisible(false);
-		phoneInput.setVisible(false);
-		genderChoiceBox.setVisible(false);
-		saveProfileButton.setVisible(false);
 
 	}
 	
@@ -83,7 +44,7 @@ public class ProfileViewController implements Initializable {
 		
 		nameLabel.setText(user.getFirstName() + " " + user.getLastName());
 		genderLabel.setText(user.getGender());
-		phoneLabel.setText(user.getBirthDate().toString());
+		birthdateLabel.setText(fxAppController.user.getBirthDate().toLocalDate().toString());
 	}
 
 }
