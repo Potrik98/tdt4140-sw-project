@@ -1,4 +1,4 @@
-package tdt4140.gr1809.app.server;
+package tdt4140.gr1809.app.server.dbmanager;
 
 import org.junit.*;
 import tdt4140.gr1809.app.core.model.User;
