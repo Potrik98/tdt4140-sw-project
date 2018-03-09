@@ -37,7 +37,7 @@ public class LoginController {
 	
 	@FXML
 	private void initialCreateuserRequest() throws IOException {
-			fxAppController.goToProfileView(null);
+			fxAppController.goToRegisterView(null);
 			fxAppController.changeNavbarVisibility();
 	}
 
