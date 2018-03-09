@@ -37,7 +37,7 @@ public class LoginController {
 		fxAppController.user = user.get();
 		
 		fxAppController.goToProfileView(null);
-		fxAppController.changeNavbarVisibility();
+		fxAppController.changeNavbarVisibility(true);
 	}
 	
 	@FXML
@@ -71,5 +71,8 @@ public class LoginController {
 	
 	public void setfxAppController(FxAppController controller) {
 		fxAppController = controller;
+		if(fxAppController.user != null) {
+		UsernameTextfield.setText(fxAppController.user.getId().toString());
+		}
 	}
 }

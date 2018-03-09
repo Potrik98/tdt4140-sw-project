@@ -68,6 +68,13 @@ public class FxAppController implements Initializable{
         loginController.setfxAppController(this);
         rightPane.getChildren().add(loader.getRoot());
 	}
+	
+	@FXML
+	public void logout() throws IOException {
+		changeNavbarVisibility(false);
+		user = null;
+		goToLoginView(null);
+	}
 
 	public void goToGraphView(ActionEvent event) throws IOException {
 		rightPane.getChildren().clear();
@@ -92,7 +99,7 @@ public class FxAppController implements Initializable{
 
 
 	public void initialize(URL arg0, ResourceBundle arg1){
-		changeNavbarVisibility();
+		changeNavbarVisibility(false);
 		rightPane.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("Login.fxml"));
@@ -112,13 +119,9 @@ public class FxAppController implements Initializable{
 		Appcontroller = controller;
 	}
 	
-	public void changeNavbarVisibility() {
-		if(NavBar.isDisabled()) {
-			NavBar.setVisible(true);
-			NavBar.setDisable(false);
-		}else {
-			NavBar.setVisible(false);
-			NavBar.setDisable(true);
-		}
+	public void changeNavbarVisibility(boolean change) {
+			NavBar.setVisible(change);
+			NavBar.setDisable(!change);
+
 	}
 }
