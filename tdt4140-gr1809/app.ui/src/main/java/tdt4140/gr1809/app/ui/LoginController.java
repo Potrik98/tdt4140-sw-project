@@ -2,14 +2,14 @@ package tdt4140.gr1809.app.ui;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-
+import java.util.Optional;
 import java.util.UUID;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import tdt4140.gr1809.app.client.UserClient;
+import tdt4140.gr1809.app.client.*;
 import tdt4140.gr1809.app.core.model.User;
 import tdt4140.gr1809.app.ui.FxAppController;
 import javafx.scene.layout.AnchorPane;
@@ -26,19 +26,23 @@ public class LoginController {
 	private FxAppController fxAppController;
 	
 	@FXML
-	private void initialLoginRequest() {
+	private void initialLoginRequest() throws IOException {
 		LoginStatus.setText("");
-		String username = getLoginUsername();
-		String password = getLoginPassword();
-		if(username != null && password != null) {
-			//TODO Login request to controller
-		}
+		String username = UsernameTextfield.getText();
+		UUID uid = UUID.fromString(username);
+		
+		UserClient userclient = new UserClient();
+		Optional<User> user = userclient.getUserById(uid);
+		
+		fxAppController.user = user.get();
+		
+		fxAppController.goToProfileView(null);
+		fxAppController.changeNavbarVisibility(true);
 	}
 	
 	@FXML
 	private void initialCreateuserRequest() throws IOException {
 			fxAppController.goToRegisterView(null);
-			fxAppController.changeNavbarVisibility();
 	}
 
 	private void WrongLoginCredentials() {
@@ -54,21 +58,6 @@ public class LoginController {
 		PasswordTextfield.setText("");
 	}
 	
-	private String getLoginUsername() {
-		String username = UsernameTextfield.getText();
-		if(!username.matches("[A-Za-z0-9]+")) {
-			LoginStatus.setText("Username contains invalid characters");
-			return null;
-		}
-		else if(username.length() < 15 && username.length() < 1) {
-			LoginStatus.setText("Username is of incorrect length");
-			return null;
-		}
-		else {
-			return username;
-		}
-	}
-	
 	private UUID getUUIDUsername() {
 		try {
 			UUID uid = UUID.fromString(UsernameTextfield.getText());
@@ -80,21 +69,10 @@ public class LoginController {
 		}
 	}
 	
-	private String getLoginPassword() {
-		String password = PasswordTextfield.getText();
-		if(!password.matches("[A-Za-z0-9]+")) {
-			LoginStatus.setText("Password contains invalid characters");
-			return null;
-		}
-		else if(password.length() < 15 && password.length() < 1) {
-			LoginStatus.setText("Password is of incorrect length");
-			return null;
-		}
-		else {
-			return password;
-		}
-	}
 	public void setfxAppController(FxAppController controller) {
 		fxAppController = controller;
+		if(fxAppController.user != null) {
+		UsernameTextfield.setText(fxAppController.user.getId().toString());
+		}
 	}
 }

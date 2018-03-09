@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import tdt4140.gr1809.app.client.UserClient;
 import tdt4140.gr1809.app.core.model.User;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -34,7 +35,7 @@ public class RegisterViewController implements Initializable {
 		genderChoiceBox.setValue("Male");
 	}
 
-	public void registerButtonClicked(ActionEvent event){
+	public void registerButtonClicked(ActionEvent event) throws IOException{
 		//TODO: send data to database
 
 		final UserClient client = new UserClient();
@@ -48,7 +49,9 @@ public class RegisterViewController implements Initializable {
 		client.createUser(user); //TODO: can throw exception
 
 		clearInput();
-		System.out.println("Created user");
+		System.out.println("Created user: " + user.getId());
+		fxAppController.user = user;
+		fxAppController.goToLoginView(null);
 	}
 
 
