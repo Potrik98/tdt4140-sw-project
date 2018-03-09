@@ -29,14 +29,25 @@ public class FxAppController implements Initializable{
 	@FXML private Pane rightPane;
 	@FXML private AnchorPane NavBar;
 
+	private RegisterViewController registerViewController;
 	private ProfileViewController profileviewController;
 	private LoginController loginController;
 	private GraphViewController graphViewController;
 	public HeartRateViewController heartRateViewController;
 	public FxAppController Appcontroller;
 	public UUID user;
-	
-	
+
+
+	public void goToRegisterView(ActionEvent event) throws IOException{
+		rightPane.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("RegisterView.fxml"));
+		loader.load();
+		registerViewController = loader.getController();
+		registerViewController.setfxAppController(this);
+		rightPane.getChildren().add(loader.getRoot());
+	}
+
 	public void goToProfileView(ActionEvent event) throws IOException{
 		rightPane.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
