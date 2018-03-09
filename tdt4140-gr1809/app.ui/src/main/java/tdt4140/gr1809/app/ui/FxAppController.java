@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,6 +34,7 @@ public class FxAppController implements Initializable{
 	private GraphViewController graphViewController;
 	public HeartRateViewController heartRateViewController;
 	public FxAppController Appcontroller;
+	public UUID user;
 	
 	
 	public void goToProfileView(ActionEvent event) throws IOException{

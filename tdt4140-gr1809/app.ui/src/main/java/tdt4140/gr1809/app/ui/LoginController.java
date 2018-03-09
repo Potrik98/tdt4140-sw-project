@@ -37,30 +37,8 @@ public class LoginController {
 	
 	@FXML
 	private void initialCreateuserRequest() throws IOException {
-		LoginStatus.setText("");
-		UUID uid = getUUIDUsername();
-		if (uid != null) {
 			fxAppController.goToProfileView(null);
-			
 			fxAppController.changeNavbarVisibility();
-		}
-		
-//		String username = getLoginUsername();
-//		String password = getLoginPassword();
-//		if(username != null && password != null) {
-//			
-//			//TODO Create User request to controller in main java code
-//			
-//			UserClient userClient = new UserClient();
-//			final User user = User.builder()
-//					.firstName(username)
-//					.lastName("noe")
-//					.birthDate(LocalDateTime.now())
-//					.gender("Genderless")
-//					.build();
-//			userClient.createUser(user);
-//			UUID userID = user.getId();
-//		}
 	}
 
 	private void WrongLoginCredentials() {
