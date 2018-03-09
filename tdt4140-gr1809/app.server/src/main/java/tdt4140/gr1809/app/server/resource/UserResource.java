@@ -77,4 +77,11 @@ public class UserResource {
         }
         return "";
     }
+
+    public static String getDataPointsOfUser(Request req, Response res) throws Exception {
+        UUID userId = UUID.fromString(req.params("id"));
+        System.out.println("Datapoints of userId: " + userId);
+        res.status(HttpStatus.OK_200);
+        return User.mapper.writeValueAsString(DataResource.dbManager.getDataByUserId(userId));
+    }
 }

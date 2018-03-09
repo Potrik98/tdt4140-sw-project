@@ -1,6 +1,7 @@
 package tdt4140.gr1809.app.server;
 
 import org.eclipse.jetty.http.HttpStatus;
+import tdt4140.gr1809.app.server.resource.DataResource;
 import tdt4140.gr1809.app.server.resource.UserResource;
 
 import static spark.Spark.*;
@@ -9,6 +10,7 @@ public class Server {
     public static void main(String[] args) throws Exception {
         startServer(80);
         UserResource.init();
+        DataResource.init();
     }
 
     public static void startServer(int port) throws Exception {
@@ -20,6 +22,10 @@ public class Server {
             post("", UserResource::createUser);
             get("/:id", UserResource::getUserById);
             delete("/:id", UserResource::deleteUser);
+            get("/:id/datapoints", UserResource::getDataPointsOfUser);
+        });
+        path("/datapoints", () -> {
+            post("", DataResource::createDataPoint);
         });
 
         exception(IllegalArgumentException.class, (exception, request, response) -> {
