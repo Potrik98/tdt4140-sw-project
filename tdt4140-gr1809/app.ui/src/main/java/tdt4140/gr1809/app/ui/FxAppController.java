@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import tdt4140.gr1809.app.core.model.User;
 import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -35,7 +36,7 @@ public class FxAppController implements Initializable{
 	private GraphViewController graphViewController;
 	public HeartRateViewController heartRateViewController;
 	public FxAppController Appcontroller;
-	public UUID user;
+	public User user;
 
 
 	public void goToRegisterView(ActionEvent event) throws IOException{
@@ -54,7 +55,7 @@ public class FxAppController implements Initializable{
         loader.setLocation(getClass().getResource("ProfileView.fxml"));
         loader.load();
         profileviewController = loader.getController();
-        profileviewController.setfxAppController(this);
+		profileviewController.setfxAppController(this);
         rightPane.getChildren().add(loader.getRoot());
 	}
 

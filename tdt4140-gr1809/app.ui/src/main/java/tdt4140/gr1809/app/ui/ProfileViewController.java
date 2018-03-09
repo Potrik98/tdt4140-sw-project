@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
+import tdt4140.gr1809.app.core.model.User;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -74,11 +74,16 @@ public class ProfileViewController implements Initializable {
 		genderChoiceBox.setVisible(false);
 		saveProfileButton.setVisible(false);
 
-
 	}
-
+	
 	public void setfxAppController(FxAppController controller) {
 		fxAppController = controller;
+		System.out.println(fxAppController);
+		User user = fxAppController.user;
+		
+		nameLabel.setText(user.getFirstName() + " " + user.getLastName());
+		genderLabel.setText(user.getGender());
+		phoneLabel.setText(user.getBirthDate().toString());
 	}
 
 }
