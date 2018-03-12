@@ -64,6 +64,12 @@ public class DataIntegrationTest {
     public static void closeConnections() throws Exception {
         connection.close();
         Server.stopServer();
+        // Remove when https://github.com/perwendel/spark/issues/705 is fixed.
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
