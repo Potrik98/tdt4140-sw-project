@@ -82,6 +82,7 @@ public class UserResource {
         UUID userId = UUID.fromString(req.params("id"));
         System.out.println("Datapoints of userId: " + userId);
         res.status(HttpStatus.OK_200);
+        res.type("application/json");
         return User.mapper.writeValueAsString(DataResource.dbManager.getDataByUserId(userId));
     }
 }

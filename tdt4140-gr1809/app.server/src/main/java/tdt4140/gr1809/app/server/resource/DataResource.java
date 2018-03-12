@@ -26,8 +26,8 @@ public class DataResource {
         try {
             final DataPoint dataPoint = User.mapper.readValue(req.body(), DataPoint.class);
                 dbManager.createDataPoint(dataPoint);
-            res.status(HttpStatus.OK_200);
-        } catch (IOException e) {
+            res.status(HttpStatus.CREATED_201);
+        } catch (IOException | NullPointerException e) {
             e.printStackTrace();
             res.status(HttpStatus.BAD_REQUEST_400);
         }

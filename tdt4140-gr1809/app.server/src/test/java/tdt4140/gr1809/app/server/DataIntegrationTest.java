@@ -3,9 +3,13 @@ package tdt4140.gr1809.app.server;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import tdt4140.gr1809.app.client.ClientException;
+import tdt4140.gr1809.app.client.DataClient;
 import tdt4140.gr1809.app.client.UserClient;
+import tdt4140.gr1809.app.core.model.DataPoint;
 import tdt4140.gr1809.app.core.model.User;
 import tdt4140.gr1809.app.server.dbmanager.UserDBManager;
+import tdt4140.gr1809.app.server.resource.DataResource;
 import tdt4140.gr1809.app.server.resource.UserResource;
 
 import java.io.BufferedReader;
@@ -15,13 +19,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-public class UserIntegrationTest {
+public class DataIntegrationTest {
     public static final int TEST_PORT = 8192;
-    private static UserClient client;
+    private static DataClient client;
+    private static UserClient userClient;
     private static Connection connection;
 
     @BeforeClass
@@ -47,8 +54,10 @@ public class UserIntegrationTest {
 
         // Init resources with db connection
         UserResource.init(connection);
+        DataResource.init(connection);
 
-        client = new UserClient("http://localhost:" + TEST_PORT);
+        client = new DataClient("http://localhost:" + TEST_PORT);
+        userClient = new UserClient("http://localhost:" + TEST_PORT);
     }
 
     @AfterClass
@@ -64,57 +73,44 @@ public class UserIntegrationTest {
     }
 
     @Test
-    public void testCreateAndGetUser() {
+    public void testCreateAndGetDatapoints() {
         final User user = User.builder()
                 .firstName("FirstName")
                 .lastName("LastName")
                 .birthDate(LocalDateTime.now())
                 .gender("gender")
                 .build();
-        client.createUser(user);
+        userClient.createUser(user);
 
-        final Optional<User> retrievedUser = client.getUserById(user.getId());
+        final DataPoint p1 = DataPoint.builder()
+                .userId(user.getId())
+                .dataType(DataPoint.DataType.TEMPERATURE)
+                .time(LocalDateTime.now())
+                .value(100)
+                .build();
+        client.createDataPoint(p1);
 
-        assertThat(retrievedUser).isPresent();
-        assertThat(retrievedUser.get()).isEqualToComparingFieldByField(user);
+        final DataPoint p2 = DataPoint.builder()
+                .userId(user.getId())
+                .dataType(DataPoint.DataType.HEART_RATE)
+                .time(LocalDateTime.now())
+                .value(100)
+                .build();
+        client.createDataPoint(p2);
+
+        List<DataPoint> dataPoints = client.getDataPointsForUserId(user.getId());
+        assertThat(dataPoints).usingFieldByFieldElementComparator()
+                .containsExactly(p1, p2);
     }
 
     @Test
-    public void testUpdateUser() {
-        final User user = User.builder()
-                .firstName("FirstName")
-                .lastName("LastName")
-                .birthDate(LocalDateTime.now())
-                .gender("gender")
+    public void testCreateInvalidDatapoint() {
+        final DataPoint p1 = DataPoint.builder()
+                .dataType(DataPoint.DataType.HEART_RATE)
+                .time(LocalDateTime.now())
+                .value(100)
                 .build();
-        client.createUser(user);
-
-        final User newUser = User.from(user)
-                .firstName("NewFirstName")
-                .lastName("NewLastName")
-                .birthDate(LocalDateTime.now())
-                .build();
-        client.updateUser(newUser);
-
-        final Optional<User> updatedUser = client.getUserById(user.getId());
-
-        assertThat(updatedUser).isPresent();
-        assertThat(updatedUser.get()).isEqualToComparingFieldByField(newUser);
-    }
-
-    @Test
-    public void testDeleteUser() {
-        final User user = User.builder()
-                .firstName("FirstName")
-                .lastName("LastName")
-                .birthDate(LocalDateTime.now())
-                .gender("gender")
-                .build();
-        client.createUser(user);
-
-        client.deleteUser(user.getId());
-
-        final Optional<User> retrievedUser = client.getUserById(user.getId());
-        assertThat(retrievedUser).isEmpty();
+        assertThatExceptionOfType(ClientException.class)
+                .isThrownBy(() -> client.createDataPoint(p1));
     }
 }
