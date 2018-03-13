@@ -1,4 +1,4 @@
-package tdt4140.gr1809.app.core;
+package tdt4140.gr1809.app.core.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
