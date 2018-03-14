@@ -35,7 +35,7 @@ CREATE TABLE TimeFilters(
 );
 
 CREATE TABLE ServiceProviders(
-  serviceProviderId varchar(36) NOT NULL PRIMARY KEY
+  serviceProviderId varchar(36) NOT NULL PRIMARY KEY,
   firstName varchar(255),
   lastName varchar(255),
   gender varchar(255),
