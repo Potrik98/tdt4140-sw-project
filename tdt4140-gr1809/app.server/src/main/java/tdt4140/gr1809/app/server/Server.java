@@ -11,8 +11,8 @@ public class Server {
     public static void main(String[] args) throws Exception {
         startServer(80);
         UserResource.init();
-        DataResource.init();
         TimeFilterResource.init();
+        DataResource.init();
     }
 
     public static void startServer(int port) throws Exception {

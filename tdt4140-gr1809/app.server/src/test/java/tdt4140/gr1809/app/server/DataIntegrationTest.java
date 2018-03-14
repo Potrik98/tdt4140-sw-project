@@ -10,6 +10,7 @@ import tdt4140.gr1809.app.core.model.DataPoint;
 import tdt4140.gr1809.app.core.model.User;
 import tdt4140.gr1809.app.server.dbmanager.UserDBManager;
 import tdt4140.gr1809.app.server.resource.DataResource;
+import tdt4140.gr1809.app.server.resource.TimeFilterResource;
 import tdt4140.gr1809.app.server.resource.UserResource;
 
 import java.io.BufferedReader;
@@ -55,6 +56,7 @@ public class DataIntegrationTest {
 
         // Init resources with db connection
         UserResource.init(connection);
+        TimeFilterResource.init(connection);
         DataResource.init(connection);
 
         client = new DataClient("http://localhost:" + TEST_PORT);
