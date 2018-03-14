@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import tdt4140.gr1809.app.core.model.ServiceProvider;
+import tdt4140.gr1809.app.core.model.User;
 
 
 public class AccessTableDBManager extends DBManager {
@@ -20,7 +21,7 @@ public class AccessTableDBManager extends DBManager {
 		super(connection);
 	}
 	
-	public List<ServiceProvider> getRelatedServiceProviders(UUID userId) throws SQLException{
+	public List<ServiceProvider> getRelatedServiceProviders(UUID userId) throws SQLException {
 		String query = "SELECT firstName, lastName, gender, birthDate from ServiceProviders " +
 				"INNER JOIN ServiceProviderAccessToUser ON ServiceProviders.ServiceProviderId = ServiceProviderAccessToUser.ServiceProviderId " +
 				"WHERE userId = :userId:";
@@ -40,6 +41,28 @@ public class AccessTableDBManager extends DBManager {
 		}
 		return serviceProviders;
 	}
+	
+	public List<User> getRelatedUsers(UUID serviceProviderId) throws SQLException {
+		String query = "SELECT firstName, lastName, gender, birthDate from ServiceProviders " +
+				"INNER JOIN ServiceProviderAccessToUser ON Users.UserId = ServiceProviderAccessToUser.UserId " +
+				"WHERE serviceProviderId = :serviceProviderId: AND Deleted = 0";
+		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
+		statement.setString("serviceProviderId", serviceProviderId.toString());
+		ResultSet result = statement.getStatement().executeQuery();
+		List<User> users = new ArrayList<>();
+		while(result.next()) {
+			final User user =  User.builder()
+					.id(UUID.fromString(result.getString("serviceProviderId")))
+					.firstName(result.getString("firstName"))
+					.lastName(result.getString("lastName"))
+					.birthDate(result.getTimestamp("dataTime").toLocalDateTime())
+					.gender(result.getString("gender"))
+					.build();
+			users.add(user);
+		}
+		return users;
+	}
+	
 	
 	public void createRelation(UUID userId, UUID serviceProviderId) throws SQLException {
 		String query = "INSERT INTO ServiceProviderAccessToUser (userId, serviceProviderId)" +
