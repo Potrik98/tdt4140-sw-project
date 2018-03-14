@@ -1,1 +1,35 @@
-CREATE TABLE Users(  userId varchar(36) NOT NULL PRIMARY KEY,  firstName varchar(255),  lastName varchar(255),  gender varchar(255),  birthDate TIMESTAMP,  deleted integer DEFAULT 0);CREATE TABLE DataPoints(  dataId varchar(36) NOT NULL PRIMARY KEY,  userId varchar(36),  dataValue integer,  dataType varchar(30),  dataTime TIMESTAMP,  FOREIGN KEY (userId) REFERENCES Users(userId));CREATE TABLE TimeFilters(  filterId varchar(36) NOT NULL PRIMARY KEY,  userId varchar(36),  startTime TIMESTAMP,  endTime TIMESTAMP,  dataType varchar(30),  FOREIGN KEY (userId) REFERENCES Users(userId));
+CREATE TABLE Users(
+  userId varchar(36) NOT NULL PRIMARY KEY,
+  firstName varchar(255),
+  lastName varchar(255),
+  gender varchar(255),
+  maxPuls integer,
+  birthDate TIMESTAMP,
+  deleted integer DEFAULT 0
+);
+
+CREATE TABLE DataPoints(
+  dataId varchar(36) NOT NULL PRIMARY KEY,
+  userId varchar(36),
+  dataValue integer,
+  dataType varchar(30),
+  dataTime TIMESTAMP,
+  FOREIGN KEY (userId) REFERENCES Users(userId)
+);
+
+CREATE TABLE Notifications(
+  notificationId varchar(36) NOT NULL PRIMARY KEY,
+  userId varchar(36),
+  message varchar(255),
+  time TIMESTAMP,
+  FOREIGN KEY (userID) REFERENCES Users(userId)
+);
+
+CREATE TABLE TimeFilters(
+  filterId varchar(36) NOT NULL PRIMARY KEY,
+  userId varchar(36),
+  startTime TIMESTAMP,
+  endTime TIMESTAMP,
+  dataType varchar(30),
+  FOREIGN KEY (userId) REFERENCES Users(userId)
+);
