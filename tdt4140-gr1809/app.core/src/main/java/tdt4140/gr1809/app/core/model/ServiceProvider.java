@@ -116,11 +116,11 @@ public class ServiceProvider {
 		}
 	}
 	
-	public static ServiceProviderBuilder Builder() {
+	public static ServiceProviderBuilder builder() {
 		return new ServiceProviderBuilder();
 	}
 	
-	public static ServiceProviderBuilder Builder(final ServiceProvider serviceProvider) {
+	public static ServiceProviderBuilder from(final ServiceProvider serviceProvider) {
 		return new ServiceProviderBuilder(serviceProvider);
 	}
 
