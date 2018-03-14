@@ -40,7 +40,8 @@ public class DataIntegrationTest {
         connection = DriverManager.getConnection("jdbc:h2:mem:test");
 
         // Read sql test create script
-        InputStream input = UserDBManager.class.getResourceAsStream("sqlCreateScriptTest.sql");
+        InputStream input = ClassLoader.getSystemClassLoader()
+                .getResourceAsStream("tdt4140/gr1809/app/server/sqlCreateScript.sql");
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
         StringBuilder out = new StringBuilder();
         String line;

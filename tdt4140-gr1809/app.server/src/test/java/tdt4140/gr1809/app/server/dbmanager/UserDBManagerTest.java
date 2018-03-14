@@ -26,7 +26,8 @@ public class UserDBManagerTest {
         Class.forName("org.h2.Driver");
         connection = DriverManager.getConnection("jdbc:h2:mem:test");
 
-        InputStream input = UserDBManager.class.getResourceAsStream("sqlCreateScriptTest.sql");
+        InputStream input = ClassLoader.getSystemClassLoader()
+                .getResourceAsStream("tdt4140/gr1809/app/server/sqlCreateScript.sql");
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
         StringBuilder out = new StringBuilder();
