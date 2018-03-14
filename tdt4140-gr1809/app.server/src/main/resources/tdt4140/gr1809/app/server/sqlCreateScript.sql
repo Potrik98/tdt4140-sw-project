@@ -33,3 +33,17 @@ CREATE TABLE TimeFilters(
   dataType varchar(30),
   FOREIGN KEY (userId) REFERENCES Users(userId)
 );
+
+CREATE TABLE ServiceProviders(
+  serviceProviderId varchar(36) NOT NULL PRIMARY KEY
+  firstName varchar(255),
+  lastName varchar(255),
+  gender varchar(255),
+  birthDate TIMESTAMP
+);
+
+CREATE TABLE ServiceProviderAccessToUser(
+FOREIGN KEY (userId) REFERENCES Users(userId)
+FOREIGN KEY (serviceProviderId) REFERENCES ServiceProviders(serviceProviderId)
+PRIMARY KEY (userId, serviceProviderId)
+);
