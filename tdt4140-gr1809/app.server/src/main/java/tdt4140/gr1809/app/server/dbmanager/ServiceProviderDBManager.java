@@ -51,26 +51,6 @@ public class ServiceProviderDBManager extends DBManager {
 		statement.getStatement().executeUpdate();
     }
 	
-	public List<ServiceProvider> getRelatedServiceProviders(UUID userId) throws SQLException{
-		String query = "SELECT firstName, lastName, gender, birthDate from ServiceProviders " +
-				"INNER JOIN ServiceProviderAccessToUser ON ServiceProviders.ServiceProviderId = ServiceProviderAccessToUser.ServiceProviderId " +
-				"WHERE userId = :userId:";
-		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
-		statement.setString("userId", userId.toString());
-		ResultSet result = statement.getStatement().executeQuery();
-		List<ServiceProvider> serviceProviders = new ArrayList<>();
-		while(result.next()) {
-			final ServiceProvider sp =  ServiceProvider.builder()
-					.id(UUID.fromString(result.getString("serviceProviderId")))
-					.firstName(result.getString("firstName"))
-					.lastName(result.getString("lastName"))
-					.birthDate(result.getTimestamp("dataTime").toLocalDateTime())
-					.gender(result.getString("gender"))
-					.build();
-			serviceProviders.add(sp);
-		}
-		return serviceProviders;
-	}
 		
 
 }
