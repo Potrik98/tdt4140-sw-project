@@ -40,7 +40,7 @@ public class ServiceProviderDBManager extends DBManager {
     }
 	
 	public void createServiceProvider(final ServiceProvider serviceProvider) throws SQLException {
-    	String query = "insert into ServiceProviders (userId, firstName, lastName, gender, birthDate)" +
+    	String query = "insert into ServiceProviders (serviceProviderId, firstName, lastName, gender, birthDate)" +
 				" values (:ServiceProviderId:, :firstName:, :lastName:, :gender:, :birthDate:);";
     	NamedParameterStatement statement = new NamedParameterStatement(query, conn);
     	statement.setString("ServiceProviderId", serviceProvider.getId().toString());
