@@ -23,8 +23,8 @@ public class Filter {
                 .distinct()
                 .collect(Collectors.toMap(Function.identity(), this::getTimeFiltersForUserId));
         return unfilteredList.stream()
-                .filter(dataPoint -> !timeFiltersForUsers.get(dataPoint.getUserId()).stream()
-                        .anyMatch(filter -> isDataPointInFilter(dataPoint, filter)))
+                .filter(dataPoint -> timeFiltersForUsers.get(dataPoint.getUserId()).stream()
+                        .noneMatch(filter -> isDataPointInFilter(dataPoint, filter)))
                 .collect(Collectors.toList());
     }
 
