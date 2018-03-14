@@ -43,7 +43,9 @@ CREATE TABLE ServiceProviders(
 );
 
 CREATE TABLE ServiceProviderAccessToUser(
-FOREIGN KEY (userId) REFERENCES Users(userId)
-FOREIGN KEY (serviceProviderId) REFERENCES ServiceProviders(serviceProviderId)
-PRIMARY KEY (userId, serviceProviderId)
+  userId varchar(36),
+  serviceProviderId varchar(36),
+  FOREIGN KEY (userId)  REFERENCES Users(userId),
+  FOREIGN KEY (serviceProviderId) REFERENCES ServiceProviders(serviceProviderId),
+  PRIMARY KEY (userId, serviceProviderId)
 );
