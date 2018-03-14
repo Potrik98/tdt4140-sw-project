@@ -41,6 +41,11 @@ public class LoginController {
 	}
 	
 	@FXML
+	private void serviceproviderLoginRequest() throws IOException {
+		fxAppController.goToServiceproviderLoginView(null);
+	}
+	
+	@FXML
 	private void initialCreateuserRequest() throws IOException {
 			fxAppController.goToRegisterView(null);
 	}
