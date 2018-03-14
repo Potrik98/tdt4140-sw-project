@@ -2,6 +2,7 @@ package tdt4140.gr1809.app.server;
 
 import org.eclipse.jetty.http.HttpStatus;
 import tdt4140.gr1809.app.server.resource.DataResource;
+import tdt4140.gr1809.app.server.resource.TimeFilterResource;
 import tdt4140.gr1809.app.server.resource.UserResource;
 
 import static spark.Spark.*;
@@ -23,9 +24,13 @@ public class Server {
             get("/:id", UserResource::getUserById);
             delete("/:id", UserResource::deleteUser);
             get("/:id/datapoints", UserResource::getDataPointsOfUser);
+            get("/:id/timefilters", UserResource::getTimeFiltersOfUser);
         });
         path("/datapoints", () -> {
             post("", DataResource::createDataPoint);
+        });
+        path( "/timefilters", () -> {
+            post("", TimeFilterResource::createTimeFilter);
         });
 
         exception(IllegalArgumentException.class, (exception, request, response) -> {

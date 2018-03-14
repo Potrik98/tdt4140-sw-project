@@ -10,7 +10,6 @@ import tdt4140.gr1809.app.server.dbmanager.UserDBManager;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -84,5 +83,13 @@ public class UserResource {
         res.status(HttpStatus.OK_200);
         res.type("application/json");
         return User.mapper.writeValueAsString(DataResource.dbManager.getDataByUserId(userId));
+    }
+
+    public static String getTimeFiltersOfUser(Request req, Response res) throws Exception {
+        UUID userId = UUID.fromString(req.params("id"));
+        System.out.println("TimeFilters of userId: " + userId);
+        res.status(HttpStatus.OK_200);
+        res.type("application/json");
+        return User.mapper.writeValueAsString(TimeFilterResource.dbManager.getTimeFiltersByUserId(userId));
     }
 }
