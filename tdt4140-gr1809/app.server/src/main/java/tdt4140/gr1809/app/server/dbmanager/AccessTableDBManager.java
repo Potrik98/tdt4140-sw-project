@@ -41,7 +41,14 @@ public class AccessTableDBManager extends DBManager {
 		return serviceProviders;
 	}
 	
-	
+	public void createRelation(UUID userId, UUID serviceProviderId) throws SQLException {
+		String query = "INSERT INTO ServiceProviderAccessToUser (userId, serviceProviderId)" +
+				" values (:userId:, :serviceProviderId);";
+    	NamedParameterStatement statement = new NamedParameterStatement(query, conn);
+    	statement.setString("userId", userId.toString());
+    	statement.setString("ServiceProviderId", serviceProviderId.toString());
+		statement.getStatement().executeUpdate();
+	}
 	
 }
 	
