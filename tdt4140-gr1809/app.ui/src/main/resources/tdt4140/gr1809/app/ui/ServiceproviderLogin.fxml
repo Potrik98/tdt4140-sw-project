@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="750.0" prefHeight="630.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.LoginController">
+<AnchorPane minHeight="750.0" prefHeight="630.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.ServiceproviderLoginController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#deebf8" height="300.0" layoutX="190.0" layoutY="165.0" stroke="BLACK" strokeType="INSIDE" width="500.0" />
       <TextField fx:id="UsernameTextfield" layoutX="428.0" layoutY="238.0">
@@ -36,13 +36,12 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="CreateUserButton" layoutX="480.0" layoutY="359.0" mnemonicParsing="false" onAction="#initialCreateuserRequest" prefHeight="32.0" prefWidth="148.0" text="Create user">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
       <Label fx:id="LoginStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="428.0" layoutY="205.0" prefHeight="18.0" prefWidth="186.0" textAlignment="CENTER" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0" />
-      <Button layoutX="295.0" layoutY="403.0" mnemonicParsing="false" onAction="#serviceproviderLoginRequest" prefHeight="38.0" prefWidth="338.0" text="Serviceprovider Login" />
+      <Label layoutX="347.0" layoutY="185.0" text="Service provider login">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

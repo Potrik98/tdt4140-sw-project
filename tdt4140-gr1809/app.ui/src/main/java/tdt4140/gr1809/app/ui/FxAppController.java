@@ -36,6 +36,7 @@ public class FxAppController implements Initializable{
 	private GraphViewController graphViewController;
 	public HeartRateViewController heartRateViewController;
 	public FxAppController Appcontroller;
+	public ServiceproviderLoginController serviceProviderLoginViewController;
 	public User user;
 
 
@@ -93,6 +94,16 @@ public class FxAppController implements Initializable{
         loader.load();
         heartRateViewController = loader.getController();
         heartRateViewController.setfxAppController(this);        
+        rightPane.getChildren().add(loader.getRoot());
+        }
+	
+	public void goToServiceproviderLoginView(ActionEvent event) throws IOException {
+		rightPane.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("ServiceproviderLogin.fxml"));
+        loader.load();
+        serviceProviderLoginViewController = loader.getController();
+        serviceProviderLoginViewController.setfxAppController(this);        
         rightPane.getChildren().add(loader.getRoot());
         }
 
