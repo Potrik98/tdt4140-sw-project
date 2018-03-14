@@ -46,7 +46,16 @@ public class AccessTableDBManager extends DBManager {
 				" values (:userId:, :serviceProviderId);";
     	NamedParameterStatement statement = new NamedParameterStatement(query, conn);
     	statement.setString("userId", userId.toString());
-    	statement.setString("ServiceProviderId", serviceProviderId.toString());
+    	statement.setString("serviceProviderId", serviceProviderId.toString());
+		statement.getStatement().executeUpdate();
+	}
+	
+	public void removeRelation(UUID userId, UUID serviceProviderId) throws SQLException {
+		String query = "DELETE FROM ServiceProviderAccessToUser " +
+				"WHERE userId = :userId: AND serviceProviderId = :serviceProviderId:";
+		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
+		statement.setString("userId", userId.toString());
+		statement.setString("serviceProviderId", serviceProviderId.toString());
 		statement.getStatement().executeUpdate();
 	}
 	
