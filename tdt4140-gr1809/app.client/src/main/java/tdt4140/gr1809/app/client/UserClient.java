@@ -15,10 +15,6 @@ public class UserClient extends BasicClient {
         super();
     }
 
-    public UserClient(String path) {
-        super(path);
-    }
-
     public Optional<User> getUserById(final UUID userId) {
         final Response response = target
                 .path("/user/")

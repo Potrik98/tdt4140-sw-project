@@ -16,10 +16,6 @@ public class DataClient extends BasicClient {
         super();
     }
 
-    public DataClient(String path) {
-        super(path);
-    }
-
     public List<DataPoint> getDataPointsForUserId(UUID userId) {
         final Response response = target
                 .path("/user/")
