@@ -15,10 +15,6 @@ public class ServiceProviderDBManager extends DBManager {
 		super();
 	}
 	
-	public ServiceProviderDBManager(Connection connection) {
-		super(connection);
-	}
-	
 	public Optional<ServiceProvider> getServiceProviderById(final UUID serviceProviderId) throws SQLException {
     	String query = "select firstName, lastName, gender, birthDate from ServiceProviders" +
 				" where serviceProviderId = :serviceProviderId: and deleted = 0;";

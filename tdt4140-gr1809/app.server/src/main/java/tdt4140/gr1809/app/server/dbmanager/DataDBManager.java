@@ -14,10 +14,6 @@ public class DataDBManager extends DBManager {
 	public DataDBManager() throws Exception {
 		super();
 	}
-
-	public DataDBManager(Connection connection) {
-	    super(connection);
-    }
 	
 	public List<DataPoint> getDataByUserId(final UUID userId) throws SQLException {
     	String query = "select dataId, dataValue, dataType, dataTime from DataPoints" +

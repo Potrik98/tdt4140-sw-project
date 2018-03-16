@@ -17,10 +17,6 @@ public class AccessTableDBManager extends DBManager {
 		super();
 	}
 	
-	public AccessTableDBManager(Connection connection) {
-		super(connection);
-	}
-	
 	public List<ServiceProvider> getServiceProvidersWithAccessToUser(UUID userId) throws SQLException {
 		String query = "SELECT firstName, ServiceProviders.serviceProviderId, lastName, gender, birthDate from ServiceProviderAccessToUser " +
 				"INNER JOIN ServiceProviders ON ServiceProviders.ServiceProviderId = ServiceProviderAccessToUser.ServiceProviderId " +

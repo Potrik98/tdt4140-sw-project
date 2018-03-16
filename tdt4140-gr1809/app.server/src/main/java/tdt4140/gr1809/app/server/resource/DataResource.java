@@ -10,7 +10,6 @@ import tdt4140.gr1809.app.server.dbmanager.DataDBManager;
 import tdt4140.gr1809.app.server.module.Filter;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.List;
 
 public class DataResource {
@@ -22,9 +21,8 @@ public class DataResource {
         filter = new Filter(TimeFilterResource.dbManager);
     }
 
-    public static void init(Connection connection) {
-        dbManager = new DataDBManager(connection);
-        filter = new Filter(TimeFilterResource.dbManager);
+    public static void closeConnection() throws Exception {
+        dbManager.closeConnection();
     }
 
     public static String createDataPoint(Request req, Response res) throws Exception {

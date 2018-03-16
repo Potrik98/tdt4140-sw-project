@@ -9,7 +9,6 @@ import tdt4140.gr1809.app.core.model.ServiceProvider;
 import tdt4140.gr1809.app.server.dbmanager.ServiceProviderDBManager;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -21,8 +20,8 @@ public class ServiceProviderResource {
         dbManager = new ServiceProviderDBManager();
     }
 
-    public static void init(Connection connection) {
-        dbManager = new ServiceProviderDBManager(connection);
+    public static void closeConnection() throws Exception {
+        dbManager.closeConnection();
     }
 
     public static String getServiceProviderById(Request req, Response res) throws Exception {
