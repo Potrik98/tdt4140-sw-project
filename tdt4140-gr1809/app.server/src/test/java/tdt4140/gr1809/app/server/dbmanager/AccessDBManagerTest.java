@@ -71,18 +71,7 @@ public class AccessDBManagerTest {
     	
     	final List<User> spRelation = accessDBManager.getUsersServiceProviderHasAccessTo(sp.getId());
     	final List<ServiceProvider> userRelation = accessDBManager.getServiceProvidersWithAccessToUser(user.getId());
-    	System.out.println(sp.getId());
-    	System.out.println(sp.getFirstName());
-		System.out.println(sp.getLastName());
-		System.out.println(sp.getGender());
-		System.out.println(sp.getBirthDate());
-    	userRelation.forEach(s -> {
-    		System.out.println(s.getId());
-    		System.out.println(s.getFirstName());
-    		System.out.println(s.getLastName());
-    		System.out.println(s.getGender());
-    		System.out.println(s.getBirthDate());
-    	});
+    	
     	
     	assertThat(spRelation).usingFieldByFieldElementComparator()
     			.containsExactly(user);
