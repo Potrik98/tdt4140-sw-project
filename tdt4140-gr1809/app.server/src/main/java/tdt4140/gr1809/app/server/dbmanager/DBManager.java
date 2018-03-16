@@ -13,7 +13,7 @@ import java.util.Properties;
 public abstract class DBManager {
 	protected Connection conn;
 
-    public static void loadCreateScript() throws Exception {
+	private static Connection connectionFromProperties() throws Exception {
         InputStream input = DBManager.class.getResourceAsStream("dbconnection.properties");
         Properties connectionProps = new Properties();
         try {
@@ -22,11 +22,16 @@ public abstract class DBManager {
             e.printStackTrace();
         }
         Class.forName(connectionProps.getProperty("driver")).newInstance();
-        Connection conn = DriverManager.getConnection(
+        System.out.println("Opening db connection to " + connectionProps.getProperty("dbname"));
+        return DriverManager.getConnection(
                 connectionProps.getProperty("dbname"),
                 connectionProps);
+    }
 
-        input = ClassLoader.getSystemClassLoader()
+    public static void loadCreateScript() throws Exception {
+	    Connection conn = connectionFromProperties();
+
+        InputStream input = ClassLoader.getSystemClassLoader()
                 .getResourceAsStream("tdt4140/gr1809/app/server/sqlCreateScript.sql");
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
@@ -36,25 +41,16 @@ public abstract class DBManager {
             out.append(line);
         }
 
+        System.out.println("Running create script");
         Statement statement = conn.createStatement();
         statement.execute(out.toString());
 
         conn.close();
+        System.out.println("Closed db connection");
     }
 
 	protected DBManager() throws Exception {
-        InputStream input = DBManager.class.getResourceAsStream("dbconnection.properties");
-        Properties connectionProps = new Properties();
-        try {
-            connectionProps.load(input);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Class.forName(connectionProps.getProperty("driver")).newInstance();
-        conn = DriverManager.getConnection(
-                connectionProps.getProperty("dbname"),
-                connectionProps);
-        System.out.println("Opened db connection to " + connectionProps.getProperty("dbname"));
+        conn = connectionFromProperties();
     }
 
     public void closeConnection() throws SQLException {
