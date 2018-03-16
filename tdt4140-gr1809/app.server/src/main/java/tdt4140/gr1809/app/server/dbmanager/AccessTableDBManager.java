@@ -21,7 +21,7 @@ public class AccessTableDBManager extends DBManager {
 		super(connection);
 	}
 	
-	public List<ServiceProvider> getRelatedServiceProviders(UUID userId) throws SQLException {
+	public List<ServiceProvider> getServiceProvidersWithAccessToUser(UUID userId) throws SQLException {
 		String query = "SELECT firstName, ServiceProviders.serviceProviderId, lastName, gender, birthDate from ServiceProviderAccessToUser " +
 				"INNER JOIN ServiceProviders ON ServiceProviders.ServiceProviderId = ServiceProviderAccessToUser.ServiceProviderId " +
 				"WHERE userId = :userId:";
@@ -42,7 +42,7 @@ public class AccessTableDBManager extends DBManager {
 		return serviceProviders;
 	}
 	
-	public List<User> getRelatedUsers(UUID serviceProviderId) throws SQLException {
+	public List<User> getUsersServiceProviderHasAccessTo(UUID serviceProviderId) throws SQLException {
 		String query = "SELECT firstName, Users.userId, lastName, gender, birthDate from ServiceProviderAccessToUser " +
 				"INNER JOIN Users ON Users.UserId = ServiceProviderAccessToUser.UserId " +
 				"WHERE ServiceProviderAccessToUser.serviceProviderId = :serviceProviderId: AND Deleted = 0";
@@ -64,7 +64,7 @@ public class AccessTableDBManager extends DBManager {
 	}
 	
 	
-	public void createRelation(UUID userId, UUID serviceProviderId) throws SQLException {
+	public void giveServiceProviderAccessToUser(UUID userId, UUID serviceProviderId) throws SQLException {
 		String query = "INSERT INTO ServiceProviderAccessToUser (userId, serviceProviderId)" +
 				" values (:userId:, :serviceProviderId:);";
     	NamedParameterStatement statement = new NamedParameterStatement(query, conn);
@@ -73,7 +73,7 @@ public class AccessTableDBManager extends DBManager {
 		statement.getStatement().executeUpdate();
 	}
 	
-	public void removeRelation(UUID userId, UUID serviceProviderId) throws SQLException {
+	public void revokeServiceProviderAccessToUser(UUID userId, UUID serviceProviderId) throws SQLException {
 		String query = "DELETE FROM ServiceProviderAccessToUser " +
 				"WHERE userId = :userId: AND serviceProviderId = :serviceProviderId:";
 		NamedParameterStatement statement = new NamedParameterStatement(query, conn);

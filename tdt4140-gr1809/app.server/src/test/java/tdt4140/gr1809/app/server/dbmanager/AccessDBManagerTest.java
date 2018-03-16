@@ -67,10 +67,10 @@ public class AccessDBManagerTest {
                 .build();
     	serviceProviderDBManager.createServiceProvider(sp);
     	
-    	accessDBManager.createRelation(user.getId(), sp.getId());
+    	accessDBManager.giveServiceProviderAccessToUser(user.getId(), sp.getId());
     	
-    	final List<User> spRelation = accessDBManager.getRelatedUsers(sp.getId());
-    	final List<ServiceProvider> userRelation = accessDBManager.getRelatedServiceProviders(user.getId());
+    	final List<User> spRelation = accessDBManager.getUsersServiceProviderHasAccessTo(sp.getId());
+    	final List<ServiceProvider> userRelation = accessDBManager.getServiceProvidersWithAccessToUser(user.getId());
     	System.out.println(sp.getId());
     	System.out.println(sp.getFirstName());
 		System.out.println(sp.getLastName());
