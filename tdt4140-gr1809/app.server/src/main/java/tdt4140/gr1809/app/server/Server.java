@@ -1,11 +1,19 @@
 package tdt4140.gr1809.app.server;
 
+import static spark.Spark.delete;
+import static spark.Spark.exception;
+import static spark.Spark.get;
+import static spark.Spark.path;
+import static spark.Spark.port;
+import static spark.Spark.post;
+import static spark.Spark.stop;
+
 import org.eclipse.jetty.http.HttpStatus;
+
 import tdt4140.gr1809.app.server.resource.DataResource;
 import tdt4140.gr1809.app.server.resource.TimeFilterResource;
 import tdt4140.gr1809.app.server.resource.UserResource;
-
-import static spark.Spark.*;
+import tdt4140.gr1809.app.server.resource.ServiceProviderResource;
 
 public class Server {
     public static void main(String[] args) throws Exception {
@@ -13,6 +21,7 @@ public class Server {
         UserResource.init();
         TimeFilterResource.init();
         DataResource.init();
+        ServiceProviderResource.init();
     }
 
     public static void startServer(int port) throws Exception {
@@ -32,6 +41,12 @@ public class Server {
         });
         path( "/timefilters", () -> {
             post("", TimeFilterResource::createTimeFilter);
+        });
+        path("/serviceprovider", () -> {
+        		get("/:id", ServiceProviderResource::getServiceProviderById);
+        		post("", ServiceProviderResource::createServiceProvider);
+        		delete("/:id", ServiceProviderResource::deleteServiceProvider);
+        		post("/:id", ServiceProviderResource::updateServiceProvider);
         });
 
         exception(IllegalArgumentException.class, (exception, request, response) -> {
