@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -48,6 +49,11 @@ public class AccessDBManagerTest {
         serviceProviderDBManager = new ServiceProviderDBManager(connection);
         userDBManager = new UserDBManager(connection);
         accessDBManager = new AccessTableDBManager(connection);
+    }
+    
+    @AfterClass
+    public static void closeConnection() throws SQLException {
+        connection.close();
     }
     
     @Test
