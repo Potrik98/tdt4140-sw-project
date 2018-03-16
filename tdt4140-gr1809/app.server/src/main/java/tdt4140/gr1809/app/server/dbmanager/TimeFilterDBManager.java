@@ -15,10 +15,6 @@ public class TimeFilterDBManager extends DBManager {
 	public TimeFilterDBManager() throws Exception {
 		super();
 	}
-
-	public TimeFilterDBManager(Connection connection) {
-	    super(connection);
-    }
 	
 	public List<TimeFilter> getTimeFiltersByUserId(final UUID userId) throws SQLException {
     	String query = "select filterId, userId, startTime, endTime, dataType from TimeFilters" +

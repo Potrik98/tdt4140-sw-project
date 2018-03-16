@@ -16,10 +16,6 @@ public class ServiceProviderClient extends BasicClient {
 		super();
 	}
 	
-	public ServiceProviderClient(String path) {
-		super(path);
-	}
-	
     public Optional<ServiceProvider> getServiceProviderById(final UUID serviceProviderId) {
         final Response response = target
                 .path("/serviceprovider/")

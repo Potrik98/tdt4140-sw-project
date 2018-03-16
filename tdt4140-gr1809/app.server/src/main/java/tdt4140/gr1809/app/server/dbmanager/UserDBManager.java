@@ -14,10 +14,6 @@ public class UserDBManager extends DBManager {
         super();
     }
 
-    public UserDBManager(Connection connection) {
-    	super(connection);
-	}
-
     public Optional<User> getUserById(final UUID userId) throws SQLException {
     	String query = "select firstName, lastName, gender, birthDate from Users" +
 				" where userId = :userId: and deleted = 0;";

@@ -9,20 +9,19 @@ import tdt4140.gr1809.app.core.model.User;
 import tdt4140.gr1809.app.server.dbmanager.UserDBManager;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.Optional;
 import java.util.UUID;
 
 public class UserResource {
-    private static UserDBManager dbManager;
+    public static UserDBManager dbManager;
     private static final Logger log = LoggerFactory.getLogger(UserResource.class);
 
     public static void init() throws Exception {
         dbManager = new UserDBManager();
     }
 
-    public static void init(Connection connection) {
-        dbManager = new UserDBManager(connection);
+    public static void closeConnection() throws Exception {
+        dbManager.closeConnection();
     }
 
     public static String getUserById(Request req, Response res) throws Exception {

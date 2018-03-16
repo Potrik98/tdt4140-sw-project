@@ -28,12 +28,7 @@ public abstract class BasicClient {
         resteasyJackson2Provider.setMapper(User.mapper);
         ResteasyClient client = new ResteasyClientBuilder().register(resteasyJackson2Provider).build();
         target = client.target(serverUri);
-    }
 
-    public BasicClient(final String serverUri) {
-        ResteasyJackson2Provider resteasyJackson2Provider = new ResteasyJackson2Provider();
-        resteasyJackson2Provider.setMapper(User.mapper);
-        ResteasyClient client = new ResteasyClientBuilder().register(resteasyJackson2Provider).build();
-        target = client.target(serverUri);
+        System.out.println("Opened webtarget connection to " + serverUri);
     }
 }

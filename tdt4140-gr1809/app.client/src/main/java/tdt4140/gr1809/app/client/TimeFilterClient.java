@@ -15,10 +15,6 @@ public class TimeFilterClient extends BasicClient {
         super();
     }
 
-    public TimeFilterClient(String path) {
-        super(path);
-    }
-
     public List<TimeFilter> getTimeFiltersForUserId(UUID userId) {
         final Response response = target
                 .path("/user/")
