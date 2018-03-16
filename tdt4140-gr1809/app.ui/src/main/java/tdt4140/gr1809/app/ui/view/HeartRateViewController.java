@@ -3,41 +3,59 @@ package tdt4140.gr1809.app.ui.view;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-
-import tdt4140.gr1809.app.core.model.*;
-import tdt4140.gr1809.app.client.*;
+import javafx.scene.layout.AnchorPane;
+import tdt4140.gr1809.app.client.DataClient;
+import tdt4140.gr1809.app.core.model.DataPoint;
+import tdt4140.gr1809.app.core.util.StreamUtils;
 import tdt4140.gr1809.app.ui.FxAppController;
 import tdt4140.gr1809.app.ui.graph.HeartRateGraph;
+import tdt4140.gr1809.app.ui.graph.TimeAxisGraph;
+
+import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.Random;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class HeartRateViewController implements Initializable {
 	@FXML Label timePeriodLabel;
 
-	@FXML
-	private LineChart<Double, Double> lineGraph;
-
+	//@FXML
+	//private LineChart<Double, Double> lineGraph;
 
 	@FXML
 	private Button clearButton;
 
+	@FXML
+	private AnchorPane graphAnchorPane;
+
 	private HeartRateGraph heartRateGraph;
+	private TimeAxisGraph timeAxisGraph;
 	
 	private FxAppController fxAppController;
 
 
 	@Override
 	public void initialize(final URL url, final ResourceBundle rb) {
-		heartRateGraph = new HeartRateGraph(lineGraph, 10);
-
-
-
-
+		//heartRateGraph = new HeartRateGraph(lineGraph, 10);
+		timeAxisGraph = new TimeAxisGraph();
+		Random random = new Random();
+		List<DataPoint> dataPoints = StreamUtils.takeWhile(
+				Stream.iterate(LocalDateTime.now(), time -> time.minus(1, ChronoUnit.MINUTES)),
+						time -> time.isAfter(LocalDateTime.now().minus(2, ChronoUnit.HOURS)))
+				.map(time -> DataPoint.builder()
+						.time(time)
+						.dataType(DataPoint.DataType.HEART_RATE)
+						.value(40 + random.nextInt(100))
+						.build())
+				.collect(Collectors.toList());
+		timeAxisGraph.addDataPoints(dataPoints);
+		graphAnchorPane.getChildren().add(timeAxisGraph.getGraph());
 	}
 
 
@@ -102,9 +120,9 @@ public class HeartRateViewController implements Initializable {
 	}
 
 	private void clear() {
-		if (lineGraph.isVisible()) {
-			heartRateGraph.clear();
-		}
+		//if (lineGraph.isVisible()) {
+		//	heartRateGraph.clear();
+		//}
 
 
 	}
