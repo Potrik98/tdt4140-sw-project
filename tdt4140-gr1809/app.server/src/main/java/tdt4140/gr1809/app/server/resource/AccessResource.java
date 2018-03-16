@@ -16,10 +16,6 @@ public class AccessResource {
         accessDBManager = new AccessTableDBManager();
     }
 
-    public static void init(Connection connection) {
-        accessDBManager = new AccessTableDBManager(connection);
-    }
-
     public static String giveServiceProviderAccessToUser(Request req, Response res) throws Exception {
         System.out.println("Give sp access to user");
         UUID serviceProviderId = UUID.fromString(req.params("serviceProviderId"));
