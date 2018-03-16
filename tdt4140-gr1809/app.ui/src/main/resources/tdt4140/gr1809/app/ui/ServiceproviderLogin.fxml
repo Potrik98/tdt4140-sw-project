@@ -43,5 +43,6 @@
             <Font size="20.0" />
          </font>
       </Label>
+      <Button layoutX="296.0" layoutY="402.0" mnemonicParsing="false" onAction="#goToLoginView" prefHeight="38.0" prefWidth="334.0" text="Tilbake" />
    </children>
 </AnchorPane>

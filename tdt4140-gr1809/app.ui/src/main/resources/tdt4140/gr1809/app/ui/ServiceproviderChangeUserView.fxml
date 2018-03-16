@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="750" maxWidth="880" minHeight="400.0" minWidth="600.0" prefHeight="750" prefWidth="880" styleClass="root" stylesheets="" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.HeartRateViewController">
+   <children>
+      <HBox prefHeight="750.0" prefWidth="880.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="750.0" prefWidth="282.0">
+               <children>
+                  <Label layoutX="42.0" layoutY="23.0" text="Change user view">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox layoutX="38.0" layoutY="169.0" prefWidth="150.0" />
+                  <Button layoutX="71.0" layoutY="239.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="84.0" text="Change" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="750.0" prefWidth="711.0" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

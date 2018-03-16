@@ -1,5 +1,7 @@
 package tdt4140.gr1809.app.ui;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +21,14 @@ public class ServiceproviderLoginController {
 	@FXML
 	private void initialLoginRequest() {
 		
+		//TODO uuid sjekk -> server sjekk -> bytt til serviceprovider sin home view -> bytt knapper i navbar
+		
+		
+		}
+	
+	@FXML
+	private void goToLoginView() throws IOException {
+		fxAppController.goToLoginView(null);
 	}
 	
 	
