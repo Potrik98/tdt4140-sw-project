@@ -1,5 +1,7 @@
 package tdt4140.gr1809.app.server.dbmanager;
 
+import tdt4140.gr1809.app.core.model.ServiceProvider;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,9 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
-import tdt4140.gr1809.app.core.model.DataPoint;
-import tdt4140.gr1809.app.core.model.ServiceProvider;
 
 public class ServiceProviderDBManager extends DBManager {
 	public ServiceProviderDBManager() throws Exception {
@@ -22,9 +21,9 @@ public class ServiceProviderDBManager extends DBManager {
 	
 	public Optional<ServiceProvider> getServiceProviderById(final UUID serviceProviderId) throws SQLException {
     	String query = "select firstName, lastName, gender, birthDate from ServiceProviders" +
-				" where ServiceProviderId = :ServiceProviderId:;";
+				" where serviceProviderId = :serviceProviderId: and deleted = 0;";
     	NamedParameterStatement statement = new NamedParameterStatement(query, conn);
-    	statement.setString("ServiceProviderId", serviceProviderId.toString());
+    	statement.setString("serviceProviderId", serviceProviderId.toString());
 		ResultSet result = statement.getStatement().executeQuery();
 		if(!result.first()) {
 			return Optional.empty();
@@ -50,6 +49,30 @@ public class ServiceProviderDBManager extends DBManager {
     	statement.setTimestamp("birthDate", serviceProvider.getBirthDate());
 		statement.getStatement().executeUpdate();
     }
+
+	public void updateServiceProvider(final ServiceProvider serviceProvider) throws SQLException {
+		String query = "update ServiceProviders set" +
+				" firstName = :firstName:," +
+				" lastName = :lastName:," +
+				" gender = :gender:," +
+				" birthDate = :birthDate:" +
+				" where serviceProviderId = :serviceProviderId:";
+		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
+		statement.setString("serviceProviderId", serviceProvider.getId().toString());
+		statement.setString("firstName", serviceProvider.getFirstName());
+		statement.setString("lastName", serviceProvider.getLastName());
+		statement.setString("gender", serviceProvider.getGender());
+		statement.setTimestamp("birthDate", serviceProvider.getBirthDate());
+		statement.getStatement().executeUpdate();
+	}
+
+	// Soft delete serviceProvider
+	public boolean deleteServiceProvider(final UUID serviceProviderId) throws SQLException {
+		String query = "update ServiceProviders set deleted = 1 where serviceProviderId = :serviceProviderId:;";
+		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
+		statement.setString("serviceProviderId", serviceProviderId.toString());
+		return statement.getStatement().executeUpdate() == 1;
+	}
 	
 		
 
