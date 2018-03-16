@@ -28,7 +28,7 @@ public class UserResource {
     public static String getUserById(Request req, Response res) throws Exception {
         System.out.println("recieved request");
         log.error("recieved request");
-        UUID userId = UUID.fromString(req.params("id"));
+        UUID userId = UUID.fromString(req.params("userId"));
         System.out.println("Get userId: " + userId.toString());
         Optional<User> user = dbManager.getUserById(userId);
 
@@ -56,7 +56,7 @@ public class UserResource {
     }
 
     public static String updateUser(Request req, Response res) throws Exception {
-        UUID userId = UUID.fromString(req.params("id"));
+        UUID userId = UUID.fromString(req.params("userId"));
         System.out.println("Update: recieved user with id: " + userId);
         final User user = User.from(User.mapper.readValue(req.body(), User.class))
                 .id(userId)
@@ -67,7 +67,7 @@ public class UserResource {
     }
 
     public static String deleteUser(Request req, Response res) throws Exception {
-        UUID userId = UUID.fromString(req.params("id"));
+        UUID userId = UUID.fromString(req.params("userId"));
         System.out.println("Delete userId: " + userId);
         if (dbManager.deleteUser(userId)) {
             res.status(HttpStatus.NO_CONTENT_204);
@@ -78,7 +78,7 @@ public class UserResource {
     }
 
     public static String getDataPointsOfUser(Request req, Response res) throws Exception {
-        UUID userId = UUID.fromString(req.params("id"));
+        UUID userId = UUID.fromString(req.params("userId"));
         System.out.println("Datapoints of userId: " + userId);
         res.status(HttpStatus.OK_200);
         res.type("application/json");
@@ -86,7 +86,7 @@ public class UserResource {
     }
 
     public static String getTimeFiltersOfUser(Request req, Response res) throws Exception {
-        UUID userId = UUID.fromString(req.params("id"));
+        UUID userId = UUID.fromString(req.params("userId"));
         System.out.println("TimeFilters of userId: " + userId);
         res.status(HttpStatus.OK_200);
         res.type("application/json");

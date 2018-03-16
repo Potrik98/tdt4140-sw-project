@@ -10,6 +10,7 @@ import static spark.Spark.stop;
 
 import org.eclipse.jetty.http.HttpStatus;
 
+import tdt4140.gr1809.app.server.resource.AccessResource;
 import tdt4140.gr1809.app.server.resource.DataResource;
 import tdt4140.gr1809.app.server.resource.TimeFilterResource;
 import tdt4140.gr1809.app.server.resource.UserResource;
@@ -20,6 +21,7 @@ public class Server {
         startServer(80);
         UserResource.init();
         TimeFilterResource.init();
+        AccessResource.init();
         DataResource.init();
         ServiceProviderResource.init();
     }
@@ -29,12 +31,23 @@ public class Server {
         System.out.println("Starting server...");
 
         path("/user", () -> {
-            post("/:id", UserResource::updateUser);
             post("", UserResource::createUser);
-            get("/:id", UserResource::getUserById);
-            delete("/:id", UserResource::deleteUser);
-            get("/:id/datapoints", UserResource::getDataPointsOfUser);
-            get("/:id/timefilters", UserResource::getTimeFiltersOfUser);
+            path("/:userId", () -> {
+                post("", UserResource::updateUser);
+                get("", UserResource::getUserById);
+                delete("", UserResource::deleteUser);
+                get("/datapoints", UserResource::getDataPointsOfUser);
+                get("/timefilters", UserResource::getTimeFiltersOfUser);
+
+                path("/serviceproviders", () -> {
+                    get("",
+                            AccessResource::getServiceProvidersWithAccessToUser);
+                    post("/:serviceProviderId",
+                            AccessResource::giveServiceProviderAccessToUser);
+                    delete("/:serviceProviderId",
+                            AccessResource::revokeServiceProviderAccessToUser);
+                });
+            });
         });
         path("/datapoints", () -> {
             post("", DataResource::createDataPoint);
