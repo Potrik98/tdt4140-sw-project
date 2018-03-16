@@ -39,7 +39,8 @@ CREATE TABLE ServiceProviders(
   firstName varchar(255),
   lastName varchar(255),
   gender varchar(255),
-  birthDate TIMESTAMP
+  birthDate TIMESTAMP,
+  deleted integer DEFAULT 0
 );
 
 CREATE TABLE ServiceProviderAccessToUser(
