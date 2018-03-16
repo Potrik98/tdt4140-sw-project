@@ -22,8 +22,8 @@ public class AccessTableDBManager extends DBManager {
 	}
 	
 	public List<ServiceProvider> getRelatedServiceProviders(UUID userId) throws SQLException {
-		String query = "SELECT firstName, lastName, gender, birthDate from ServiceProviders " +
-				"INNER JOIN ServiceProviderAccessToUser ON ServiceProviders.ServiceProviderId = ServiceProviderAccessToUser.ServiceProviderId " +
+		String query = "SELECT firstName, ServiceProviders.serviceProviderId, lastName, gender, birthDate from ServiceProviderAccessToUser " +
+				"INNER JOIN ServiceProviders ON ServiceProviders.ServiceProviderId = ServiceProviderAccessToUser.ServiceProviderId " +
 				"WHERE userId = :userId:";
 		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
 		statement.setString("userId", userId.toString());
@@ -34,7 +34,7 @@ public class AccessTableDBManager extends DBManager {
 					.id(UUID.fromString(result.getString("serviceProviderId")))
 					.firstName(result.getString("firstName"))
 					.lastName(result.getString("lastName"))
-					.birthDate(result.getTimestamp("dataTime").toLocalDateTime())
+					.birthDate(result.getTimestamp("birthdate").toLocalDateTime())
 					.gender(result.getString("gender"))
 					.build();
 			serviceProviders.add(sp);
@@ -43,19 +43,19 @@ public class AccessTableDBManager extends DBManager {
 	}
 	
 	public List<User> getRelatedUsers(UUID serviceProviderId) throws SQLException {
-		String query = "SELECT firstName, lastName, gender, birthDate from ServiceProviders " +
-				"INNER JOIN ServiceProviderAccessToUser ON Users.UserId = ServiceProviderAccessToUser.UserId " +
-				"WHERE serviceProviderId = :serviceProviderId: AND Deleted = 0";
+		String query = "SELECT firstName, Users.userId, lastName, gender, birthDate from ServiceProviderAccessToUser " +
+				"INNER JOIN Users ON Users.UserId = ServiceProviderAccessToUser.UserId " +
+				"WHERE ServiceProviderAccessToUser.serviceProviderId = :serviceProviderId: AND Deleted = 0";
 		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
 		statement.setString("serviceProviderId", serviceProviderId.toString());
 		ResultSet result = statement.getStatement().executeQuery();
 		List<User> users = new ArrayList<>();
 		while(result.next()) {
 			final User user =  User.builder()
-					.id(UUID.fromString(result.getString("serviceProviderId")))
+					.id(UUID.fromString(result.getString("userId")))
 					.firstName(result.getString("firstName"))
 					.lastName(result.getString("lastName"))
-					.birthDate(result.getTimestamp("dataTime").toLocalDateTime())
+					.birthDate(result.getTimestamp("birthdate").toLocalDateTime())
 					.gender(result.getString("gender"))
 					.build();
 			users.add(user);
@@ -66,7 +66,7 @@ public class AccessTableDBManager extends DBManager {
 	
 	public void createRelation(UUID userId, UUID serviceProviderId) throws SQLException {
 		String query = "INSERT INTO ServiceProviderAccessToUser (userId, serviceProviderId)" +
-				" values (:userId:, :serviceProviderId);";
+				" values (:userId:, :serviceProviderId:);";
     	NamedParameterStatement statement = new NamedParameterStatement(query, conn);
     	statement.setString("userId", userId.toString());
     	statement.setString("serviceProviderId", serviceProviderId.toString());
@@ -80,7 +80,6 @@ public class AccessTableDBManager extends DBManager {
 		statement.setString("userId", userId.toString());
 		statement.setString("serviceProviderId", serviceProviderId.toString());
 		statement.getStatement().executeUpdate();
-	}
-	
+	}	
 }
 	

@@ -10,10 +10,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Optional;
 
-import org.junit.*;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import tdt4140.gr1809.app.core.model.ServiceProvider;
 import tdt4140.gr1809.app.core.model.User;
@@ -55,32 +56,37 @@ public class AccessDBManagerTest {
                 .firstName("Firstname")
                 .lastName("Lastname")
                 .gender("gender")
-                .birthDate(LocalDateTime.now())
+                .birthDate(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
                 .build();
     	userDBManager.createUser(user);
     	final ServiceProvider sp = ServiceProvider.builder()
                 .firstName("Firstname")
                 .lastName("Lastname")
                 .gender("gender")
-                .birthDate(LocalDateTime.now())
+                .birthDate(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
                 .build();
     	serviceProviderDBManager.createServiceProvider(sp);
     	
     	accessDBManager.createRelation(user.getId(), sp.getId());
     	
-    	final Optional<User> retrievedUser = userDBManager.getUserById(user.getId()); 
-    	final Optional<ServiceProvider> retrievedSp = serviceProviderDBManager.getServiceProviderById(sp.getId());
-    	
-    	assertThat(retrievedUser).isPresent();
-    	assertThat(retrievedSp).isPresent();
-    	
     	final List<User> spRelation = accessDBManager.getRelatedUsers(sp.getId());
     	final List<ServiceProvider> userRelation = accessDBManager.getRelatedServiceProviders(user.getId());
+    	System.out.println(sp.getId());
+    	System.out.println(sp.getFirstName());
+		System.out.println(sp.getLastName());
+		System.out.println(sp.getGender());
+		System.out.println(sp.getBirthDate());
+    	userRelation.forEach(s -> {
+    		System.out.println(s.getId());
+    		System.out.println(s.getFirstName());
+    		System.out.println(s.getLastName());
+    		System.out.println(s.getGender());
+    		System.out.println(s.getBirthDate());
+    	});
     	
-    	assertThat(spRelation.get(0).getId()).isEqualTo(user.getId());
-    	assertThat(userRelation.get(0).getId()).isEqualTo(sp.getId());
-    	
-    	
+    	assertThat(spRelation).usingFieldByFieldElementComparator()
+    			.containsExactly(user);
+    	assertThat(userRelation).usingFieldByFieldElementComparator()
+				.containsExactly(sp);	
     }
-
 }

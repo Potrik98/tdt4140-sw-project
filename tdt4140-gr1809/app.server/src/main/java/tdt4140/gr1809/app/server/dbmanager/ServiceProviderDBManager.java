@@ -24,7 +24,7 @@ public class ServiceProviderDBManager extends DBManager {
     	String query = "select firstName, lastName, gender, birthDate from ServiceProviders" +
 				" where ServiceProviderId = :ServiceProviderId:;";
     	NamedParameterStatement statement = new NamedParameterStatement(query, conn);
-    	statement.setString("ServideProviderId", serviceProviderId.toString());
+    	statement.setString("ServiceProviderId", serviceProviderId.toString());
 		ResultSet result = statement.getStatement().executeQuery();
 		if(!result.first()) {
 			return Optional.empty();
@@ -41,9 +41,9 @@ public class ServiceProviderDBManager extends DBManager {
 	
 	public void createServiceProvider(final ServiceProvider serviceProvider) throws SQLException {
     	String query = "insert into ServiceProviders (serviceProviderId, firstName, lastName, gender, birthDate)" +
-				" values (:ServiceProviderId:, :firstName:, :lastName:, :gender:, :birthDate:);";
+				" values (:serviceProviderId:, :firstName:, :lastName:, :gender:, :birthDate:);";
     	NamedParameterStatement statement = new NamedParameterStatement(query, conn);
-    	statement.setString("ServiceProviderId", serviceProvider.getId().toString());
+    	statement.setString("serviceProviderId", serviceProvider.getId().toString());
     	statement.setString("firstName", serviceProvider.getFirstName());
     	statement.setString("lastName", serviceProvider.getLastName());
     	statement.setString("gender", serviceProvider.getGender());
