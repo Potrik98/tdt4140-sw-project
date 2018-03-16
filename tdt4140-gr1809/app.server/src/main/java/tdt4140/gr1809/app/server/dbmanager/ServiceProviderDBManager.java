@@ -24,7 +24,7 @@ public class ServiceProviderDBManager extends DBManager {
     	String query = "select firstName, lastName, gender, birthDate from ServiceProviders" +
 				" where ServiceProviderId = :ServiceProviderId:;";
     	NamedParameterStatement statement = new NamedParameterStatement(query, conn);
-    	statement.setString("ServideProviderId", serviceProviderId.toString());
+    	statement.setString("ServiceProviderId", serviceProviderId.toString());
 		ResultSet result = statement.getStatement().executeQuery();
 		if(!result.first()) {
 			return Optional.empty();
@@ -40,10 +40,10 @@ public class ServiceProviderDBManager extends DBManager {
     }
 	
 	public void createServiceProvider(final ServiceProvider serviceProvider) throws SQLException {
-    	String query = "insert into ServiceProviders (userId, firstName, lastName, gender, birthDate)" +
-				" values (:ServiceProviderId:, :firstName:, :lastName:, :gender:, :birthDate:);";
+    	String query = "insert into ServiceProviders (serviceProviderId, firstName, lastName, gender, birthDate)" +
+				" values (:serviceProviderId:, :firstName:, :lastName:, :gender:, :birthDate:);";
     	NamedParameterStatement statement = new NamedParameterStatement(query, conn);
-    	statement.setString("ServiceProviderId", serviceProvider.getId().toString());
+    	statement.setString("serviceProviderId", serviceProvider.getId().toString());
     	statement.setString("firstName", serviceProvider.getFirstName());
     	statement.setString("lastName", serviceProvider.getLastName());
     	statement.setString("gender", serviceProvider.getGender());
@@ -51,26 +51,6 @@ public class ServiceProviderDBManager extends DBManager {
 		statement.getStatement().executeUpdate();
     }
 	
-	public List<ServiceProvider> getRelatedServiceProviders(UUID userId) throws SQLException{
-		String query = "SELECT firstName, lastName, gender, birthDate from ServiceProviders " +
-				"INNER JOIN ServiceProviderAccessToUser ON ServiceProviders.ServiceProviderId = ServiceProviderAccessToUser.ServiceProviderId " +
-				"WHERE userId = :userId:";
-		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
-		statement.setString("userId", userId.toString());
-		ResultSet result = statement.getStatement().executeQuery();
-		List<ServiceProvider> serviceProviders = new ArrayList<>();
-		while(result.next()) {
-			final ServiceProvider sp =  ServiceProvider.builder()
-					.id(UUID.fromString(result.getString("serviceProviderId")))
-					.firstName(result.getString("firstName"))
-					.lastName(result.getString("lastName"))
-					.birthDate(result.getTimestamp("dataTime").toLocalDateTime())
-					.gender(result.getString("gender"))
-					.build();
-			serviceProviders.add(sp);
-		}
-		return serviceProviders;
-	}
 		
 
 }
