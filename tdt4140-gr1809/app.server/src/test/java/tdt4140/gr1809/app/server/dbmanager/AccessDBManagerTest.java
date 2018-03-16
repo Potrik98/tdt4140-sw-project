@@ -78,4 +78,32 @@ public class AccessDBManagerTest {
     	assertThat(userRelation).usingFieldByFieldElementComparator()
 				.containsExactly(sp);	
     }
+    
+    @Test
+    public void testrevokeServiceProviderAccessToUser() throws SQLException {
+    	final User user = User.builder()
+                .firstName("Firstname")
+                .lastName("Lastname")
+                .gender("gender")
+                .birthDate(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
+                .build();
+    	userDBManager.createUser(user);
+    	final ServiceProvider sp = ServiceProvider.builder()
+                .firstName("Firstname")
+                .lastName("Lastname")
+                .gender("gender")
+                .birthDate(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
+                .build();
+    	serviceProviderDBManager.createServiceProvider(sp);
+    	
+    	accessDBManager.giveServiceProviderAccessToUser(user.getId(), sp.getId());
+    	accessDBManager.revokeServiceProviderAccessToUser(user.getId(), sp.getId());
+    	final List<User> spRelation = accessDBManager.getUsersServiceProviderHasAccessTo(sp.getId());
+    	final List<ServiceProvider> userRelation = accessDBManager.getServiceProvidersWithAccessToUser(user.getId());
+    	
+    	assertThat(spRelation).isEmpty();
+    	assertThat(userRelation).isEmpty();
+    	
+    	
+    }
 }
