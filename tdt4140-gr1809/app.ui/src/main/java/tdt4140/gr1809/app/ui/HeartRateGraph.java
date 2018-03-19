@@ -1,7 +1,9 @@
 package tdt4140.gr1809.app.ui;
 
 import javafx.scene.chart.XYChart;
+import tdt4140.gr1809.app.core.model.*;
 
+import java.util.List;
 import java.util.function.Function;
 
 public class HeartRateGraph {
@@ -23,6 +25,17 @@ public class HeartRateGraph {
 
         }
         graph.getData().add(series);
+    }
+    
+    public void plotHeartRateLine(List<DataPoint> dataPoints) {
+    	//craete a data series
+    	final XYChart.Series<Double, Double> series = new XYChart.Series<>();
+    	//add the datapoints to the series
+    	for(int i = 0; i < dataPoints.size(); i++) {
+    		plotPoint(i, dataPoints.get(i).getValue(),  series);
+    	}
+    	//plot the data
+    	graph.getData().add(series);
     }
 
     private void plotPoint(final double x, final double y,

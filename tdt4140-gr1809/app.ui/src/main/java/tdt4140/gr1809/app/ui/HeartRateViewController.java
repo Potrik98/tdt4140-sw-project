@@ -14,7 +14,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import tdt4140.gr1809.app.core.model.*;
+import tdt4140.gr1809.app.core.model.DataPoint.DataPointBuilder;
+import tdt4140.gr1809.app.client.*;
 
 public class HeartRateViewController implements Initializable {
 	@FXML Label timePeriodLabel;
@@ -71,8 +77,22 @@ public class HeartRateViewController implements Initializable {
 
 
 	private void plotHeartRate(int avg, double range) {
+		/*List<DataPoint> dataPoints = new ArrayList<>();
+		for(int i = 0; i < 20; i++) {
+			DataPoint dataPoint = DataPoint.builder()
+					.value(i)
+					.build();
+			dataPoints.add(dataPoint);
+		}*/
 		heartRateGraph.clear();
-		heartRateGraph.plotHeartRateLine(avg, range);
+		DataClient dataClient = new DataClient();
+		List<DataPoint> points = dataClient.getDataPointsForUserId(fxAppController.user.getId());
+		for(int i = 0; i < points.size(); i++) {
+			System.out.println("data: " + points.get(i).getValue());
+		}
+		heartRateGraph.plotHeartRateLine(points);
+		
+//		heartRateGraph.plotHeartRateLine(avg, range);
 	}
 
 	@FXML
