@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Objects;
 import java.util.Properties;
 
 public abstract class DBManager {
@@ -23,9 +24,18 @@ public abstract class DBManager {
         }
         Class.forName(connectionProps.getProperty("driver")).newInstance();
         System.out.println("Opening db connection to " + connectionProps.getProperty("dbname"));
-        return DriverManager.getConnection(
+        Connection connection = DriverManager.getConnection(
                 connectionProps.getProperty("dbname"),
                 connectionProps);
+        if (Objects.isNull(connection.getCatalog())
+                || connection.getCatalog().isEmpty()) {
+            connection.setCatalog(connectionProps.getProperty("catalog"));
+        }
+        if (Objects.isNull(connection.getSchema())
+                || connection.getSchema().isEmpty()) {
+            connection.setSchema(connectionProps.getProperty("schema"));
+        }
+        return connection;
     }
 
     public static void loadCreateScript() throws Exception {
