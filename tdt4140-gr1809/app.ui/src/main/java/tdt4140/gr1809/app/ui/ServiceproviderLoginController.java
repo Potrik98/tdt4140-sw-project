@@ -13,6 +13,7 @@ public class ServiceproviderLoginController {
 	@FXML private TextField PasswordTextfield;
 	@FXML private Label LoginStatus;
 	@FXML private Button graphViewButton;
+	@FXML private Button createUserButton;
 	@FXML private Button heartRateViewButton;
 	@FXML private AnchorPane NavBar;
 	
@@ -20,6 +21,8 @@ public class ServiceproviderLoginController {
 	
 	@FXML
 	private void initialLoginRequest() {
+
+
 		
 		//TODO uuid sjekk -> server sjekk -> bytt til serviceprovider sin home view -> bytt knapper i navbar
 		
@@ -29,6 +32,11 @@ public class ServiceproviderLoginController {
 	@FXML
 	private void goToLoginView() throws IOException {
 		fxAppController.goToLoginView(null);
+	}
+
+	public void createUserButtonPressed() throws IOException {
+		fxAppController.goToServiceProviderRegisterView(null);
+
 	}
 	
 	

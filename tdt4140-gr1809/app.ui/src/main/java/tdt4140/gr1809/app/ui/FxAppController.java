@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import tdt4140.gr1809.app.core.model.ServiceProvider;
 import tdt4140.gr1809.app.core.model.User;
 import javafx.fxml.Initializable;
 import java.net.URL;
@@ -31,6 +32,7 @@ public class FxAppController implements Initializable{
 	@FXML private AnchorPane NavBar;
 
 	private RegisterViewController registerViewController;
+	private RegisterServiceProviderViewController registerServiceProviderViewController;
 	private ProfileViewController profileviewController;
 	private ServiceProviderViewController serviceProviderViewController;
 	private LoginController loginController;
@@ -39,6 +41,7 @@ public class FxAppController implements Initializable{
 	public FxAppController Appcontroller;
 	public ServiceproviderLoginController serviceProviderLoginViewController;
 	public User user;
+	public ServiceProvider serviceProvider;
 
 
 	public void goToRegisterView(ActionEvent event) throws IOException{
@@ -48,6 +51,16 @@ public class FxAppController implements Initializable{
 		loader.load();
 		registerViewController = loader.getController();
 		registerViewController.setfxAppController(this);
+		rightPane.getChildren().add(loader.getRoot());
+	}
+
+	public void goToServiceProviderRegisterView(ActionEvent event) throws IOException{
+		rightPane.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("RegisterServiceProviderView.fxml"));
+		loader.load();
+		registerServiceProviderViewController = loader.getController();
+		registerServiceProviderViewController.setfxAppController(this);
 		rightPane.getChildren().add(loader.getRoot());
 	}
 
