@@ -29,7 +29,7 @@ CREATE TABLE TimeFilters(
   filterId varchar(36) NOT NULL PRIMARY KEY,
   userId varchar(36),
   startTime TIMESTAMP,
-  endTime TIMESTAMP,
+  endTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
   dataType varchar(30),
   FOREIGN KEY (userId) REFERENCES Users(userId)
 );
