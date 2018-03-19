@@ -48,6 +48,8 @@ public class DataGeneratorSteps {
 					.value(i)
 					.dataType(dataType)
 					.build();
+			DataClient client = new DataClient();
+			client.createDataPoint(datapoint);
 		}
 	}
 }
