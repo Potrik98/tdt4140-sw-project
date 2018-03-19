@@ -41,6 +41,7 @@ public class LoginController {
 		fxAppController.changeNavbarVisibility(true);
 		
 		DataGeneratorHeartbeat beat = new DataGeneratorHeartbeat(fxAppController.user.getId(), LocalDateTime.now(), DataPoint.DataType.HEART_RATE);
+		beat.generateRandomHeartbeat();
 	}
 	
 	@FXML
