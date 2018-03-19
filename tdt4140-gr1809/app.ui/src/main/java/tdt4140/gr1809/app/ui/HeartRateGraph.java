@@ -22,18 +22,6 @@ public class HeartRateGraph {
         this.graph = lineGraph;
         this.range = range;
     }
-
-    /*
-    public void plotHeartRateLine(int avg, double range) {
-        final XYChart.Series<Double, Double> series = new XYChart.Series<Double, Double>();
-        for (double x = 0; x <= range; x = x + 1) {
-            //just som random numbers around an average heart rate
-            double variation = (Math.random() *10) + avg - (Math.random()*12);
-            plotPoint(x, variation, series);
-
-        }
-        graph.getData().add(series);
-    }*/
     
     public void plotHeartRateLine(List<DataPoint> dataPoints, int timePeriod) {
     	//sort the dataPoint by their time
@@ -53,11 +41,11 @@ public class HeartRateGraph {
     		if(dataPoints.get(i).getTime().isAfter(range)) {
     			//time the datapoint was recorded
     			LocalDateTime dataPointTime = dataPoints.get(i).getTime();
-    			//calculate how many minutes ago it was calculated
+    			//calculate how many minutes ago it was recorded
     			int minutes = (int) dataPointTime.until(LocalDateTime.now(), ChronoUnit.MINUTES);
     			minutes += (int) dataPointTime.until(LocalDateTime.now(), ChronoUnit.HOURS)*60;
     			minutes += (int) dataPointTime.until(LocalDateTime.now(), ChronoUnit.DAYS)*24*60;
-        		plotPoint(minutes, dataPoints.get(i).getValue(), series);
+        		plotPoint(-minutes, dataPoints.get(i).getValue(), series);
     		}
     	}
     	//plot the data

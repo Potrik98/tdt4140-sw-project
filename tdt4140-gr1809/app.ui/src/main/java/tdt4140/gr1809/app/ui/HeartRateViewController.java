@@ -48,10 +48,9 @@ public class HeartRateViewController implements Initializable {
 
 
 	// Methods just to illustrate that we can plot different time intervals.
-	// The range can possibly be the length of the input data array?
 	@FXML
 	private void plotHeartRateLastHour(final ActionEvent event) {
-		plotHeartRate(60);
+		plotHeartRate(1);
 		timePeriodLabel.setText("Last Hour");
 	}
 
@@ -78,10 +77,28 @@ public class HeartRateViewController implements Initializable {
 	}
 
 	private void plotHeartRate(int timePeriod) {
+		//clear the graph
 		heartRateGraph.clear();
+		//create a dataclient to get the datapoints
 		DataClient dataClient = new DataClient();
 		List<DataPoint> points = dataClient.getDataPointsForUserId(fxAppController.user.getId());
+		
+		//if there are no datapoints create 1h of fake data
+		/*
+		if(points.size() == 0) {
+			for(int i = 0; i < 60; i++) {
+				int value = (int)((Math.sin(360*(i*3/60))*50.0) + 100);
+				DataPoint newPoint = DataPoint.builder()
+						.userId(fxAppController.user.getId())
+						.time(LocalDateTime.now().minusMinutes(i))
+						.value(value)
+						.dataType(DataPoint.DataType.HEART_RATE)
+						.build();
+				dataClient.createDataPoint(newPoint);
+			}
+		}*/
 
+		//plot the dataPoints
 		heartRateGraph.plotHeartRateLine(points, timePeriod);
 	}
 
