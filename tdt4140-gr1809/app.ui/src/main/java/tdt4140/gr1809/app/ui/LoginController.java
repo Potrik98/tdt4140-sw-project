@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import tdt4140.gr1809.app.client.*;
+import tdt4140.gr1809.app.core.model.DataPoint;
 import tdt4140.gr1809.app.core.model.User;
 import tdt4140.gr1809.app.ui.FxAppController;
 import javafx.scene.layout.AnchorPane;
@@ -38,6 +39,8 @@ public class LoginController {
 		
 		fxAppController.goToProfileView(null);
 		fxAppController.changeNavbarVisibility(true);
+		
+		DataGeneratorHeartbeat beat = new DataGeneratorHeartbeat(fxAppController.user.getId(), LocalDateTime.now(), DataPoint.DataType.HEART_RATE);
 	}
 	
 	@FXML
