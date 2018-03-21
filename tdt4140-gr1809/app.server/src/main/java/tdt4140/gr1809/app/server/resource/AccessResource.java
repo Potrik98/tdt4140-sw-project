@@ -6,7 +6,6 @@ import spark.Response;
 import tdt4140.gr1809.app.core.model.User;
 import tdt4140.gr1809.app.server.dbmanager.AccessTableDBManager;
 
-import java.sql.Connection;
 import java.util.UUID;
 
 public class AccessResource {
@@ -14,6 +13,10 @@ public class AccessResource {
 
     public static void init() throws Exception {
         accessDBManager = new AccessTableDBManager();
+    }
+
+    public static void closeConnection() throws Exception {
+        accessDBManager.closeConnection();
     }
 
     public static String giveServiceProviderAccessToUser(Request req, Response res) throws Exception {

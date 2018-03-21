@@ -25,6 +25,7 @@ public class Server {
         AccessResource.init();
         DataResource.init();
         ServiceProviderResource.init();
+        NotificationResource.init();
     }
 
     public static void startServer(int port) throws Exception {
