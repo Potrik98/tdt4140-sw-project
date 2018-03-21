@@ -22,6 +22,19 @@ public abstract class AbstractGenerator {
         random = new Random();
     }
 
+    public static AbstractGenerator getDataGenerator(final UUID userId,
+                                                     final DataPoint.DataType dataType) {
+        switch (dataType) {
+            case STEPS:
+                return new GeneratorSteps(userId);
+            case HEART_RATE:
+                return new GeneratorHeartRate(userId);
+            case TEMPERATURE:
+                return new GeneratorTemperature(userId);
+        }
+        throw new IllegalArgumentException("Unknown data type : " + dataType);
+    }
+
     public List<DataPoint> generateDataPoints(final int count) {
         return Streams.zip(
                 Stream.iterate(
