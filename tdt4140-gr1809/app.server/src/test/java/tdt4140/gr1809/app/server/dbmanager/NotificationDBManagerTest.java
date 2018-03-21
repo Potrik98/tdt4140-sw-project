@@ -23,10 +23,12 @@ public class NotificationDBManagerTest {
     public static void openConnection() throws Exception {
     	userDBManager = new UserDBManager();
         notificationDBManager = new NotificationDBManager();
+        DBManager.loadCreateScript();
     }
 
     @AfterClass
     public static void closeConnection() throws SQLException {
+    	userDBManager.closeConnection();
         notificationDBManager.closeConnection();
     }
     
