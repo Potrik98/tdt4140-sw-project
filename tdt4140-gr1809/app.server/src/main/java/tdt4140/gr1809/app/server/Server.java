@@ -12,6 +12,7 @@ import org.eclipse.jetty.http.HttpStatus;
 
 import tdt4140.gr1809.app.server.resource.AccessResource;
 import tdt4140.gr1809.app.server.resource.DataResource;
+import tdt4140.gr1809.app.server.resource.NotificationResource;
 import tdt4140.gr1809.app.server.resource.TimeFilterResource;
 import tdt4140.gr1809.app.server.resource.UserResource;
 import tdt4140.gr1809.app.server.resource.ServiceProviderResource;
@@ -38,6 +39,7 @@ public class Server {
                 delete("", UserResource::deleteUser);
                 get("/datapoints", UserResource::getDataPointsOfUser);
                 get("/timefilters", UserResource::getTimeFiltersOfUser);
+                get("/notifications", UserResource::getNotificationsOfUser);
 
                 path("/serviceproviders", () -> {
                     get("",
@@ -60,6 +62,9 @@ public class Server {
         		post("", ServiceProviderResource::createServiceProvider);
         		delete("/:id", ServiceProviderResource::deleteServiceProvider);
         		post("/:id", ServiceProviderResource::updateServiceProvider);
+        });
+        path("/notifications", () -> {
+        	post("", NotificationResource::createNotification);
         });
 
         exception(IllegalArgumentException.class, (exception, request, response) -> {
