@@ -1,25 +1,26 @@
-package tdt4140.gr1809.app.client;
+package tdt4140.gr1809.app.datagen.generator;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.UUID;
 
+import tdt4140.gr1809.app.client.DataClient;
 import tdt4140.gr1809.app.core.model.DataPoint;
 import tdt4140.gr1809.app.core.model.DataPoint.DataType;
 
-public class DataGeneratorSteps {
+public class DataGeneratorTemperature {
 	public UUID userId;
 	private LocalDateTime time;
 	private DataType dataType;
 	
-	public DataGeneratorSteps(UUID userID, LocalDateTime datetime, DataType type) {
+	public DataGeneratorTemperature(UUID userID, LocalDateTime datetime, DataType type) {
 		this.userId = userID;
 		this.time = datetime;
 		this.dataType = type;
 	}
-
-	public void generateRandomSteps() {
+	
+	public void generateRandomTemperature() {
 		int n = 0;
 		
 		Random rand = new Random();
@@ -28,7 +29,7 @@ public class DataGeneratorSteps {
 		
 		for (int i = 1;i<30;i++) {
 			int upOrDown = rand.nextInt(2);
-			int delta = rand.nextInt(200);
+			int delta = rand.nextInt(1);
 			if (upOrDown == 1) {
 				int temp = numbers.get(i-1);
 				numbers.add(temp + delta);

@@ -1,19 +1,16 @@
 package tdt4140.gr1809.app.ui;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.UUID;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import tdt4140.gr1809.app.client.*;
-import tdt4140.gr1809.app.core.model.DataPoint;
-import tdt4140.gr1809.app.core.model.User;
-import tdt4140.gr1809.app.ui.FxAppController;
 import javafx.scene.layout.AnchorPane;
+import tdt4140.gr1809.app.client.UserClient;
+import tdt4140.gr1809.app.core.model.User;
+
+import java.io.IOException;
+import java.util.Optional;
+import java.util.UUID;
 
 
 public class LoginController {
@@ -39,9 +36,6 @@ public class LoginController {
 		
 		fxAppController.goToProfileView(null);
 		fxAppController.changeNavbarVisibility(true);
-		
-		DataGeneratorHeartbeat beat = new DataGeneratorHeartbeat(fxAppController.user.getId(), LocalDateTime.now(), DataPoint.DataType.HEART_RATE);
-		beat.generateRandomHeartbeat();
 	}
 	
 	@FXML

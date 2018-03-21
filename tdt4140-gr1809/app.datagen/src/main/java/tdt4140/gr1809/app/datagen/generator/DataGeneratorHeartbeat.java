@@ -1,10 +1,11 @@
-package tdt4140.gr1809.app.client;
+package tdt4140.gr1809.app.datagen.generator;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.UUID;
 
+import tdt4140.gr1809.app.client.DataClient;
 import tdt4140.gr1809.app.core.model.DataPoint;
 import tdt4140.gr1809.app.core.model.DataPoint.DataType;
 
