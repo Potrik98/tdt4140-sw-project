@@ -11,7 +11,7 @@ import tdt4140.gr1809.app.core.model.Notification;
 
 public class NotificationDBManager extends DBManager {
 
-	protected NotificationDBManager() throws Exception {
+	public NotificationDBManager() throws Exception {
 		super();
 		// TODO Auto-generated constructor stub
 	}
