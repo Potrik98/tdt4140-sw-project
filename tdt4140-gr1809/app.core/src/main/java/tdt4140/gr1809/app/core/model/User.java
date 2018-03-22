@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -14,6 +15,7 @@ public class User {
 	private final String lastName;
 	private final String gender;
 	private final LocalDateTime birthDate;
+	@Null
 	private final Integer maxPulse;
 
 	public static final ObjectMapper mapper = new ObjectMapper()
