@@ -34,6 +34,7 @@ public class DataIntegrationTest {
                 .lastName("LastName")
                 .birthDate(LocalDateTime.now())
                 .gender("gender")
+                .maxPulse(123)
                 .build();
         userClient.createUser(user);
 

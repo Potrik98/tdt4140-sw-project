@@ -30,6 +30,7 @@ public class UserIntegrationTest {
                 .lastName("LastName")
                 .birthDate(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
                 .gender("gender")
+                .maxPulse(123)
                 .build();
         userClient.createUser(user);
 
@@ -46,6 +47,7 @@ public class UserIntegrationTest {
                 .lastName("LastName")
                 .birthDate(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
                 .gender("gender")
+                .maxPulse(123)
                 .build();
         userClient.createUser(user);
 
@@ -53,6 +55,7 @@ public class UserIntegrationTest {
                 .firstName("NewFirstName")
                 .lastName("NewLastName")
                 .birthDate(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
+                .maxPulse(123)
                 .build();
         userClient.updateUser(newUser);
 
@@ -69,6 +72,7 @@ public class UserIntegrationTest {
                 .lastName("LastName")
                 .birthDate(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
                 .gender("gender")
+                .maxPulse(123)
                 .build();
         userClient.createUser(user);
 

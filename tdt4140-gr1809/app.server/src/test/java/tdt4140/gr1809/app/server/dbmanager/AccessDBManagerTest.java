@@ -42,6 +42,7 @@ public class AccessDBManagerTest {
                 .lastName("Lastname")
                 .gender("gender")
                 .birthDate(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
+                .maxPulse(123)
                 .build();
     	userDBManager.createUser(user);
     	final ServiceProvider sp = ServiceProvider.builder()
@@ -71,6 +72,7 @@ public class AccessDBManagerTest {
                 .lastName("Lastname")
                 .gender("gender")
                 .birthDate(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
+                .maxPulse(123)
                 .build();
     	userDBManager.createUser(user);
     	final ServiceProvider sp = ServiceProvider.builder()

@@ -37,6 +37,7 @@ public class DataDBManagerTest {
                 .lastName("Lastname")
                 .gender("gender")
                 .birthDate(LocalDateTime.now())
+                .maxPulse(123)
                 .build();
         userDBManager.createUser(user);
         final DataPoint data = DataPoint.builder()

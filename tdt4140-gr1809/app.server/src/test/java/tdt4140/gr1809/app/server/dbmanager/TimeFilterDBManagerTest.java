@@ -38,6 +38,7 @@ public class TimeFilterDBManagerTest {
                 .lastName("Lastname")
                 .gender("gender")
                 .birthDate(LocalDateTime.now())
+                .maxPulse(123)
                 .build();
         userDBManager.createUser(user);
         final TimeFilter timeFilter = TimeFilter.builder()
