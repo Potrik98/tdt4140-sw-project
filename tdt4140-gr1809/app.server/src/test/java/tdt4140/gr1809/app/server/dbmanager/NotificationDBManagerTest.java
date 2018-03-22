@@ -3,7 +3,6 @@ package tdt4140.gr1809.app.server.dbmanager;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import tdt4140.gr1809.app.core.model.DataPoint;
 import tdt4140.gr1809.app.core.model.Notification;
 import tdt4140.gr1809.app.core.model.User;
 
@@ -40,11 +39,12 @@ public class NotificationDBManagerTest {
                 .lastName("Lastname")
                 .gender("gender")
                 .birthDate(LocalDateTime.now())
+                .maxPulse(123)
                 .build();
         userDBManager.createUser(user);
         final Notification notification = Notification.builder()
         		.userId(user.getId())
-                .message("Hei og hå, du kommer til å dø snart")
+                .message("Hei og hï¿½, du kommer til ï¿½ dï¿½ snart")
                 .time(LocalDateTime.now())
                 .build();
 

@@ -17,14 +17,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AccessDBManagerTest {
 	private static ServiceProviderDBManager serviceProviderDBManager;
     private static UserDBManager userDBManager;
-    private static AccessTableDBManager accessDBManager;
+    private static AccessDBManager accessDBManager;
     private static Connection connection;
 
     @BeforeClass
     public static void openConnection() throws Exception {
         serviceProviderDBManager = new ServiceProviderDBManager();
         userDBManager = new UserDBManager();
-        accessDBManager = new AccessTableDBManager();
+        accessDBManager = new AccessDBManager();
         DBManager.loadCreateScript();
     }
     
@@ -42,6 +42,7 @@ public class AccessDBManagerTest {
                 .lastName("Lastname")
                 .gender("gender")
                 .birthDate(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
+                .maxPulse(123)
                 .build();
     	userDBManager.createUser(user);
     	final ServiceProvider sp = ServiceProvider.builder()
@@ -71,6 +72,7 @@ public class AccessDBManagerTest {
                 .lastName("Lastname")
                 .gender("gender")
                 .birthDate(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
+                .maxPulse(123)
                 .build();
     	userDBManager.createUser(user);
     	final ServiceProvider sp = ServiceProvider.builder()

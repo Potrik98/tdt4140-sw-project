@@ -15,7 +15,7 @@ public class UserDBManager extends DBManager {
     }
 
     public Optional<User> getUserById(final UUID userId) throws SQLException {
-    	String query = "select firstName, lastName, gender, birthDate from Users" +
+    	String query = "select firstName, lastName, gender, birthDate, maxPulse from Users" +
 				" where userId = :userId: and deleted = 0;";
     	NamedParameterStatement statement = new NamedParameterStatement(query, conn);
     	statement.setString("userId", userId.toString());
@@ -29,19 +29,21 @@ public class UserDBManager extends DBManager {
                 .lastName(result.getString("lastName"))
                 .gender(result.getString("gender"))
                 .birthDate(result.getTimestamp("birthDate").toLocalDateTime())
+				.maxPulse(result.getInt("maxPulse"))
                 .build();
         return Optional.of(user);
     }
 
     public void createUser(final User user) throws SQLException {
-    	String query = "insert into Users (userId, firstName, lastName, gender, birthDate)" +
-				" values (:userId:, :firstName:, :lastName:, :gender:, :birthDate:);";
+    	String query = "insert into Users (userId, firstName, lastName, gender, birthDate, maxPulse)" +
+				" values (:userId:, :firstName:, :lastName:, :gender:, :birthDate:, :maxPulse:);";
     	NamedParameterStatement statement = new NamedParameterStatement(query, conn);
     	statement.setString("userId", user.getId().toString());
     	statement.setString("firstName", user.getFirstName());
     	statement.setString("lastName", user.getLastName());
     	statement.setString("gender", user.getGender());
     	statement.setTimestamp("birthDate", user.getBirthDate());
+    	statement.setInt("maxPulse", user.getMaxPulse());
 		statement.getStatement().executeUpdate();
     }
 
@@ -50,7 +52,8 @@ public class UserDBManager extends DBManager {
 				" firstName = :firstName:," +
 				" lastName = :lastName:," +
 				" gender = :gender:," +
-				" birthDate = :birthDate:" +
+				" birthDate = :birthDate:," +
+				" maxPulse = :maxPulse:" +
 				" where userId = :userId:";
 		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
 		statement.setString("userId", user.getId().toString());
@@ -58,6 +61,7 @@ public class UserDBManager extends DBManager {
 		statement.setString("lastName", user.getLastName());
 		statement.setString("gender", user.getGender());
 		statement.setTimestamp("birthDate", user.getBirthDate());
+		statement.setInt("maxPulse", user.getMaxPulse());
 		statement.getStatement().executeUpdate();
 	}
 

@@ -37,6 +37,7 @@ public class NotificationIntegrationTest {
 	                .lastName("LastName")
 	                .birthDate(LocalDateTime.now())
 	                .gender("gender")
+					.maxPulse(123)
 	                .build();
 	        userClient.createUser(user);
 	        
@@ -44,7 +45,7 @@ public class NotificationIntegrationTest {
 	        		.id(UUID.randomUUID())
 	        		.userId(user.getId())
 	        		.time(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
-	        		.message("Hei og hå, du kommer til å dø igjen.")
+	        		.message("Hei og hï¿½, du kommer til ï¿½ dï¿½ igjen.")
 	        		.build();
 	        notificationClient.createNotification(n1);
 	        
@@ -65,7 +66,7 @@ public class NotificationIntegrationTest {
 	    public void testCreateInvalidNotification() {
 	    	final Notification n1 = Notification.builder()
 	    			.userId(UUID.randomUUID())
-	    			.message("Denne bør ikke funke.")
+	    			.message("Denne bï¿½r ikke funke.")
 	    			.time(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
 	    			.build();
 	    	assertThatExceptionOfType(ClientException.class)

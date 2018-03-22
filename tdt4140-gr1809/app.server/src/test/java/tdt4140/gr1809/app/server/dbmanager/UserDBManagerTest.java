@@ -33,6 +33,7 @@ public class UserDBManagerTest {
                 .lastName("Lastname")
                 .gender("gender")
                 .birthDate(LocalDateTime.now())
+                .maxPulse(123)
                 .build();
 
         dbManager.createUser(user);
@@ -59,6 +60,7 @@ public class UserDBManagerTest {
                 .lastName("Lastname")
                 .gender("gender")
                 .birthDate(LocalDateTime.now())
+                .maxPulse(123)
                 .build();
 
         dbManager.createUser(user);
@@ -68,6 +70,7 @@ public class UserDBManagerTest {
                 .lastName("Newlastname")
                 .gender("Gender")
                 .birthDate(LocalDateTime.now())
+                .maxPulse(111)
                 .build();
 
         dbManager.updateUser(updatedUser);
@@ -85,6 +88,7 @@ public class UserDBManagerTest {
                 .lastName("Lastname")
                 .gender("gender")
                 .birthDate(LocalDateTime.now())
+                .maxPulse(123)
                 .build();
 
         dbManager.createUser(user);

@@ -38,6 +38,7 @@ public class FilterTest {
                 .lastName("Lastname")
                 .gender("gender")
                 .birthDate(LocalDateTime.now())
+                .maxPulse(123)
                 .build();
         UserResource.dbManager.createUser(user);
 
@@ -104,6 +105,7 @@ public class FilterTest {
                 .lastName("One")
                 .gender("gender")
                 .birthDate(LocalDateTime.now())
+                .maxPulse(123)
                 .build();
         UserResource.dbManager.createUser(user1);
         final User user2 = User.builder()
@@ -111,6 +113,7 @@ public class FilterTest {
                 .lastName("Two")
                 .gender("gender")
                 .birthDate(LocalDateTime.now())
+                .maxPulse(123)
                 .build();
         UserResource.dbManager.createUser(user2);
         final TimeFilter filterHeartRateForUser2 = TimeFilter.builder()

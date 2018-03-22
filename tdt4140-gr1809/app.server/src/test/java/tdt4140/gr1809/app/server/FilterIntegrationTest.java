@@ -48,6 +48,7 @@ public class FilterIntegrationTest {
                 .lastName("Lastname")
                 .gender("gender")
                 .birthDate(LocalDateTime.now())
+                .maxPulse(123)
                 .build();
         userClient.createUser(user);
 
@@ -115,6 +116,7 @@ public class FilterIntegrationTest {
                 .lastName("One")
                 .gender("gender")
                 .birthDate(LocalDateTime.now())
+                .maxPulse(123)
                 .build();
         userClient.createUser(user1);
         final User user2 = User.builder()
@@ -122,6 +124,7 @@ public class FilterIntegrationTest {
                 .lastName("Two")
                 .gender("gender")
                 .birthDate(LocalDateTime.now())
+                .maxPulse(123)
                 .build();
         userClient.createUser(user2);
         final TimeFilter filterHeartRateForUser2 = TimeFilter.builder()
