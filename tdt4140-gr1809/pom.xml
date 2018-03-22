@@ -14,7 +14,8 @@
 	<modules>
 		<module>app.core</module>
 		<module>app.client</module>
-	</modules>
+        <module>app.datagen</module>
+    </modules>
 
 	<profiles>
 		<profile>

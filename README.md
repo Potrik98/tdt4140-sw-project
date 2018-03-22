@@ -40,13 +40,19 @@ client.properties under client resources.
 Sette opp prosjektet:<br>
 `mvn clean install -f tdt4140-gr1809/pom.xml`
 
---------------------------
 Kjøre server:<br>
 `mvn exec:java -f tdt4140-gr1809/app.server/pom.xml -Dexec.mainClass=tdt4140.gr1809.app.server.Server`
 
--------------------------------------
 Kjøre bruker-applikasjonen:<br>
 `mvn exec:java -f tdt4140-gr1809/app.ui/pom.xml -Dexec.mainClass=tdt4140.gr1809.app.ui.FxApp`
 
+Kjøre datagenerator:<br>
+`mvn exec:java -f tdt4140-gr1809/app.datagen/pom.xml -Dexec.mainClass=tdt4140.gr1809.app.datagen.DataGenerator -Dexec.args=""`<br>
+Hvor argumentene er
+ - <DataType> : Hvilken type data som skal genereres
+ - <UserId> : For hvilken bruker målingene skal tilknyttes
+ - <Count> : Antall målinger som skal genereres
+
 Kjøre tester:<br>
 `mvn clean verify -f tdt4140-gr1809/pom.xml`
+

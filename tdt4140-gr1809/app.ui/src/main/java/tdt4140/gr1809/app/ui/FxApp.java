@@ -2,10 +2,8 @@ package tdt4140.gr1809.app.ui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import tdt4140.gr1809.app.client.DataGeneratorHeartbeat;
 
 public class FxApp extends Application {
 

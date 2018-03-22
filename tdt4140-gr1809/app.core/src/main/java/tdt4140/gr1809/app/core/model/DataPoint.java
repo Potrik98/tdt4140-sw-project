@@ -3,15 +3,21 @@ package tdt4140.gr1809.app.core.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 @JsonDeserialize(builder=DataPoint.DataPointBuilder.class)
 public class DataPoint {
 	public static enum DataType {
-		STEPS,
-		TEMPERATURE,
-		HEART_RATE;
+		STEPS(Duration.of(1, ChronoUnit.DAYS)),
+		TEMPERATURE(Duration.of(1, ChronoUnit.MINUTES)),
+		HEART_RATE(Duration.of(10, ChronoUnit.SECONDS));
+		public final Duration timePeriod;
+		private DataType(final Duration timePeriod) {
+			this.timePeriod = timePeriod;
+		}
 	}
 
 	private final DataType dataType;
