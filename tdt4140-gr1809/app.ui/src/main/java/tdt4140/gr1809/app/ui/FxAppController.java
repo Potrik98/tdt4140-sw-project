@@ -40,6 +40,7 @@ public class FxAppController implements Initializable{
 	public HeartRateViewController heartRateViewController;
 	public FxAppController Appcontroller;
 	public ServiceproviderLoginController serviceProviderLoginViewController;
+	public TimeLimitViewController timelimitViewController;
 	public User user;
 	public ServiceProvider serviceProvider;
 
@@ -52,6 +53,15 @@ public class FxAppController implements Initializable{
 		registerViewController = loader.getController();
 		registerViewController.setfxAppController(this);
 		rightPane.getChildren().add(loader.getRoot());
+	}
+	public void goToTimeLimitView(ActionEvent event) throws IOException {
+		rightPane.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("TimeLimitView.fxml"));
+        loader.load();
+        timelimitViewController = loader.getController();
+        timelimitViewController.setfxAppController(this);
+        rightPane.getChildren().add(loader.getRoot());
 	}
 
 	public void goToServiceProviderRegisterView(ActionEvent event) throws IOException{
