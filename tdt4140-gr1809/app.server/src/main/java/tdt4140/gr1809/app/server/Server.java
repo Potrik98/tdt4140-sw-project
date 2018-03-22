@@ -59,10 +59,13 @@ public class Server {
             post("", TimeFilterResource::createTimeFilter);
         });
         path("/serviceprovider", () -> {
-        		get("/:id", ServiceProviderResource::getServiceProviderById);
         		post("", ServiceProviderResource::createServiceProvider);
-        		delete("/:id", ServiceProviderResource::deleteServiceProvider);
-        		post("/:id", ServiceProviderResource::updateServiceProvider);
+        		path("/:serviceProviderId", () -> {
+                    get("", ServiceProviderResource::getServiceProviderById);
+                    delete("", ServiceProviderResource::deleteServiceProvider);
+                    post("", ServiceProviderResource::updateServiceProvider);
+                    get("/users", AccessResource::getUsersServiceProviderHasAccessTo);
+                });
         });
         path("/notifications", () -> {
         	post("", NotificationResource::createNotification);
@@ -70,6 +73,13 @@ public class Server {
 
         exception(IllegalArgumentException.class, (exception, request, response) -> {
             response.status(HttpStatus.BAD_REQUEST_400);
+            response.type("application/json");
+            response.body("{\"message\":\"" + exception.getMessage() + "\"}");
+        });
+
+        exception(Exception.class, (exception, request, response) -> {
+            exception.printStackTrace();
+            response.status(HttpStatus.INTERNAL_SERVER_ERROR_500);
             response.type("application/json");
             response.body("{\"message\":\"" + exception.getMessage() + "\"}");
         });

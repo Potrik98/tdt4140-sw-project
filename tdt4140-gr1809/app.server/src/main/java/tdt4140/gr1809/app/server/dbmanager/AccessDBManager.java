@@ -59,7 +59,8 @@ public class AccessDBManager extends DBManager {
 	}
 	
 	
-	public void giveServiceProviderAccessToUser(UUID userId, UUID serviceProviderId) throws SQLException {
+	public void giveServiceProviderAccessToUser(final UUID serviceProviderId,
+												final UUID userId) throws SQLException {
 		String query = "INSERT INTO ServiceProviderAccessToUser (userId, serviceProviderId)" +
 				" values (:userId:, :serviceProviderId:);";
     	NamedParameterStatement statement = new NamedParameterStatement(query, conn);
@@ -68,13 +69,14 @@ public class AccessDBManager extends DBManager {
 		statement.getStatement().executeUpdate();
 	}
 	
-	public void revokeServiceProviderAccessToUser(UUID userId, UUID serviceProviderId) throws SQLException {
+	public void revokeServiceProviderAccessToUser(final UUID serviceProviderId,
+												  final UUID userId) throws SQLException {
 		String query = "DELETE FROM ServiceProviderAccessToUser " +
 				"WHERE userId = :userId: AND serviceProviderId = :serviceProviderId:";
 		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
 		statement.setString("userId", userId.toString());
 		statement.setString("serviceProviderId", serviceProviderId.toString());
 		statement.getStatement().executeUpdate();
-	}	
+	}
 }
 	

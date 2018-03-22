@@ -29,17 +29,19 @@ public class AccessResource {
     }
 
     public static String getServiceProvidersWithAccessToUser(Request req, Response res) throws Exception {
-        System.out.println("Get sps with access to user");
         UUID userId = UUID.fromString(req.params("userId"));
+        System.out.println("Get sps with access to user " + userId.toString());
         res.status(HttpStatus.OK_200);
+        res.type("application/json");
         return User.mapper.writeValueAsString(accessDBManager
                 .getServiceProvidersWithAccessToUser(userId));
     }
 
     public static String getUsersServiceProviderHasAccessTo(Request req, Response res) throws Exception {
-        System.out.println("Get users for sp");
         UUID serviceProviderId = UUID.fromString(req.params("serviceProviderId"));
+        System.out.println("Get users for sp " + serviceProviderId.toString());
         res.status(HttpStatus.OK_200);
+        res.type("application/json");
         return User.mapper.writeValueAsString(accessDBManager
                 .getUsersServiceProviderHasAccessTo(serviceProviderId));
     }

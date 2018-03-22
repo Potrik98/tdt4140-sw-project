@@ -1,12 +1,10 @@
 package tdt4140.gr1809.app.server.dbmanager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class NamedParameterStatement {
     private PreparedStatement statement;
@@ -30,8 +28,8 @@ public class NamedParameterStatement {
         this.statement = conn.prepareStatement(preparedStatement.toString());
     }
 
-    public void setInt(String parameter, int value) throws SQLException {
-        statement.setInt(parameterIndexMap.get(parameter), value);
+    public void setInt(String parameter, Integer value) throws SQLException {
+        statement.setObject(parameterIndexMap.get(parameter), value, Types.INTEGER);
     }
 
     public void setString(String parameter, String value) throws SQLException {
@@ -43,8 +41,12 @@ public class NamedParameterStatement {
     }
 
     public void setTimestamp(String parameter, LocalDateTime value) throws SQLException {
-        Timestamp timestamp = Timestamp.valueOf(value);
-        setTimestamp(parameter, timestamp);
+        if (Objects.isNull(value)) {
+            statement.setNull(parameterIndexMap.get(parameter), Types.TIMESTAMP);
+        } else {
+            Timestamp timestamp = Timestamp.valueOf(value);
+            setTimestamp(parameter, timestamp);
+        }
     }
 
     public PreparedStatement getStatement() {
