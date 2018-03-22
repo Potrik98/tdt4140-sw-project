@@ -83,6 +83,14 @@ public class UserResource {
         res.type("application/json");
         return User.mapper.writeValueAsString(DataResource.dbManager.getDataByUserId(userId));
     }
+    
+    public static String getNotificationsOfUser(Request req, Response res) throws Exception {
+    	UUID userId = UUID.fromString(req.params("userId"));
+    	System.out.println("Notifications of userId: " + userId);
+    	res.status(HttpStatus.OK_200);
+    	res.type("application/json");
+    	return User.mapper.writeValueAsString(NotificationResource.dbManager.getNotificationByUserId(userId));
+    }
 
     public static String getTimeFiltersOfUser(Request req, Response res) throws Exception {
         UUID userId = UUID.fromString(req.params("userId"));

@@ -1,6 +1,7 @@
 package tdt4140.gr1809.app.core.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,9 @@ public class Notification {
 	private final LocalDateTime time;
 	private final String message;
 
+	public static final ObjectMapper mapper = new ObjectMapper()
+			.findAndRegisterModules();
+	
 	private Notification(UUID notificationId, UUID userId, LocalDateTime time, String message) {
 		this.notificationId = notificationId;
 		this.userId = userId;
