@@ -4,15 +4,15 @@ import org.eclipse.jetty.http.HttpStatus;
 import spark.Request;
 import spark.Response;
 import tdt4140.gr1809.app.core.model.User;
-import tdt4140.gr1809.app.server.dbmanager.AccessTableDBManager;
+import tdt4140.gr1809.app.server.dbmanager.AccessDBManager;
 
 import java.util.UUID;
 
 public class AccessResource {
-    protected static AccessTableDBManager accessDBManager;
+    protected static AccessDBManager accessDBManager;
 
     public static void init() throws Exception {
-        accessDBManager = new AccessTableDBManager();
+        accessDBManager = new AccessDBManager();
     }
 
     public static void closeConnection() throws Exception {

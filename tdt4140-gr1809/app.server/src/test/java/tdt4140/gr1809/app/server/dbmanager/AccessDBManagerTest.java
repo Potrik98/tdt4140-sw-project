@@ -17,14 +17,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AccessDBManagerTest {
 	private static ServiceProviderDBManager serviceProviderDBManager;
     private static UserDBManager userDBManager;
-    private static AccessTableDBManager accessDBManager;
+    private static AccessDBManager accessDBManager;
     private static Connection connection;
 
     @BeforeClass
     public static void openConnection() throws Exception {
         serviceProviderDBManager = new ServiceProviderDBManager();
         userDBManager = new UserDBManager();
-        accessDBManager = new AccessTableDBManager();
+        accessDBManager = new AccessDBManager();
         DBManager.loadCreateScript();
     }
     

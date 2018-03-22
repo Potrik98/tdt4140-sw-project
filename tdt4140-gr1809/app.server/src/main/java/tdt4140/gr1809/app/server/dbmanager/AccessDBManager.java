@@ -1,19 +1,17 @@
 package tdt4140.gr1809.app.server.dbmanager;
 
-import java.sql.Connection;
+import tdt4140.gr1809.app.core.model.ServiceProvider;
+import tdt4140.gr1809.app.core.model.User;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
-import tdt4140.gr1809.app.core.model.ServiceProvider;
-import tdt4140.gr1809.app.core.model.User;
 
-
-public class AccessTableDBManager extends DBManager {
-	public AccessTableDBManager() throws Exception {
+public class AccessDBManager extends DBManager {
+	public AccessDBManager() throws Exception {
 		super();
 	}
 	
