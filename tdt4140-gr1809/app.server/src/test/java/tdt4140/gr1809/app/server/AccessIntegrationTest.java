@@ -57,4 +57,35 @@ public class AccessIntegrationTest {
         assertThat(usersServiceProviderHasAccessTo).usingFieldByFieldElementComparator()
                 .containsExactly(user);
     }
+
+    @Test
+    public void testRevokeAccess() {
+        final User user = User.builder()
+                .firstName("FirstName")
+                .lastName("LastName")
+                .birthDate(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
+                .gender("gender")
+                .maxPulse(123)
+                .build();
+        userClient.createUser(user);
+
+        final ServiceProvider serviceProvider = ServiceProvider.builder()
+                .firstName("FirstName")
+                .lastName("LastName")
+                .birthDate(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
+                .gender("gender")
+                .build();
+        serviceProviderClient.createServiceProvider(serviceProvider);
+
+        accessClient.giveServiceProviderAccessToUser(serviceProvider.getId(), user.getId());
+        accessClient.revokeServiceProviderAccessToUser(serviceProvider.getId(), user.getId());
+
+        final List<ServiceProvider> serviceProviderWithAccessToUser =
+                accessClient.getServiceProviderWithAccessToUser(user.getId());
+        final List<User> usersServiceProviderHasAccessTo =
+                accessClient.getUsersServiceProviderHasAccessTo(serviceProvider.getId());
+
+        assertThat(serviceProviderWithAccessToUser).isEmpty();
+        assertThat(usersServiceProviderHasAccessTo).isEmpty();
+    }
 }
