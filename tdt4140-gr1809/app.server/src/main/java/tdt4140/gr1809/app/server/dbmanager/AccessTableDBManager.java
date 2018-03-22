@@ -39,7 +39,7 @@ public class AccessTableDBManager extends DBManager {
 	}
 	
 	public List<User> getUsersServiceProviderHasAccessTo(UUID serviceProviderId) throws SQLException {
-		String query = "SELECT firstName, Users.userId, lastName, gender, birthDate from ServiceProviderAccessToUser " +
+		String query = "SELECT firstName, Users.userId, lastName, gender, birthDate, maxPulse from ServiceProviderAccessToUser " +
 				"INNER JOIN Users ON Users.UserId = ServiceProviderAccessToUser.UserId " +
 				"WHERE ServiceProviderAccessToUser.serviceProviderId = :serviceProviderId: AND Deleted = 0";
 		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
@@ -53,6 +53,7 @@ public class AccessTableDBManager extends DBManager {
 					.lastName(result.getString("lastName"))
 					.birthDate(result.getTimestamp("birthdate").toLocalDateTime())
 					.gender(result.getString("gender"))
+					.maxPulse(result.getInt("maxPulse"))
 					.build();
 			users.add(user);
 		}
