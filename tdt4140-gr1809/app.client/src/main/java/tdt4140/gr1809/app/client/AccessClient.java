@@ -20,7 +20,7 @@ public class AccessClient extends BasicClient {
 		final Response response = target
 			.path("/user/")
 			.path(userId.toString())
-			.path("/serviceProviders")
+			.path("/serviceproviders")
 			.request(MediaType.APPLICATION_JSON_TYPE)
 			.get();
 		if (response.getStatus() == HttpURLConnection.HTTP_OK) {
@@ -35,7 +35,8 @@ public class AccessClient extends BasicClient {
 				.concat(userId.toString()));
 	}
 	
-	public void giveServiceProviderAccessToUser(UUID userId, UUID serviceProviderId) {
+	public void giveServiceProviderAccessToUser(final UUID serviceProviderId,
+												final UUID userId) {
 		final Response response = target
 				.path("/user/")
 				.path(userId.toString())
@@ -51,7 +52,8 @@ public class AccessClient extends BasicClient {
 		response.close();
 	}
 	
-	public void revokeServiceProviderAccessToUser(UUID userId, UUID serviceProviderId) {
+	public void revokeServiceProviderAccessToUser(final UUID serviceProviderId,
+												  final UUID userId) {
 		final Response response = target
 				.path("/user/")
 				.path(userId.toString())

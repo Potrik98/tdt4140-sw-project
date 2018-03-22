@@ -53,7 +53,7 @@ public class AccessDBManagerTest {
                 .build();
     	serviceProviderDBManager.createServiceProvider(sp);
     	
-    	accessDBManager.giveServiceProviderAccessToUser(user.getId(), sp.getId());
+    	accessDBManager.giveServiceProviderAccessToUser(sp.getId(), user.getId());
     	
     	final List<User> spRelation = accessDBManager.getUsersServiceProviderHasAccessTo(sp.getId());
     	final List<ServiceProvider> userRelation = accessDBManager.getServiceProvidersWithAccessToUser(user.getId());
@@ -83,8 +83,8 @@ public class AccessDBManagerTest {
                 .build();
     	serviceProviderDBManager.createServiceProvider(sp);
     	
-    	accessDBManager.giveServiceProviderAccessToUser(user.getId(), sp.getId());
-    	accessDBManager.revokeServiceProviderAccessToUser(user.getId(), sp.getId());
+    	accessDBManager.giveServiceProviderAccessToUser(sp.getId(), user.getId());
+    	accessDBManager.revokeServiceProviderAccessToUser(sp.getId(), user.getId());
     	final List<User> spRelation = accessDBManager.getUsersServiceProviderHasAccessTo(sp.getId());
     	final List<ServiceProvider> userRelation = accessDBManager.getServiceProvidersWithAccessToUser(user.getId());
     	
