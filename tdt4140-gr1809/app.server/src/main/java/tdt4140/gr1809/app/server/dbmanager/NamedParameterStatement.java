@@ -4,6 +4,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class NamedParameterStatement {
     private PreparedStatement statement;
@@ -40,8 +41,12 @@ public class NamedParameterStatement {
     }
 
     public void setTimestamp(String parameter, LocalDateTime value) throws SQLException {
-        Timestamp timestamp = Timestamp.valueOf(value);
-        setTimestamp(parameter, timestamp);
+        if (Objects.isNull(value)) {
+            statement.setNull(parameterIndexMap.get(parameter), Types.TIMESTAMP);
+        } else {
+            Timestamp timestamp = Timestamp.valueOf(value);
+            setTimestamp(parameter, timestamp);
+        }
     }
 
     public PreparedStatement getStatement() {
