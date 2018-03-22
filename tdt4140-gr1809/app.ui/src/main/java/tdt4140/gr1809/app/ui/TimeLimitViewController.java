@@ -40,21 +40,20 @@ public class TimeLimitViewController {
 		LocalDate tolocaldate = todate.getValue();
 		todatetime = tolocaldate.atTime(Integer.parseInt(totime.getText().split(":")[0]),Integer.parseInt(totime.getText().split(":")[1]));
 		
-		TimeFilter timefilter = null;
 		if(datatypetemperature.isSelected()) {
-			timefilter.builder().startTime(fromdatetime).endTime(todatetime).userId(fxAppController.user.getId()).dataType(DataPoint.DataType.TEMPERATURE).build();
+			TimeFilter timefilter1 = TimeFilter.builder().startTime(fromdatetime).endTime(todatetime).userId(fxAppController.user.getId()).dataType(DataPoint.DataType.TEMPERATURE).build();
 			TimeFilterClient client = new TimeFilterClient();
-			client.createTimeFilter(timefilter);
+			client.createTimeFilter(timefilter1);
 		}
 		if(datatypesteps.isSelected()) {
-			timefilter.builder().startTime(fromdatetime).endTime(todatetime).userId(fxAppController.user.getId()).dataType(DataPoint.DataType.STEPS).build();
+			TimeFilter timefilter2 = TimeFilter.builder().startTime(fromdatetime).endTime(todatetime).userId(fxAppController.user.getId()).dataType(DataPoint.DataType.STEPS).build();
 			TimeFilterClient client = new TimeFilterClient();
-			client.createTimeFilter(timefilter);
+			client.createTimeFilter(timefilter2);
 		}
 		if(datatypeheart.isSelected()) {
-			timefilter.builder().startTime(fromdatetime).endTime(todatetime).userId(fxAppController.user.getId()).dataType(DataPoint.DataType.HEART_RATE).build();
+			TimeFilter timefilter3 = TimeFilter.builder().startTime(fromdatetime).endTime(todatetime).userId(fxAppController.user.getId()).dataType(DataPoint.DataType.HEART_RATE).build();
 			TimeFilterClient client = new TimeFilterClient();
-			client.createTimeFilter(timefilter);
+			client.createTimeFilter(timefilter3);
 		}
 		
 		}catch(Exception e) {
