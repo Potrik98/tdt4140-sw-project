@@ -1,9 +1,6 @@
 package tdt4140.gr1809.app.server.dbmanager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,8 +27,8 @@ public class NamedParameterStatement {
         this.statement = conn.prepareStatement(preparedStatement.toString());
     }
 
-    public void setInt(String parameter, int value) throws SQLException {
-        statement.setInt(parameterIndexMap.get(parameter), value);
+    public void setInt(String parameter, Integer value) throws SQLException {
+        statement.setObject(parameterIndexMap.get(parameter), value, Types.INTEGER);
     }
 
     public void setString(String parameter, String value) throws SQLException {
