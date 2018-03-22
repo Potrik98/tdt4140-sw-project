@@ -1,8 +1,6 @@
 package tdt4140.gr1809.app.core.model;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
-import tdt4140.gr1809.app.core.model.User;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -17,6 +15,7 @@ public class UserModelTest {
                 .lastName("Lastname")
                 .gender("gender")
                 .birthDate(LocalDateTime.now())
+                .maxPulse(123)
                 .build();
 
         final String json = User.mapper.writeValueAsString(user);

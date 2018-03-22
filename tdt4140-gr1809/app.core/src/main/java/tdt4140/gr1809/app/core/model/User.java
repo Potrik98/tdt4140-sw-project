@@ -14,6 +14,7 @@ public class User {
 	private final String lastName;
 	private final String gender;
 	private final LocalDateTime birthDate;
+	private final Integer maxPulse;
 
 	public static final ObjectMapper mapper = new ObjectMapper()
 			.findAndRegisterModules();
@@ -22,12 +23,14 @@ public class User {
 			String firstName, 
 			String lastName, 
 			String gender, 
-			LocalDateTime birthDate) {
+			LocalDateTime birthDate,
+			Integer maxPulse) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.gender = gender;
 		this.birthDate = birthDate;
+		this.maxPulse = maxPulse;
 	}
 
 
@@ -50,6 +53,9 @@ public class User {
 		return gender;
 	}
 
+	public Integer getMaxPulse() {
+		return maxPulse;
+	}
 
 	public LocalDateTime getBirthDate() {
 		return birthDate;
@@ -61,6 +67,7 @@ public class User {
 		private String lastName;
 		private String gender;
 		private LocalDateTime birthDate;
+		private Integer maxPulse;
 
 		private UserBuilder(final User user) {
 			userId = user.id;
@@ -68,6 +75,7 @@ public class User {
 			lastName = user.lastName;
 			gender = user.gender;
 			birthDate = user.birthDate;
+			maxPulse = user.maxPulse;
 		}
 
 		private UserBuilder() {
@@ -104,12 +112,19 @@ public class User {
 			return this;
 		}
 
+		@JsonProperty("maxPulse")
+		public UserBuilder maxPulse(final Integer maxPulse) {
+			this.maxPulse = maxPulse;
+			return this;
+		}
+
 		public User build() {
 			return new User(userId,
 					firstName,
 					lastName,
 					gender,
-					birthDate);
+					birthDate,
+					maxPulse);
 		}
 	}
 
