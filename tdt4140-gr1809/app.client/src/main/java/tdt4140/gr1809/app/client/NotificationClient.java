@@ -33,7 +33,7 @@ public class NotificationClient extends BasicClient {
         }
         System.out.println("Response: " + response.getStatus());
         response.close();
-        throw new ClientException("Failed to get datapoints of user "
+        throw new ClientException("Failed to get notifications of user "
                 .concat(userId.toString()));
 	}
 	
