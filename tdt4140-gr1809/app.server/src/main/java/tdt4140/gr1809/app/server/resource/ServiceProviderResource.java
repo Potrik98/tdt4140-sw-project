@@ -27,7 +27,7 @@ public class ServiceProviderResource {
     public static String getServiceProviderById(Request req, Response res) throws Exception {
         System.out.println("recieved request");
         log.error("recieved request");
-        UUID serviceProviderId = UUID.fromString(req.params("id"));
+        UUID serviceProviderId = UUID.fromString(req.params("serviceProviderId"));
         System.out.println("Get serviceProviderId: " + serviceProviderId.toString());
         Optional<ServiceProvider> serviceProvider = dbManager.getServiceProviderById(serviceProviderId);
 
@@ -55,7 +55,7 @@ public class ServiceProviderResource {
     }
 
     public static String updateServiceProvider(Request req, Response res) throws Exception {
-        UUID serviceProviderId = UUID.fromString(req.params("id"));
+        UUID serviceProviderId = UUID.fromString(req.params("serviceProviderId"));
         System.out.println("Update: recieved service provider with id: " + serviceProviderId);
         final ServiceProvider serviceProvider = ServiceProvider.from(ServiceProvider.mapper.readValue(req.body(), ServiceProvider.class))
                 .id(serviceProviderId)
@@ -66,7 +66,7 @@ public class ServiceProviderResource {
     }
 
     public static String deleteServiceProvider(Request req, Response res) throws Exception {
-        UUID serviceProviderId = UUID.fromString(req.params("id"));
+        UUID serviceProviderId = UUID.fromString(req.params("serviceProviderId"));
         System.out.println("Delete serviceProviderId: " + serviceProviderId);
         if (dbManager.deleteServiceProvider(serviceProviderId)) {
             res.status(HttpStatus.NO_CONTENT_204);
