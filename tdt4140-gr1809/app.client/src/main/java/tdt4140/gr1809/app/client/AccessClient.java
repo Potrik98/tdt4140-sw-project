@@ -58,7 +58,8 @@ public class AccessClient extends BasicClient {
 		final Response response = target
 				.path("/user/")
 				.path(userId.toString())
-				.path("/serviceProviders")
+				.path("/serviceproviders/")
+                .path(serviceProviderId.toString())
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.delete();
 		if (response.getStatus() != HttpURLConnection.HTTP_NO_CONTENT) {
