@@ -1,5 +1,6 @@
 package tdt4140.gr1809.app.server;
 
+import tdt4140.gr1809.app.client.AccessClient;
 import tdt4140.gr1809.app.client.DataClient;
 import tdt4140.gr1809.app.client.NotificationClient;
 import tdt4140.gr1809.app.client.ServiceProviderClient;
@@ -20,6 +21,7 @@ public class IntegrationTestHelper {
     public static NotificationClient notificationClient;
     public static TimeFilterClient timeFilterClient;
     public static ServiceProviderClient serviceProviderClient;
+    public static AccessClient accessClient;
 
     public static void setupIntegrationTest() throws Exception {
         Server.startServer(TEST_PORT);
@@ -38,6 +40,7 @@ public class IntegrationTestHelper {
         timeFilterClient = new TimeFilterClient();
         serviceProviderClient = new ServiceProviderClient();
         notificationClient = new NotificationClient();
+        accessClient = new AccessClient();
     }
 
     public static void stopIntegrationTest() throws Exception {
