@@ -73,6 +73,13 @@ public class Server {
             response.type("application/json");
             response.body("{\"message\":\"" + exception.getMessage() + "\"}");
         });
+
+        exception(Exception.class, (exception, request, response) -> {
+            exception.printStackTrace();
+            response.status(HttpStatus.INTERNAL_SERVER_ERROR_500);
+            response.type("application/json");
+            response.body("{\"message\":\"" + exception.getMessage() + "\"}");
+        });
     }
 
     public static void stopServer() {
