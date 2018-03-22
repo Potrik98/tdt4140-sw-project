@@ -29,24 +29,24 @@ Programmet krever maven og java 8 jdk med java fx for å kompilere.
 
 <h3>Tekniske instillinger</h3>
 
-Tekniske instillinger finnes i .properties-filer under resources.\
+Tekniske instillinger finnes i .properties-filer under resources.<br>
 Serveren vil koble seg til databasen med instillingene satt i
-dbconnection.properties under server resources.\
+dbconnection.properties under server resources.<br>
 Bruker-applikasjonen kobler seg automatisk til serveren som er definert i
 client.properties under client resources.
 
 <h3>Installering og kjøring<h3>
 
-Sette opp prosjektet:\
+Sette opp prosjektet:<br>
 `mvn clean install -f tdt4140-gr1809/pom.xml`
 
 --------------------------
-Kjøre server:\
+Kjøre server:<br>
 `mvn exec:java -f tdt4140-gr1809/app.server/pom.xml -Dexec.mainClass=tdt4140.gr1809.app.server.Server`
 
 -------------------------------------
-Kjøre bruker-applikasjonen:\
+Kjøre bruker-applikasjonen:<br>
 `mvn exec:java -f tdt4140-gr1809/app.ui/pom.xml -Dexec.mainClass=tdt4140.gr1809.app.ui.FxApp`
 
-Kjøre tester:\
+Kjøre tester:<br>
 `mvn clean verify -f tdt4140-gr1809/pom.xml`
