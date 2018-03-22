@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tdt4140.gr1809.app.core.model.ServiceProvider;
+import tdt4140.gr1809.app.core.model.User;
 
 public class AccessClient extends BasicClient {
 	public AccessClient() {
@@ -67,6 +68,23 @@ public class AccessClient extends BasicClient {
 		}
 		response.close();
 	}
-	
 
+	public List<User> getUsersServiceProviderHasAccessTo(final UUID serviceProviderId) {
+        final Response response = target
+                .path("/serviceprovider/")
+                .path(serviceProviderId.toString())
+                .path("/users")
+                .request(MediaType.APPLICATION_JSON_TYPE)
+                .get();
+        if (response.getStatus() == HttpURLConnection.HTTP_OK) {
+            final List<User> users =
+                    response.readEntity(new GenericType<List<User>>() {});
+            response.close();
+            return users;
+        }
+        System.out.println("Response: " + response.getStatus());
+        response.close();
+        throw new ClientException("Failed to get users ServiceProvider has access to "
+                .concat(serviceProviderId.toString()));
+    }
 }

@@ -29,8 +29,9 @@ public class AccessIntegrationTest {
         final User user = User.builder()
                 .firstName("FirstName")
                 .lastName("LastName")
-                .birthDate(LocalDateTime.now())
+                .birthDate(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
                 .gender("gender")
+                .maxPulse(123)
                 .build();
         userClient.createUser(user);
 
@@ -49,5 +50,11 @@ public class AccessIntegrationTest {
 
         assertThat(serviceProviderWithAccessToUser).usingFieldByFieldElementComparator()
                 .containsExactly(serviceProvider);
+
+        final List<User> usersServiceProviderHasAccessTo =
+                accessClient.getUsersServiceProviderHasAccessTo(serviceProvider.getId());
+
+        assertThat(usersServiceProviderHasAccessTo).usingFieldByFieldElementComparator()
+                .containsExactly(user);
     }
 }
