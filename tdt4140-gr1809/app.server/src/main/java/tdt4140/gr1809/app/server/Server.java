@@ -21,11 +21,11 @@ public class Server {
     public static void main(String[] args) throws Exception {
         startServer(80);
         UserResource.init();
+        NotificationResource.init();
         TimeFilterResource.init();
         AccessResource.init();
         DataResource.init();
         ServiceProviderResource.init();
-        NotificationResource.init();
     }
 
     public static void startServer(int port) throws Exception {

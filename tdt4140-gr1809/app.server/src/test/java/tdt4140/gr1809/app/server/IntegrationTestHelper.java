@@ -28,10 +28,10 @@ public class IntegrationTestHelper {
 
         UserResource.init();
         TimeFilterResource.init();
+        NotificationResource.init();
         DataResource.init();
         ServiceProviderResource.init();
         AccessResource.init();
-        NotificationResource.init();
 
         DBManager.loadCreateScript();
 
