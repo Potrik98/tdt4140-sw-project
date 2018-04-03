@@ -26,13 +26,6 @@ public class IntegrationTestHelper {
     public static void setupIntegrationTest() throws Exception {
         Server.startServer(TEST_PORT);
 
-        UserResource.init();
-        TimeFilterResource.init();
-        NotificationResource.init();
-        DataResource.init();
-        ServiceProviderResource.init();
-        AccessResource.init();
-
         DBManager.loadCreateScript();
 
         dataClient = new DataClient();
@@ -44,13 +37,6 @@ public class IntegrationTestHelper {
     }
 
     public static void stopIntegrationTest() throws Exception {
-        UserResource.closeConnection();
-        TimeFilterResource.closeConnection();
-        DataResource.closeConnection();
-        ServiceProviderResource.closeConnection();
-        AccessResource.closeConnection();
-        NotificationResource.closeConnection();
-
         Server.stopServer();
         // Remove when https://github.com/perwendel/spark/issues/705 is fixed.
         try {

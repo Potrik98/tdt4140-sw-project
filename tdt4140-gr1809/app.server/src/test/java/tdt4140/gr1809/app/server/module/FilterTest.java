@@ -16,6 +16,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static tdt4140.gr1809.app.server.dbmanager.DBManager.timeFilterDBManager;
+import static tdt4140.gr1809.app.server.dbmanager.DBManager.userDBManager;
 
 public class FilterTest {
     private static Filter filter;
@@ -23,7 +25,7 @@ public class FilterTest {
     @BeforeClass
     public static void setupFilterTest() throws Exception {
         IntegrationTestHelper.setupIntegrationTest();
-        filter = new Filter(TimeFilterResource.dbManager);
+        filter = new Filter();
     }
 
     @AfterClass
@@ -40,7 +42,7 @@ public class FilterTest {
                 .birthDate(LocalDateTime.now())
                 .maxPulse(123)
                 .build();
-        UserResource.dbManager.createUser(user);
+        userDBManager.createUser(user);
 
         final TimeFilter filterTemperature = TimeFilter.builder()
                 .userId(user.getId())
@@ -48,22 +50,23 @@ public class FilterTest {
                 .endTime(LocalDateTime.now().plus(1, ChronoUnit.HOURS).truncatedTo(ChronoUnit.SECONDS))
                 .dataType(DataPoint.DataType.TEMPERATURE)
                 .build();
-        TimeFilterResource.dbManager.createTimeFilter(filterTemperature);
-        assertThat(TimeFilterResource.dbManager.getTimeFiltersByUserId(user.getId())).usingFieldByFieldElementComparator().containsExactly(filterTemperature);
+        timeFilterDBManager.createTimeFilter(filterTemperature);
+        assertThat(timeFilterDBManager.getTimeFiltersByUserId(user.getId())).usingFieldByFieldElementComparator()
+                .containsExactly(filterTemperature);
         final TimeFilter filterHeartRateExpired = TimeFilter.builder()
                 .userId(user.getId())
                 .startTime(LocalDateTime.now().minus(10, ChronoUnit.HOURS).truncatedTo(ChronoUnit.SECONDS))
                 .endTime(LocalDateTime.now().minus(5, ChronoUnit.HOURS).truncatedTo(ChronoUnit.SECONDS))
                 .dataType(DataPoint.DataType.HEART_RATE)
                 .build();
-        TimeFilterResource.dbManager.createTimeFilter(filterHeartRateExpired);
+        timeFilterDBManager.createTimeFilter(filterHeartRateExpired);
         final TimeFilter filterStepsFuture = TimeFilter.builder()
                 .userId(user.getId())
                 .startTime(LocalDateTime.now().plus(1, ChronoUnit.HOURS).truncatedTo(ChronoUnit.SECONDS))
                 .endTime(LocalDateTime.now().plus(10, ChronoUnit.HOURS).truncatedTo(ChronoUnit.SECONDS))
                 .dataType(DataPoint.DataType.STEPS)
                 .build();
-        TimeFilterResource.dbManager.createTimeFilter(filterStepsFuture);
+        timeFilterDBManager.createTimeFilter(filterStepsFuture);
 
         final DataPoint currentTemperature = DataPoint.builder()
                 .userId(user.getId())
@@ -107,7 +110,7 @@ public class FilterTest {
                 .birthDate(LocalDateTime.now())
                 .maxPulse(123)
                 .build();
-        UserResource.dbManager.createUser(user1);
+        userDBManager.createUser(user1);
         final User user2 = User.builder()
                 .firstName("User")
                 .lastName("Two")
@@ -115,14 +118,14 @@ public class FilterTest {
                 .birthDate(LocalDateTime.now())
                 .maxPulse(123)
                 .build();
-        UserResource.dbManager.createUser(user2);
+        userDBManager.createUser(user2);
         final TimeFilter filterHeartRateForUser2 = TimeFilter.builder()
                 .userId(user2.getId())
                 .startTime(LocalDateTime.now().minus(1, ChronoUnit.HOURS).truncatedTo(ChronoUnit.SECONDS))
                 .endTime(LocalDateTime.now().plus(1, ChronoUnit.HOURS).truncatedTo(ChronoUnit.SECONDS))
                 .dataType(DataPoint.DataType.HEART_RATE)
                 .build();
-        TimeFilterResource.dbManager.createTimeFilter(filterHeartRateForUser2);
+        timeFilterDBManager.createTimeFilter(filterHeartRateForUser2);
         final DataPoint currentHeartRateForUser1 = DataPoint.builder()
                 .userId(user1.getId())
                 .dataType(DataPoint.DataType.HEART_RATE)

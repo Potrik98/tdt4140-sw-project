@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static tdt4140.gr1809.app.server.dbmanager.DBManager.notificationDBManager;
+import static tdt4140.gr1809.app.server.dbmanager.DBManager.userDBManager;
 
 public class AnalyzerTest {
     private static Analyzer analyzer;
@@ -22,7 +24,7 @@ public class AnalyzerTest {
     @BeforeClass
     public static void setupFilterTest() throws Exception {
         IntegrationTestHelper.setupIntegrationTest();
-        analyzer = new Analyzer(UserResource.dbManager, NotificationResource.dbManager);
+        analyzer = new Analyzer();
     }
 
     @AfterClass
@@ -41,7 +43,7 @@ public class AnalyzerTest {
                 .gender("gender")
                 .maxPulse(maxPulse)
                 .build();
-        UserResource.dbManager.createUser(user);
+        userDBManager.createUser(user);
 
         final DataPoint dataPointHeartRateValueOverMaxPulse = DataPoint.builder()
                 .dataType(DataPoint.DataType.HEART_RATE)
@@ -70,7 +72,7 @@ public class AnalyzerTest {
                 dataPointOtherDataTypeValueOverMaxPulse));
 
         final List<Notification> notificationsForUser =
-                NotificationResource.dbManager.getNotificationByUserId(user.getId());
+                notificationDBManager.getNotificationByUserId(user.getId());
 
         assertThat(notificationsForUser).hasSize(1);
 

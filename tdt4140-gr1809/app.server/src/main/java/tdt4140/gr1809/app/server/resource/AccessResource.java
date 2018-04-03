@@ -4,21 +4,12 @@ import org.eclipse.jetty.http.HttpStatus;
 import spark.Request;
 import spark.Response;
 import tdt4140.gr1809.app.core.model.User;
-import tdt4140.gr1809.app.server.dbmanager.AccessDBManager;
 
 import java.util.UUID;
 
+import static tdt4140.gr1809.app.server.dbmanager.DBManager.accessDBManager;
+
 public class AccessResource {
-    protected static AccessDBManager accessDBManager;
-
-    public static void init() throws Exception {
-        accessDBManager = new AccessDBManager();
-    }
-
-    public static void closeConnection() throws Exception {
-        accessDBManager.closeConnection();
-    }
-
     public static String giveServiceProviderAccessToUser(Request req, Response res) throws Exception {
         System.out.println("Give sp access to user");
         UUID serviceProviderId = UUID.fromString(req.params("serviceProviderId"));

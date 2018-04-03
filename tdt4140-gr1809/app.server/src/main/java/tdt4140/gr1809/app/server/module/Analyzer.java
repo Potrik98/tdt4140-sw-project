@@ -4,8 +4,6 @@ import com.google.common.collect.ImmutableMap;
 import tdt4140.gr1809.app.core.model.DataPoint;
 import tdt4140.gr1809.app.core.model.Notification;
 import tdt4140.gr1809.app.core.model.User;
-import tdt4140.gr1809.app.server.dbmanager.NotificationDBManager;
-import tdt4140.gr1809.app.server.dbmanager.UserDBManager;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,6 +17,8 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.groupingBy;
 import static tdt4140.gr1809.app.core.util.StreamUtils.uncheckCall;
 import static tdt4140.gr1809.app.core.util.StreamUtils.uncheckRun;
+import static tdt4140.gr1809.app.server.dbmanager.DBManager.notificationDBManager;
+import static tdt4140.gr1809.app.server.dbmanager.DBManager.userDBManager;
 
 public class Analyzer {
     private final Map<DataPoint.DataType, BiFunction<DataPoint, User, Optional<Notification>>>
@@ -27,15 +27,6 @@ public class Analyzer {
                     DataPoint.DataType.STEPS, this::getNotificationForStepsDataPoint,
                     DataPoint.DataType.TEMPERATURE, this::getNotificationForTemperatureDataPoint
     );
-
-    private final UserDBManager userDBManager;
-    private final NotificationDBManager notificationDBManager;
-
-    public Analyzer(final UserDBManager userDBManager,
-                    final NotificationDBManager notificationDBManager) {
-        this.userDBManager = userDBManager;
-        this.notificationDBManager = notificationDBManager;
-    }
 
     public void analyzeDataPoints(final List<DataPoint> dataPoints) {
         final List<Notification> notifications = getNotificationsOfDataPoints(dataPoints);
