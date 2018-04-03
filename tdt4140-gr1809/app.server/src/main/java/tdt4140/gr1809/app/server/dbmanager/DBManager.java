@@ -14,6 +14,13 @@ import java.util.Properties;
 public abstract class DBManager {
 	protected Connection conn;
 
+	public static AccessDBManager accessDBManager;
+	public static DataDBManager dataDBManager;
+	public static NotificationDBManager notificationDBManager;
+	public static ServiceProviderDBManager serviceProviderDBManager;
+	public static TimeFilterDBManager timeFilterDBManager;
+	public static UserDBManager userDBManager;
+
 	private static Connection connectionFromProperties() throws Exception {
         InputStream input = DBManager.class.getResourceAsStream("dbconnection.properties");
         Properties connectionProps = new Properties();
@@ -57,6 +64,24 @@ public abstract class DBManager {
 
         conn.close();
         System.out.println("Closed db connection");
+    }
+
+    public static void initDBManagers() throws Exception {
+	    accessDBManager = new AccessDBManager();
+	    dataDBManager = new DataDBManager();
+	    notificationDBManager = new NotificationDBManager();
+	    serviceProviderDBManager = new ServiceProviderDBManager();
+	    timeFilterDBManager = new TimeFilterDBManager();
+	    userDBManager = new UserDBManager();
+    }
+
+    public static void closeDBConnections() throws Exception {
+	    accessDBManager.closeConnection();
+	    dataDBManager.closeConnection();
+	    notificationDBManager.closeConnection();
+	    serviceProviderDBManager.closeConnection();
+	    timeFilterDBManager.closeConnection();
+	    userDBManager.closeConnection();
     }
 
 	protected DBManager() throws Exception {

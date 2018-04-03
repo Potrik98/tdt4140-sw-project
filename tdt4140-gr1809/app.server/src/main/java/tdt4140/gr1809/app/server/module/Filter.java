@@ -2,7 +2,6 @@ package tdt4140.gr1809.app.server.module;
 
 import tdt4140.gr1809.app.core.model.DataPoint;
 import tdt4140.gr1809.app.core.model.TimeFilter;
-import tdt4140.gr1809.app.server.dbmanager.TimeFilterDBManager;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -11,12 +10,9 @@ import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class Filter {
-    private final TimeFilterDBManager dbManager;
-    public Filter(final TimeFilterDBManager dbManager) {
-        this.dbManager = dbManager;
-    }
+import static tdt4140.gr1809.app.server.dbmanager.DBManager.timeFilterDBManager;
 
+public class Filter {
     public List<DataPoint> filterDataPoints(final List<DataPoint> unfilteredList) throws Exception {
         final Map<UUID, List<TimeFilter>> timeFiltersForUsers = unfilteredList.stream()
                 .map(DataPoint::getUserId)
@@ -37,7 +33,7 @@ public class Filter {
 
     private List<TimeFilter> getTimeFiltersForUserId(final UUID userId) {
         try {
-            return dbManager.getTimeFiltersByUserId(userId);
+            return timeFilterDBManager.getTimeFiltersByUserId(userId);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

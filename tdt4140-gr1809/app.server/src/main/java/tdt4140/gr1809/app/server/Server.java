@@ -10,6 +10,7 @@ import static spark.Spark.stop;
 
 import org.eclipse.jetty.http.HttpStatus;
 
+import tdt4140.gr1809.app.server.dbmanager.DBManager;
 import tdt4140.gr1809.app.server.resource.AccessResource;
 import tdt4140.gr1809.app.server.resource.DataResource;
 import tdt4140.gr1809.app.server.resource.NotificationResource;
@@ -20,16 +21,11 @@ import tdt4140.gr1809.app.server.resource.ServiceProviderResource;
 public class Server {
     public static void main(String[] args) throws Exception {
         startServer(80);
-        UserResource.init();
-        TimeFilterResource.init();
-        AccessResource.init();
-        DataResource.init();
-        ServiceProviderResource.init();
-        NotificationResource.init();
     }
 
     public static void startServer(int port) throws Exception {
         port(port);
+        DBManager.initDBManagers();
         System.out.println("Starting server...");
 
         path("/user", () -> {
@@ -85,7 +81,8 @@ public class Server {
         });
     }
 
-    public static void stopServer() {
+    public static void stopServer() throws Exception {
+        DBManager.closeDBConnections();
         stop();
     }
 }
