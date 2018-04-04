@@ -51,7 +51,7 @@ public class RegisterServiceProviderViewController implements Initializable {
 		clearInput();
 		System.out.println("Created serviceProvider: " + serviceProvider.getId());
 		fxAppController.serviceProvider= serviceProvider;
-		fxAppController.goToLoginView(null);
+		fxAppController.goToServiceproviderLoginView(null);
 	}
 
 
