@@ -34,7 +34,7 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfeffd" height="207.0" stroke="BLACK" strokeType="INSIDE" width="328.0" AnchorPane.topAnchor="0.0" />
-                  <Label layoutX="86.0" layoutY="14.0" prefHeight="38.0" prefWidth="154.0" text="Service providers who don't have access to your data:" textAlignment="CENTER" wrapText="true" />
+                  <Label layoutX="86.0" layoutY="14.0" prefHeight="46.0" prefWidth="154.0" text="Service providers who don't have access to your data:" textAlignment="CENTER" wrapText="true" />
                   <ComboBox fx:id="ServiceProvidersComboBox1" layoutX="88.0" layoutY="74.0" prefWidth="150.0" />
                   <Button layoutX="88.0" layoutY="125.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Grant Access" />
                </children>
