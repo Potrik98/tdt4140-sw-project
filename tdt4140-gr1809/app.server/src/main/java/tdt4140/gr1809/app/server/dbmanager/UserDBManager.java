@@ -2,9 +2,9 @@ package tdt4140.gr1809.app.server.dbmanager;
 
 import tdt4140.gr1809.app.core.model.User;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -28,7 +28,8 @@ public class UserDBManager extends DBManager {
                 .firstName(result.getString("firstName"))
                 .lastName(result.getString("lastName"))
                 .gender(result.getString("gender"))
-                .birthDate(result.getTimestamp("birthDate").toLocalDateTime())
+                .birthDate(Objects.isNull(result.getTimestamp("birthDate")) ? null
+						: result.getTimestamp("birthDate").toLocalDateTime())
 				.maxPulse(result.getInt("maxPulse"))
                 .build();
         return Optional.of(user);
