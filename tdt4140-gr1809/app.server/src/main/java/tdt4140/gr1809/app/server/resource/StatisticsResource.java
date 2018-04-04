@@ -12,6 +12,7 @@ public class StatisticsResource {
                                                   final Response response) throws Exception {
         final DataPoint.DataType dataType = DataPoint.DataType.valueOf(request.params("dataType"));
         final Statistic statistic = Statistics.getStatisticsForDataType(dataType);
+        response.type("application/json");
         response.status(HttpStatus.OK_200);
         return Statistic.mapper.writeValueAsString(statistic);
     }

@@ -62,7 +62,7 @@ public class Server {
         	post("", NotificationResource::createNotification);
         });
         path("/statistics", () -> {
-            get(":dataType", StatisticsResource::getStatisticsForDataType);
+            get("/:dataType", StatisticsResource::getStatisticsForDataType);
         });
 
         exception(IllegalArgumentException.class, (exception, request, response) -> {
