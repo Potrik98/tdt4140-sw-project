@@ -1,4 +1,4 @@
-package tdt4140.gr1809.app.ui;
+package tdt4140.gr1809.app.ui.graph;
 
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;

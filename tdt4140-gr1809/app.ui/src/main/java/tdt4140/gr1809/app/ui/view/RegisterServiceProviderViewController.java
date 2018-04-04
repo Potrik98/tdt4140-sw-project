@@ -1,19 +1,20 @@
-package tdt4140.gr1809.app.ui;
+package tdt4140.gr1809.app.ui.view;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-
+import tdt4140.gr1809.app.client.ServiceProviderClient;
 import tdt4140.gr1809.app.client.UserClient;
+import tdt4140.gr1809.app.core.model.ServiceProvider;
 import tdt4140.gr1809.app.core.model.User;
+import tdt4140.gr1809.app.ui.FxAppController;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class RegisterViewController implements Initializable {
+public class RegisterServiceProviderViewController implements Initializable {
 
 	@FXML Button registerProfileButton;
 	@FXML Label firstNameLabel;
@@ -36,21 +37,20 @@ public class RegisterViewController implements Initializable {
 	}
 
 	public void registerButtonClicked(ActionEvent event) throws IOException{
-		//TODO: send data to database
 
-		final UserClient client = new UserClient();
+		final ServiceProviderClient client = new ServiceProviderClient();
 
-		final User user = User.builder()
+		final ServiceProvider serviceProvider = ServiceProvider.builder()
 				.firstName(firstNameInput.getText())
 				.lastName(lastNameInput.getText())
 				.gender(genderChoiceBox.getValue().toString())
 				.birthDate(birthdateInput.getValue().atStartOfDay())
 				.build();
-		client.createUser(user); //TODO: can throw exception
+		client.createServiceProvider(serviceProvider);
 
 		clearInput();
-		System.out.println("Created user: " + user.getId());
-		fxAppController.user = user;
+		System.out.println("Created serviceProvider: " + serviceProvider.getId());
+		fxAppController.serviceProvider= serviceProvider;
 		fxAppController.goToLoginView(null);
 	}
 
@@ -60,7 +60,7 @@ public class RegisterViewController implements Initializable {
 	@Override
 	public void initialize(final URL url, final ResourceBundle rb) {
 		genderChoiceBox.getItems().addAll("Male", "Female");
-		genderChoiceBox.setValue("Male");
+		genderChoiceBox.setValue("Maleee");
 
 	}
 

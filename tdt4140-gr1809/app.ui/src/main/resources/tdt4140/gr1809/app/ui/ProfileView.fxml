@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="750" maxWidth="880" minHeight="400.0" minWidth="600.0" prefHeight="750" prefWidth="880" styleClass="root" stylesheets="" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.ProfileViewController">
+<AnchorPane maxHeight="750" maxWidth="880" minHeight="400.0" minWidth="600.0" prefHeight="750" prefWidth="880" styleClass="root" stylesheets="" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.view.ProfileViewController">
    <children>
       <VBox layoutX="276.0" layoutY="14.0" prefHeight="750.0" prefWidth="327.0">
          <children>

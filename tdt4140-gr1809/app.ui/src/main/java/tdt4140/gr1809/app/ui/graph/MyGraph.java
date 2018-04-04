@@ -1,4 +1,4 @@
-package tdt4140.gr1809.app.ui;
+package tdt4140.gr1809.app.ui.graph;
 
 import java.util.function.Function;
 

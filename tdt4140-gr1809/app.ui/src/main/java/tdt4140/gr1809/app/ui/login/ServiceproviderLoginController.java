@@ -1,4 +1,4 @@
-package tdt4140.gr1809.app.ui;
+package tdt4140.gr1809.app.ui.login;
 
 import java.io.IOException;
 
@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import tdt4140.gr1809.app.ui.FxAppController;
 
 public class ServiceproviderLoginController {
 	@FXML private TextField UsernameTextfield;
