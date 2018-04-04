@@ -60,7 +60,7 @@ public class RegisterServiceProviderViewController implements Initializable {
 	@Override
 	public void initialize(final URL url, final ResourceBundle rb) {
 		genderChoiceBox.getItems().addAll("Male", "Female");
-		genderChoiceBox.setValue("Maleee");
+		genderChoiceBox.setValue("Male");
 
 	}
 
