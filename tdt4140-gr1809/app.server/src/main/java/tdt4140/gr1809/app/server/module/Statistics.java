@@ -13,6 +13,11 @@ public class Statistics {
         final List<DataPoint> dataPointsOfDataType = dataDBManager.getDataPoints().stream()
                 .filter(dataPoint -> dataPoint.getDataType() == dataType)
                 .collect(Collectors.toList());
+        if (dataPointsOfDataType.size() == 0) {
+            return Statistic.builder()
+                    .value(0)
+                    .build();
+        }
         final int sum = dataPointsOfDataType.stream()
                 .mapToInt(DataPoint::getValue)
                 .sum();

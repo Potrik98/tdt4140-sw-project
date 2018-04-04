@@ -67,4 +67,12 @@ public class StatisticsTest {
 
         assertThat(statistic.getValue()).isEqualTo(average);
     }
+
+    public void testGetStatisticWithoutDataPointsHasValueZero() throws Exception {
+        final DataPoint.DataType dataTypeWithoutDataPoints = DataPoint.DataType.TEMPERATURE;
+
+        final Statistic statistic = Statistics.getStatisticsForDataType(dataTypeWithoutDataPoints);
+
+        assertThat(statistic.getValue()).isEqualTo(0);
+    }
 }
