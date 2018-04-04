@@ -1,4 +1,4 @@
-package tdt4140.gr1809.app.ui;
+package tdt4140.gr1809.app.ui.login;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import tdt4140.gr1809.app.client.UserClient;
 import tdt4140.gr1809.app.core.model.User;
+import tdt4140.gr1809.app.ui.FxAppController;
 
 import java.io.IOException;
 import java.util.Optional;

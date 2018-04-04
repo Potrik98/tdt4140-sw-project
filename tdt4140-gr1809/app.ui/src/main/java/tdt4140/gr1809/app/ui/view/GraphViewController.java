@@ -1,19 +1,14 @@
-package tdt4140.gr1809.app.ui;
+package tdt4140.gr1809.app.ui.view;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
+import tdt4140.gr1809.app.ui.FxAppController;
+import tdt4140.gr1809.app.ui.graph.MyGraph;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.Function;

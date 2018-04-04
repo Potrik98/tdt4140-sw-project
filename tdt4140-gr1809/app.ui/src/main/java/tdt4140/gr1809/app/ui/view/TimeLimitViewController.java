@@ -1,4 +1,4 @@
-package tdt4140.gr1809.app.ui;
+package tdt4140.gr1809.app.ui.view;
 
 import tdt4140.gr1809.app.core.model.DataPoint;
 import tdt4140.gr1809.app.core.model.TimeFilter;
