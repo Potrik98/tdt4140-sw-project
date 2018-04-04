@@ -51,6 +51,7 @@ public class DataPoint {
 
 		private DataPointBuilder() {
 			id = UUID.randomUUID();
+			time = LocalDateTime.now();
 		}
 
 		@JsonProperty("id")
