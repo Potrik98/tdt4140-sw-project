@@ -11,12 +11,7 @@ import static spark.Spark.stop;
 import org.eclipse.jetty.http.HttpStatus;
 
 import tdt4140.gr1809.app.server.dbmanager.DBManager;
-import tdt4140.gr1809.app.server.resource.AccessResource;
-import tdt4140.gr1809.app.server.resource.DataResource;
-import tdt4140.gr1809.app.server.resource.NotificationResource;
-import tdt4140.gr1809.app.server.resource.TimeFilterResource;
-import tdt4140.gr1809.app.server.resource.UserResource;
-import tdt4140.gr1809.app.server.resource.ServiceProviderResource;
+import tdt4140.gr1809.app.server.resource.*;
 
 public class Server {
     public static void main(String[] args) throws Exception {
@@ -65,6 +60,9 @@ public class Server {
         });
         path("/notifications", () -> {
         	post("", NotificationResource::createNotification);
+        });
+        path("/statistics", () -> {
+            get(":dataType", StatisticsResource::getStatisticsForDataType);
         });
 
         exception(IllegalArgumentException.class, (exception, request, response) -> {
