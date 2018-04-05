@@ -15,6 +15,7 @@ public abstract class DBManager {
 	protected Connection conn;
 
 	public static AccessDBManager accessDBManager;
+	public static CustomNotificationThresholdDBManager customNotificationThresholdDBManager;
 	public static DataDBManager dataDBManager;
 	public static NotificationDBManager notificationDBManager;
 	public static ServiceProviderDBManager serviceProviderDBManager;
@@ -68,6 +69,7 @@ public abstract class DBManager {
 
     public static void initDBManagers() throws Exception {
 	    accessDBManager = new AccessDBManager();
+	    customNotificationThresholdDBManager = new CustomNotificationThresholdDBManager();
 	    dataDBManager = new DataDBManager();
 	    notificationDBManager = new NotificationDBManager();
 	    serviceProviderDBManager = new ServiceProviderDBManager();
@@ -77,6 +79,7 @@ public abstract class DBManager {
 
     public static void closeDBConnections() throws Exception {
 	    accessDBManager.closeConnection();
+	    customNotificationThresholdDBManager.closeConnection();
 	    dataDBManager.closeConnection();
 	    notificationDBManager.closeConnection();
 	    serviceProviderDBManager.closeConnection();
