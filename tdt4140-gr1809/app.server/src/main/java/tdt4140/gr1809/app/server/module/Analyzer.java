@@ -8,6 +8,7 @@ import tdt4140.gr1809.app.core.model.User;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.function.BiFunction;
@@ -59,7 +60,7 @@ public class Analyzer {
         if (dataPoint.getDataType() != DataPoint.DataType.HEART_RATE)
             throw new IllegalArgumentException("Invalid datatype, expected HEART_RATE, but was "
                     + dataPoint.getDataType());
-        if (dataPoint.getValue() > user.getMaxPulse()) {
+        if (!Objects.isNull(user.getMaxPulse()) && dataPoint.getValue() > user.getMaxPulse()) {
             return Optional.of(Notification.builder()
                     .time(LocalDateTime.now())
                     .userId(user.getId())
