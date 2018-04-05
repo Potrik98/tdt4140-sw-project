@@ -41,12 +41,14 @@ public class CustomNotificationThresholdDBManagerTest {
                 .dataType(DataPoint.DataType.HEART_RATE)
                 .thresholdType(CustomNotificationThreshold.ThresholdType.LESS_THAN)
                 .value(40)
+                .message("message")
                 .build();
         final CustomNotificationThreshold customNotificationThreshold2 = CustomNotificationThreshold.builder()
                 .userId(user.getId())
                 .dataType(DataPoint.DataType.STEPS)
                 .thresholdType(CustomNotificationThreshold.ThresholdType.MORE_THAN)
                 .value(20)
+                .message("message")
                 .build();
         final CustomNotificationThreshold customNotificationThresholdForAnotherUser =
                 CustomNotificationThreshold.builder()
@@ -54,6 +56,7 @@ public class CustomNotificationThresholdDBManagerTest {
                 .dataType(DataPoint.DataType.TEMPERATURE)
                 .thresholdType(CustomNotificationThreshold.ThresholdType.LESS_THAN)
                 .value(30)
+                .message("message")
                 .build();
 
         customNotificationThresholdDBManager.createCustomNotificationThreshold(customNotificationThreshold1);
@@ -78,6 +81,7 @@ public class CustomNotificationThresholdDBManagerTest {
                 .dataType(DataPoint.DataType.HEART_RATE)
                 .thresholdType(CustomNotificationThreshold.ThresholdType.LESS_THAN)
                 .value(40)
+                .message("message")
                 .build();
         customNotificationThresholdDBManager.createCustomNotificationThreshold(customNotificationThreshold);
 
@@ -85,6 +89,7 @@ public class CustomNotificationThresholdDBManagerTest {
                 .from(customNotificationThreshold)
                 .thresholdType(CustomNotificationThreshold.ThresholdType.MORE_THAN)
                 .value(123)
+                .message("message")
                 .build();
         customNotificationThresholdDBManager.updateCustomNotificationThreshold(updatedCustomNotificationThreshold);
 
@@ -105,6 +110,7 @@ public class CustomNotificationThresholdDBManagerTest {
                 .dataType(DataPoint.DataType.HEART_RATE)
                 .thresholdType(CustomNotificationThreshold.ThresholdType.LESS_THAN)
                 .value(40)
+                .message("message")
                 .build();
         customNotificationThresholdDBManager.createCustomNotificationThreshold(customNotificationThreshold);
 

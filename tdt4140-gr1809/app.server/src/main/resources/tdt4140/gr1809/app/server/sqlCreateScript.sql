@@ -58,5 +58,6 @@ CREATE TABLE CustomNotificationThresholds(
   dataType varchar(30),
   thresholdType varchar(30),
   thresholdValue integer,
+  message varchar(255),
   FOREIGN KEY (userId) REFERENCES Users(userId)
 );

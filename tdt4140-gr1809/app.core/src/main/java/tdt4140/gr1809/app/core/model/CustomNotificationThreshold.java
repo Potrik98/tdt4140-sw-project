@@ -17,17 +17,20 @@ public class CustomNotificationThreshold {
     private final DataPoint.DataType dataType;
     private final Integer value;
     private final ThresholdType thresholdType;
+    private final String message;
 
     private CustomNotificationThreshold(final UUID id,
                                         final UUID userID,
                                         final DataPoint.DataType dataType,
                                         final Integer value,
-                                        final ThresholdType thresholdType) {
+                                        final ThresholdType thresholdType,
+                                        final String message) {
         this.id = id;
         this.userId = userID;
         this.dataType = dataType;
         this.value = value;
         this.thresholdType = thresholdType;
+        this.message = message;
     }
 
     public static class CustomNotificationThresholdBuilder {
@@ -36,6 +39,7 @@ public class CustomNotificationThreshold {
         private DataPoint.DataType dataType;
         private Integer value;
         private ThresholdType thresholdType;
+        private String message;
 
         private CustomNotificationThresholdBuilder(final CustomNotificationThreshold customNotificationThreshold) {
             id = customNotificationThreshold.id;
@@ -43,6 +47,7 @@ public class CustomNotificationThreshold {
             dataType = customNotificationThreshold.dataType;
             value = customNotificationThreshold.value;
             thresholdType = customNotificationThreshold.thresholdType;
+            message = customNotificationThreshold.message;
         }
 
         private CustomNotificationThresholdBuilder() {
@@ -79,13 +84,20 @@ public class CustomNotificationThreshold {
             return this;
         }
 
+        @JsonProperty("message")
+        public CustomNotificationThresholdBuilder message(final String message) {
+            this.message = message;
+            return this;
+        }
+
         public CustomNotificationThreshold build() {
             return new CustomNotificationThreshold(
                     id,
                     userId,
                     dataType,
                     value,
-                    thresholdType);
+                    thresholdType,
+                    message);
         }
     }
 
@@ -115,5 +127,9 @@ public class CustomNotificationThreshold {
 
     public Integer getValue() {
         return value;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

@@ -16,7 +16,7 @@ public class CustomNotificationThresholdDBManager extends DBManager {
 
     public List<CustomNotificationThreshold> getCustomNotificationThresholdsByUserId(final UUID userId)
             throws SQLException {
-        String query = "select thresholdId, userId, dataType, thresholdType, thresholdValue" +
+        String query = "select thresholdId, userId, dataType, thresholdType, thresholdValue, message" +
                 " from CustomNotificationThresholds" +
                 " where userId = :userId:";
         NamedParameterStatement statement = new NamedParameterStatement(query, conn);
@@ -31,6 +31,7 @@ public class CustomNotificationThresholdDBManager extends DBManager {
                             .valueOf(result.getString("thresholdType")))
                     .dataType(DataPoint.DataType.valueOf(result.getString("dataType")))
                     .value(result.getInt("thresholdValue"))
+                    .message(result.getString("message"))
                     .build();
             customNotificationThresholds.add(customNotificationThreshold);
         }
@@ -39,15 +40,16 @@ public class CustomNotificationThresholdDBManager extends DBManager {
 
     public void createCustomNotificationThreshold(final CustomNotificationThreshold customNotificationThreshold) throws SQLException {
         String query = "insert into CustomNotificationThresholds" +
-                " (thresholdId, userId, thresholdType, dataType, thresholdValue)" +
+                " (thresholdId, userId, thresholdType, dataType, thresholdValue, message)" +
                 " values" +
-                " (:thresholdId:, :userId:, :thresholdType:, :dataType:, :thresholdValue:);";
+                " (:thresholdId:, :userId:, :thresholdType:, :dataType:, :thresholdValue:, :message:);";
         NamedParameterStatement statement = new NamedParameterStatement(query, conn);
         statement.setString("thresholdId", customNotificationThreshold.getId().toString());
         statement.setString("userId", customNotificationThreshold.getUserId().toString());
         statement.setString("dataType", customNotificationThreshold.getDataType().name());
         statement.setString("thresholdType", customNotificationThreshold.getThresholdType().name());
         statement.setInt("thresholdValue", customNotificationThreshold.getValue());
+        statement.setString("message", customNotificationThreshold.getMessage());
         statement.getStatement().executeUpdate();
     }
 
@@ -56,13 +58,15 @@ public class CustomNotificationThresholdDBManager extends DBManager {
         String query = "update CustomNotificationThresholds set" +
                 " dataType = :dataType:," +
                 " thresholdType = :thresholdType:," +
-                " thresholdValue = :thresholdValue:" +
+                " thresholdValue = :thresholdValue:," +
+                " message = :message:" +
                 " where thresholdId = :thresholdId:";
         NamedParameterStatement statement = new NamedParameterStatement(query, conn);
         statement.setString("thresholdId", customNotificationThreshold.getId().toString());
         statement.setString("dataType", customNotificationThreshold.getDataType().name());
         statement.setString("thresholdType", customNotificationThreshold.getThresholdType().name());
         statement.setInt("thresholdValue", customNotificationThreshold.getValue());
+        statement.setString("message", customNotificationThreshold.getMessage());
         statement.getStatement().executeUpdate();
     }
 
