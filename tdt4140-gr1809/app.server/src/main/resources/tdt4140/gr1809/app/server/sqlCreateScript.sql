@@ -5,6 +5,7 @@ CREATE TABLE Users(
   gender varchar(255),
   maxPulse integer,
   birthDate TIMESTAMP,
+  participatingInAggregatedStatistics BOOLEAN,
   deleted integer DEFAULT 0
 );
 

@@ -34,6 +34,7 @@ public class UserDBManagerTest {
                 .gender("gender")
                 .birthDate(LocalDateTime.now())
                 .maxPulse(123)
+                .participatingInAggregatedStatistics(true)
                 .build();
 
         dbManager.createUser(user);

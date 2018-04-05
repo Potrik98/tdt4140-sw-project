@@ -15,7 +15,8 @@ public class UserDBManager extends DBManager {
     }
 
     public Optional<User> getUserById(final UUID userId) throws SQLException {
-    	String query = "select firstName, lastName, gender, birthDate, maxPulse from Users" +
+    	String query = "select firstName, lastName, gender, birthDate, maxPulse, participatingInAggregatedStatistics" +
+				" from Users" +
 				" where userId = :userId: and deleted = 0;";
     	NamedParameterStatement statement = new NamedParameterStatement(query, conn);
     	statement.setString("userId", userId.toString());
@@ -30,14 +31,19 @@ public class UserDBManager extends DBManager {
                 .gender(result.getString("gender"))
                 .birthDate(Objects.isNull(result.getTimestamp("birthDate")) ? null
 						: result.getTimestamp("birthDate").toLocalDateTime())
-				.maxPulse(result.getInt("maxPulse"))
+				.maxPulse((Integer) result.getObject("maxPulse"))
+				.participatingInAggregatedStatistics((Boolean) result
+						.getObject("participatingInAggregatedStatistics"))
                 .build();
         return Optional.of(user);
     }
 
     public void createUser(final User user) throws SQLException {
-    	String query = "insert into Users (userId, firstName, lastName, gender, birthDate, maxPulse)" +
-				" values (:userId:, :firstName:, :lastName:, :gender:, :birthDate:, :maxPulse:);";
+    	String query = "insert into Users" +
+				" (userId, firstName, lastName, gender, birthDate, maxPulse, participatingInAggregatedStatistics)" +
+				" values" +
+				" (:userId:, :firstName:, :lastName:, :gender:, :birthDate:, :maxPulse:," +
+				" :participatingInAggregatedStatistics:);";
     	NamedParameterStatement statement = new NamedParameterStatement(query, conn);
     	statement.setString("userId", user.getId().toString());
     	statement.setString("firstName", user.getFirstName());
@@ -45,6 +51,8 @@ public class UserDBManager extends DBManager {
     	statement.setString("gender", user.getGender());
     	statement.setTimestamp("birthDate", user.getBirthDate());
     	statement.setInt("maxPulse", user.getMaxPulse());
+    	statement.setBoolean("participatingInAggregatedStatistics",
+				user.isParticipatingInAggregatedStatistics());
 		statement.getStatement().executeUpdate();
     }
 
@@ -54,7 +62,8 @@ public class UserDBManager extends DBManager {
 				" lastName = :lastName:," +
 				" gender = :gender:," +
 				" birthDate = :birthDate:," +
-				" maxPulse = :maxPulse:" +
+				" maxPulse = :maxPulse:," +
+				" participatingInAggregatedStatistics = :participatingInAggregatedStatistics:" +
 				" where userId = :userId:";
 		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
 		statement.setString("userId", user.getId().toString());
@@ -63,6 +72,8 @@ public class UserDBManager extends DBManager {
 		statement.setString("gender", user.getGender());
 		statement.setTimestamp("birthDate", user.getBirthDate());
 		statement.setInt("maxPulse", user.getMaxPulse());
+		statement.setBoolean("participatingInAggregatedStatistics",
+				user.isParticipatingInAggregatedStatistics());
 		statement.getStatement().executeUpdate();
 	}
 
