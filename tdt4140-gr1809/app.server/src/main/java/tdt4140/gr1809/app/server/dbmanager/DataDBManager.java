@@ -14,6 +14,24 @@ public class DataDBManager extends DBManager {
 	public DataDBManager() throws Exception {
 		super();
 	}
+
+	public List<DataPoint> getDataPoints() throws SQLException {
+		String query = "select dataId, userId, dataValue, dataType, dataTime from DataPoints;";
+		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
+		ResultSet result = statement.getStatement().executeQuery();
+		List<DataPoint> dataPoints = new ArrayList<>();
+		while(result.next()) {
+			final DataPoint data =  DataPoint.builder()
+					.id(UUID.fromString(result.getString("dataId")))
+					.userId(UUID.fromString(result.getString("userId")))
+					.time(result.getTimestamp("dataTime").toLocalDateTime())
+					.value(result.getInt("dataValue"))
+					.dataType(DataPoint.DataType.valueOf(result.getString("dataType")))
+					.build();
+			dataPoints.add(data);
+		}
+		return dataPoints;
+	}
 	
 	public List<DataPoint> getDataByUserId(final UUID userId) throws SQLException {
     	String query = "select dataId, dataValue, dataType, dataTime from DataPoints" +
