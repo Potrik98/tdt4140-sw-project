@@ -32,6 +32,10 @@ public class NamedParameterStatement {
         statement.setObject(parameterIndexMap.get(parameter), value, Types.INTEGER);
     }
 
+    public void setBoolean(String parameter, Boolean value) throws SQLException {
+        statement.setObject(parameterIndexMap.get(parameter), value, Types.BOOLEAN);
+    }
+
     public void setString(String parameter, String value) throws SQLException {
         statement.setString(parameterIndexMap.get(parameter), value);
     }
