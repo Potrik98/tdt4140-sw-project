@@ -15,7 +15,6 @@ public class User {
 	private final String lastName;
 	private final String gender;
 	private final LocalDateTime birthDate;
-	@Null
 	private final Boolean participatingInAggregatedStatistics;
 	@Null
 	private final Integer maxPulse;
@@ -92,6 +91,7 @@ public class User {
 
 		private UserBuilder() {
 			userId = UUID.randomUUID();
+			participatingInAggregatedStatistics = true;
 		}
 
 		@JsonProperty("id")
