@@ -1,4 +1,4 @@
-package tdt4140.gr1809.app.server;
+package tdt4140.gr1809.app.server.integrationtest;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -10,7 +10,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tdt4140.gr1809.app.server.IntegrationTestHelper.userClient;
+import static tdt4140.gr1809.app.server.integrationtest.IntegrationTestHelper.userClient;
 
 public class UserIntegrationTest {
     @BeforeClass

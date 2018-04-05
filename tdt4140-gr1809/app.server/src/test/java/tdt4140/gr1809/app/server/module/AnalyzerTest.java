@@ -7,7 +7,7 @@ import org.junit.Test;
 import tdt4140.gr1809.app.core.model.DataPoint;
 import tdt4140.gr1809.app.core.model.Notification;
 import tdt4140.gr1809.app.core.model.User;
-import tdt4140.gr1809.app.server.IntegrationTestHelper;
+import tdt4140.gr1809.app.server.integrationtest.IntegrationTestHelper;
 
 import java.time.LocalDateTime;
 import java.util.List;

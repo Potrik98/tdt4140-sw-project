@@ -1,6 +1,6 @@
-package tdt4140.gr1809.app.server;
+package tdt4140.gr1809.app.server.integrationtest;
 
-import static tdt4140.gr1809.app.server.IntegrationTestHelper.userClient;
+import static tdt4140.gr1809.app.server.integrationtest.IntegrationTestHelper.userClient;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -16,8 +16,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import tdt4140.gr1809.app.client.ClientException;
 import tdt4140.gr1809.app.core.model.Notification;
 import tdt4140.gr1809.app.core.model.User;
-import static tdt4140.gr1809.app.server.IntegrationTestHelper.notificationClient;
-import static tdt4140.gr1809.app.server.IntegrationTestHelper.userClient;
+import static tdt4140.gr1809.app.server.integrationtest.IntegrationTestHelper.notificationClient;
 
 public class NotificationIntegrationTest {
 	 @BeforeClass

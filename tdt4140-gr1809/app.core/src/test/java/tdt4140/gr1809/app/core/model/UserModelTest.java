@@ -16,6 +16,7 @@ public class UserModelTest {
                 .gender("gender")
                 .birthDate(LocalDateTime.now())
                 .maxPulse(123)
+                .participatingInAggregatedStatistics(true)
                 .build();
 
         final String json = User.mapper.writeValueAsString(user);

@@ -1,4 +1,4 @@
-package tdt4140.gr1809.app.server;
+package tdt4140.gr1809.app.server.integrationtest;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -8,7 +8,7 @@ import tdt4140.gr1809.app.core.model.Statistic;
 import tdt4140.gr1809.app.core.model.User;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tdt4140.gr1809.app.server.IntegrationTestHelper.*;
+import static tdt4140.gr1809.app.server.integrationtest.IntegrationTestHelper.*;
 
 public class StatisticsIntegrationTest {
     @BeforeClass

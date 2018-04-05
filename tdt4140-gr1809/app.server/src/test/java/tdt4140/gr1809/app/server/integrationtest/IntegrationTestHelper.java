@@ -1,6 +1,7 @@
-package tdt4140.gr1809.app.server;
+package tdt4140.gr1809.app.server.integrationtest;
 
 import tdt4140.gr1809.app.client.*;
+import tdt4140.gr1809.app.server.Server;
 import tdt4140.gr1809.app.server.dbmanager.DBManager;
 import tdt4140.gr1809.app.server.resource.AccessResource;
 import tdt4140.gr1809.app.server.resource.DataResource;

@@ -15,6 +15,7 @@ public class User {
 	private final String lastName;
 	private final String gender;
 	private final LocalDateTime birthDate;
+	private final Boolean participatingInAggregatedStatistics;
 	@Null
 	private final Integer maxPulse;
 
@@ -26,13 +27,15 @@ public class User {
 			String lastName, 
 			String gender, 
 			LocalDateTime birthDate,
-			Integer maxPulse) {
+			Integer maxPulse,
+			Boolean participatingInAggregatedStatistics) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.gender = gender;
 		this.birthDate = birthDate;
 		this.maxPulse = maxPulse;
+		this.participatingInAggregatedStatistics = participatingInAggregatedStatistics;
 	}
 
 
@@ -63,6 +66,10 @@ public class User {
 		return birthDate;
 	}
 
+	public Boolean isParticipatingInAggregatedStatistics() {
+		return participatingInAggregatedStatistics;
+	}
+
 	public static class UserBuilder {
 		private UUID userId;
 		private String firstName;
@@ -70,6 +77,7 @@ public class User {
 		private String gender;
 		private LocalDateTime birthDate;
 		private Integer maxPulse;
+		private Boolean participatingInAggregatedStatistics;
 
 		private UserBuilder(final User user) {
 			userId = user.id;
@@ -78,10 +86,12 @@ public class User {
 			gender = user.gender;
 			birthDate = user.birthDate;
 			maxPulse = user.maxPulse;
+			participatingInAggregatedStatistics = user.participatingInAggregatedStatistics;
 		}
 
 		private UserBuilder() {
 			userId = UUID.randomUUID();
+			participatingInAggregatedStatistics = true;
 		}
 
 		@JsonProperty("id")
@@ -120,13 +130,20 @@ public class User {
 			return this;
 		}
 
+		@JsonProperty("participatingInAggregatedStatistics")
+		public UserBuilder participatingInAggregatedStatistics(final Boolean participatingInAggregatedStatistics) {
+			this.participatingInAggregatedStatistics = participatingInAggregatedStatistics;
+			return  this;
+		}
+
 		public User build() {
 			return new User(userId,
 					firstName,
 					lastName,
 					gender,
 					birthDate,
-					maxPulse);
+					maxPulse,
+					participatingInAggregatedStatistics);
 		}
 	}
 

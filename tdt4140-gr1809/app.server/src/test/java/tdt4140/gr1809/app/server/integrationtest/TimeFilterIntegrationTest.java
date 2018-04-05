@@ -1,4 +1,4 @@
-package tdt4140.gr1809.app.server;
+package tdt4140.gr1809.app.server.integrationtest;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -15,8 +15,8 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static tdt4140.gr1809.app.server.IntegrationTestHelper.timeFilterClient;
-import static tdt4140.gr1809.app.server.IntegrationTestHelper.userClient;
+import static tdt4140.gr1809.app.server.integrationtest.IntegrationTestHelper.timeFilterClient;
+import static tdt4140.gr1809.app.server.integrationtest.IntegrationTestHelper.userClient;
 
 public class TimeFilterIntegrationTest {
     @BeforeClass
