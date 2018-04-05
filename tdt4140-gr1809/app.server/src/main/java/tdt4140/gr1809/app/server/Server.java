@@ -48,6 +48,7 @@ public class Server {
         });
         path( "/timefilters", () -> {
             post("", TimeFilterResource::createTimeFilter);
+            delete("/:timeFilterId", TimeFilterResource::deleteTimefilter);
         });
         path("/serviceprovider", () -> {
         		post("", ServiceProviderResource::createServiceProvider);
