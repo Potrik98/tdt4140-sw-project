@@ -46,4 +46,18 @@ public class TimeFilterClient extends BasicClient {
         }
         response.close();
     }
+
+    public void deleteTimeFilter(final UUID timeFilterId) {
+        final Response response = target
+                .path("/timefilters/")
+                .path(timeFilterId.toString())
+                .request(MediaType.APPLICATION_JSON_TYPE)
+                .delete();
+        if (response.getStatus() != HttpURLConnection.HTTP_NO_CONTENT) {
+            System.out.println("Response: " + response.getStatus());
+            response.close();
+            throw new ClientException("Failed to delete timefilter id :" + timeFilterId);
+        }
+        response.close();
+    }
 }
