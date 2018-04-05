@@ -1,34 +1,21 @@
-package tdt4140.gr1809.app.server;
+package tdt4140.gr1809.app.server.integrationtest;
 
 import com.google.common.collect.ImmutableList;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import tdt4140.gr1809.app.client.DataClient;
-import tdt4140.gr1809.app.client.TimeFilterClient;
-import tdt4140.gr1809.app.client.UserClient;
 import tdt4140.gr1809.app.core.model.DataPoint;
 import tdt4140.gr1809.app.core.model.TimeFilter;
 import tdt4140.gr1809.app.core.model.User;
-import tdt4140.gr1809.app.server.dbmanager.LoadDBManagerTest;
-import tdt4140.gr1809.app.server.resource.DataResource;
-import tdt4140.gr1809.app.server.resource.TimeFilterResource;
-import tdt4140.gr1809.app.server.resource.UserResource;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tdt4140.gr1809.app.server.IntegrationTestHelper.dataClient;
-import static tdt4140.gr1809.app.server.IntegrationTestHelper.timeFilterClient;
-import static tdt4140.gr1809.app.server.IntegrationTestHelper.userClient;
+import static tdt4140.gr1809.app.server.integrationtest.IntegrationTestHelper.dataClient;
+import static tdt4140.gr1809.app.server.integrationtest.IntegrationTestHelper.timeFilterClient;
+import static tdt4140.gr1809.app.server.integrationtest.IntegrationTestHelper.userClient;
 
 public class FilterIntegrationTest {
     @BeforeClass

@@ -1,4 +1,4 @@
-package tdt4140.gr1809.app.server;
+package tdt4140.gr1809.app.server.integrationtest;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tdt4140.gr1809.app.server.IntegrationTestHelper.*;
+import static tdt4140.gr1809.app.server.integrationtest.IntegrationTestHelper.*;
 
 public class AnalyzerIntegrationTest {
     @BeforeClass
