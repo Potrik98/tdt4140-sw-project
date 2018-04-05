@@ -7,6 +7,7 @@ import tdt4140.gr1809.app.core.model.TimeFilter;
 import tdt4140.gr1809.app.core.model.User;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import static tdt4140.gr1809.app.server.dbmanager.DBManager.timeFilterDBManager;
 
@@ -21,6 +22,15 @@ public class TimeFilterResource {
             e.printStackTrace();
             res.status(HttpStatus.BAD_REQUEST_400);
         }
+        return "";
+    }
+
+    public static String deleteTimefilter(final Request request,
+                                          final Response response) throws Exception {
+        final UUID timefilterId = UUID.fromString(request.params("timefilterId"));
+        System.out.println("Delete timefilter id : " + timefilterId);
+        timeFilterDBManager.deleteTimeFilter(timefilterId);
+        response.status(HttpStatus.NO_CONTENT_204);
         return "";
     }
 }
