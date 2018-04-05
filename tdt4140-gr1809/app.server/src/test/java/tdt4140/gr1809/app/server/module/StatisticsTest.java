@@ -1,8 +1,8 @@
 package tdt4140.gr1809.app.server.module;
 
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import tdt4140.gr1809.app.core.model.DataPoint;
 import tdt4140.gr1809.app.core.model.Statistic;
@@ -10,7 +10,6 @@ import tdt4140.gr1809.app.core.model.User;
 import tdt4140.gr1809.app.server.IntegrationTestHelper;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static tdt4140.gr1809.app.server.dbmanager.DBManager.dataDBManager;
@@ -18,13 +17,13 @@ import static tdt4140.gr1809.app.server.dbmanager.DBManager.userDBManager;
 
 public class StatisticsTest {
 
-    @BeforeClass
-    public static void setupStatisticTest() throws Exception {
+    @Before
+    public void setupStatisticTest() throws Exception {
         IntegrationTestHelper.setupIntegrationTest();
     }
 
-    @AfterClass
-    public static void closeConnections() throws Exception {
+    @After
+    public void closeConnections() throws Exception {
         IntegrationTestHelper.stopIntegrationTest();
     }
 
@@ -128,5 +127,55 @@ public class StatisticsTest {
         final Statistic statistic = Statistics.getStatisticsInDemographicGroupOfUserForDataType(dataType, user);
 
         assertThat(statistic.getValue()).isEqualTo(average);
+    }
+
+    @Test
+    public void testExcludingNonParticipatingUsers() throws Exception {
+        final User participatingUser = User.builder()
+                .participatingInAggregatedStatistics(true)
+                .gender("gender")
+                .birthDate(LocalDateTime.now())
+                .build();
+        final User notParticipatingUser = User.builder()
+                .participatingInAggregatedStatistics(false)
+                .gender("gender")
+                .birthDate(LocalDateTime.now())
+                .build();
+        userDBManager.createUser(participatingUser);
+        userDBManager.createUser(notParticipatingUser);
+
+        final DataPoint.DataType dataType = DataPoint.DataType.HEART_RATE;
+        final int value1 = 100;
+        final int value2 = 200;
+        final double average = (value1 + value2) / 2.0;
+
+        final DataPoint dataPoint1 = DataPoint.builder()
+                .dataType(dataType)
+                .userId(participatingUser.getId())
+                .value(value1)
+                .build();
+        final DataPoint dataPoint2 = DataPoint.builder()
+                .dataType(dataType)
+                .userId(participatingUser.getId())
+                .value(value2)
+                .build();
+        final DataPoint excludedDataPoint = DataPoint.builder()
+                .dataType(dataType)
+                .userId(notParticipatingUser.getId())
+                .value(123)
+                .build();
+
+        dataDBManager.createDataPoint(dataPoint1);
+        dataDBManager.createDataPoint(dataPoint2);
+        dataDBManager.createDataPoint(excludedDataPoint);
+
+        final Statistic statistic = Statistics.getStatisticsForDataType(dataType);
+
+        assertThat(statistic.getValue()).isEqualTo(average);
+
+        final Statistic statisticInDemographicGroup =
+                Statistics.getStatisticsInDemographicGroupOfUserForDataType(dataType, participatingUser);
+
+        assertThat(statisticInDemographicGroup.getValue()).isEqualTo(average);
     }
 }

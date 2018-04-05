@@ -18,7 +18,8 @@ import static tdt4140.gr1809.app.server.dbmanager.DBManager.userDBManager;
 
 public class Statistics {
     /**
-     * Get overall aggregated statistic for all data points for a spesific data type
+     * Get overall aggregated statistic for all data points of participating users,
+     * for a specific data type
      * @param dataType Data type to get statistic for
      * @return Statistic object containing the average
      */
@@ -26,15 +27,26 @@ public class Statistics {
         final List<DataPoint> dataPointsOfDataType = dataDBManager.getDataPoints().stream()
                 .filter(dataPoint -> dataPoint.getDataType() == dataType)
                 .collect(Collectors.toList());
-        if (dataPointsOfDataType.size() == 0) {
+        // Create a map for userId to User object so that this isn't retrieved multiple times
+        final Map<UUID, User> userIdToUserMap = dataPointsOfDataType.stream()
+                .map(DataPoint::getUserId)
+                .distinct()
+                .collect(Collectors.toMap(
+                        Function.identity(),
+                        userId -> uncheckCall(() -> userDBManager.getUserById(userId).get())));
+        final List<DataPoint> dataPointsOfParticipatingUsers = dataPointsOfDataType.stream()
+                .filter(dataPoint ->
+                        userIdToUserMap.get(dataPoint.getUserId()).isParticipatingInAggregatedStatistics())
+                .collect(Collectors.toList());
+        if (dataPointsOfParticipatingUsers.size() == 0) {
             return Statistic.builder()
                     .value(0)
                     .build();
         }
-        final int sum = dataPointsOfDataType.stream()
+        final int sum = dataPointsOfParticipatingUsers.stream()
                 .mapToInt(DataPoint::getValue)
                 .sum();
-        final double average = ((double) sum) / dataPointsOfDataType.size();
+        final double average = ((double) sum) / dataPointsOfParticipatingUsers.size();
         return Statistic.builder()
                 .value(average)
                 .dataType(dataType)
@@ -70,10 +82,14 @@ public class Statistics {
                     .value(0)
                     .build();
         }
-        final int sum = dataPointsOfDataTypeInDemographicGroupOfUser.stream()
+        final List<DataPoint> dataPointsOfParticipatingUsers = dataPointsOfDataTypeInDemographicGroupOfUser.stream()
+                .filter(dataPoint ->
+                        userIdToUserMap.get(dataPoint.getUserId()).isParticipatingInAggregatedStatistics())
+                .collect(Collectors.toList());
+        final int sum = dataPointsOfParticipatingUsers.stream()
                 .mapToInt(DataPoint::getValue)
                 .sum();
-        final double average = ((double) sum) / dataPointsOfDataTypeInDemographicGroupOfUser.size();
+        final double average = ((double) sum) / dataPointsOfParticipatingUsers.size();
         return Statistic.builder()
                 .value(average)
                 .dataType(dataType)
