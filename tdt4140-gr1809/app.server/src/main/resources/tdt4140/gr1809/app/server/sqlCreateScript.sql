@@ -51,3 +51,13 @@ CREATE TABLE ServiceProviderAccessToUser(
   FOREIGN KEY (serviceProviderId) REFERENCES ServiceProviders(serviceProviderId),
   PRIMARY KEY (userId, serviceProviderId)
 );
+
+CREATE TABLE CustomNotificationThresholds(
+  thresholdId varchar(36) NOT NULL PRIMARY KEY,
+  userId varchar(36),
+  dataType varchar(30),
+  thresholdType varchar(30),
+  thresholdValue integer,
+  message varchar(255),
+  FOREIGN KEY (userId) REFERENCES Users(userId)
+);

@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import tdt4140.gr1809.app.core.model.CustomNotificationThreshold;
 import tdt4140.gr1809.app.core.model.DataPoint;
 import tdt4140.gr1809.app.core.model.Notification;
 import tdt4140.gr1809.app.core.model.User;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static tdt4140.gr1809.app.server.dbmanager.DBManager.customNotificationThresholdDBManager;
 import static tdt4140.gr1809.app.server.dbmanager.DBManager.notificationDBManager;
 import static tdt4140.gr1809.app.server.dbmanager.DBManager.userDBManager;
 
@@ -135,6 +137,89 @@ public class AnalyzerTest {
                         + ".\nValue: " + dataPointTemperatureLowValue.getValue(),
                 "High body temperature at " + dataPointTemperatureHighValue.getTime()
                         + ".\nValue: " + dataPointTemperatureHighValue.getValue()
+        );
+    }
+
+    @Test
+    public void testGeneratingNotificationsWithCustomNotificationThresholds() throws Exception {
+        final DataPoint.DataType dataType = DataPoint.DataType.STEPS;
+        final DataPoint.DataType anotherDataType = DataPoint.DataType.HEART_RATE;
+        final int lowValue = 10;
+        final int highValue = 100;
+
+        final User user = User.builder().build();
+        userDBManager.createUser(user);
+
+        final CustomNotificationThreshold customNotificationThresholdLowValue =
+                CustomNotificationThreshold.builder()
+                        .value(lowValue)
+                        .thresholdType(CustomNotificationThreshold.ThresholdType.LESS_THAN)
+                        .dataType(dataType)
+                        .userId(user.getId())
+                        .message("Custom message low value")
+                        .build();
+        final CustomNotificationThreshold customNotificationThresholdHighValue =
+                CustomNotificationThreshold.builder()
+                        .value(highValue)
+                        .thresholdType(CustomNotificationThreshold.ThresholdType.MORE_THAN)
+                        .dataType(dataType)
+                        .userId(user.getId())
+                        .message("Custom message high value")
+                        .build();
+
+        customNotificationThresholdDBManager
+                .createCustomNotificationThreshold(customNotificationThresholdLowValue);
+        customNotificationThresholdDBManager
+                .createCustomNotificationThreshold(customNotificationThresholdHighValue);
+
+        final DataPoint dataPointLowValue = DataPoint.builder()
+                .userId(user.getId())
+                .dataType(dataType)
+                .time(LocalDateTime.now())
+                .value(lowValue - 10)
+                .build();
+        final DataPoint dataPointMediumValue = DataPoint.builder()
+                .userId(user.getId())
+                .dataType(dataType)
+                .time(LocalDateTime.now())
+                .value((lowValue + highValue) / 2)
+                .build();
+        final DataPoint dataPointHighValue = DataPoint.builder()
+                .userId(user.getId())
+                .dataType(dataType)
+                .time(LocalDateTime.now())
+                .value(highValue + 10)
+                .build();
+        final DataPoint dataPointOfAnotherDataType = DataPoint.builder()
+                .userId(user.getId())
+                .dataType(anotherDataType)
+                .time(LocalDateTime.now())
+                .value(80)
+                .build();
+
+        analyzer.analyzeDataPoints(ImmutableList.of(
+                dataPointHighValue,
+                dataPointMediumValue,
+                dataPointLowValue,
+                dataPointOfAnotherDataType
+        ));
+
+        final List<Notification> notificationsForUser =
+                notificationDBManager.getNotificationByUserId(user.getId());
+
+        assertThat(notificationsForUser).hasSize(2);
+
+        final List<String> notificationMessages = notificationsForUser.stream()
+                .map(Notification::getMessage)
+                .collect(Collectors.toList());
+
+        assertThat(notificationMessages).containsExactlyInAnyOrder(
+                customNotificationThresholdHighValue.getMessage()
+                        .concat("\nTime: " + dataPointHighValue.getTime())
+                        .concat("\nValue: " + dataPointHighValue.getValue()),
+                customNotificationThresholdLowValue.getMessage()
+                        .concat("\nTime: " + dataPointLowValue.getTime())
+                        .concat("\nValue: " + dataPointLowValue.getValue())
         );
     }
 }
