@@ -72,4 +72,24 @@ public class TimeFilterIntegrationTest {
         assertThatExceptionOfType(ClientException.class)
                 .isThrownBy(() -> timeFilterClient.createTimeFilter(p1));
     }
+
+    @Test
+    public void testDeleteTimeFilter() {
+        final User user = User.builder().build();
+        userClient.createUser(user);
+
+        final TimeFilter timeFilter = TimeFilter.builder()
+                .userId(user.getId())
+                .startTime(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
+                .endTime(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
+                .dataType(DataPoint.DataType.TEMPERATURE)
+                .build();
+        timeFilterClient.createTimeFilter(timeFilter);
+
+        timeFilterClient.deleteTimeFilter(timeFilter.getId());
+
+        final List<TimeFilter> timeFiltersForUser = timeFilterClient.getTimeFiltersForUserId(user.getId());
+
+        assertThat(timeFiltersForUser).isEmpty();
+    }
 }

@@ -38,7 +38,7 @@ public class TimeFilterDBManager extends DBManager {
 
 	public void deleteTimeFilter(final UUID timeFilterId) throws SQLException {
 		String query = "DELETE FROM TimeFilters " +
-				"WHERE timeFilterId = :timeFilterId:;";
+				"WHERE filterId = :timeFilterId:;";
 		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
 		statement.setString("timeFilterId", timeFilterId.toString());
 		statement.getStatement().executeUpdate();
