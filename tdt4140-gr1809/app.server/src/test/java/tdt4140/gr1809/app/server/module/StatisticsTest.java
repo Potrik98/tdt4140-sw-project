@@ -9,6 +9,9 @@ import tdt4140.gr1809.app.core.model.Statistic;
 import tdt4140.gr1809.app.core.model.User;
 import tdt4140.gr1809.app.server.IntegrationTestHelper;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static tdt4140.gr1809.app.server.dbmanager.DBManager.dataDBManager;
 import static tdt4140.gr1809.app.server.dbmanager.DBManager.userDBManager;
@@ -68,11 +71,62 @@ public class StatisticsTest {
         assertThat(statistic.getValue()).isEqualTo(average);
     }
 
+    @Test
     public void testGetStatisticWithoutDataPointsHasValueZero() throws Exception {
         final DataPoint.DataType dataTypeWithoutDataPoints = DataPoint.DataType.TEMPERATURE;
 
         final Statistic statistic = Statistics.getStatisticsForDataType(dataTypeWithoutDataPoints);
 
         assertThat(statistic.getValue()).isEqualTo(0);
+    }
+
+    @Test
+    public void testGetStatisticsForDemographicGroupOfUser() throws Exception {
+        final DataPoint.DataType dataType = DataPoint.DataType.HEART_RATE;
+        final int value1 = 100;
+        final int value2 = 200;
+        final double average = (value1 + value2) / 2.0;
+
+        final User user = User.builder()
+                .gender("gender")
+                .birthDate(LocalDateTime.now())
+                .build();
+        userDBManager.createUser(user);
+
+        final User userWithinSameDemographicGroup = User.builder()
+                .gender("gender")
+                .birthDate(LocalDateTime.now().minusYears(2))
+                .build();
+        userDBManager.createUser(userWithinSameDemographicGroup);
+
+        final User userInAnotherDemographicGroup = User.builder()
+                .gender("anothergender")
+                .birthDate(LocalDateTime.now().minusYears(10))
+                .build();
+        userDBManager.createUser(userInAnotherDemographicGroup);
+
+        final DataPoint dataPoint1 = DataPoint.builder()
+                .dataType(dataType)
+                .userId(user.getId())
+                .value(value1)
+                .build();
+        final DataPoint dataPoint2 = DataPoint.builder()
+                .dataType(dataType)
+                .userId(userWithinSameDemographicGroup.getId())
+                .value(value2)
+                .build();
+        final DataPoint dataPointForAnotherUserInAnotherDemographicGroup = DataPoint.builder()
+                .dataType(dataType)
+                .userId(userInAnotherDemographicGroup.getId())
+                .value(123)
+                .build();
+
+        dataDBManager.createDataPoint(dataPoint1);
+        dataDBManager.createDataPoint(dataPoint2);
+        dataDBManager.createDataPoint(dataPointForAnotherUserInAnotherDemographicGroup);
+
+        final Statistic statistic = Statistics.getStatisticsInDemographicGroupOfUserForDataType(dataType, user);
+
+        assertThat(statistic.getValue()).isEqualTo(average);
     }
 }

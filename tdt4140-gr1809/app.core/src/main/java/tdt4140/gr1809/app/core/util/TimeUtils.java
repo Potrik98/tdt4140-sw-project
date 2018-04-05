@@ -5,8 +5,8 @@ import java.time.Period;
 
 public class TimeUtils {
     public static boolean localDateTimesAreWithinAPeriodOfEachOther(final LocalDateTime a,
-                                                                      final LocalDateTime b,
-                                                                      final Period period) {
+                                                                    final LocalDateTime b,
+                                                                    final Period period) {
         return a.isBefore(b.plus(period)) && a.isAfter(b.minus(period));
     }
 }
