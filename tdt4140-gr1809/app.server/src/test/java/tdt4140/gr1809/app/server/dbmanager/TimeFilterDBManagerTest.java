@@ -64,4 +64,25 @@ public class TimeFilterDBManagerTest {
 
         assertThat(retrievedTimeFilter).isEmpty();
     }
+
+    @Test
+    public void testDeleteTimeFilter() throws SQLException {
+        final User user = User.builder().build();
+        userDBManager.createUser(user);
+
+        final TimeFilter timeFilter = TimeFilter.builder()
+                .userId(user.getId())
+                .dataType(DataPoint.DataType.HEART_RATE)
+                .startTime(LocalDateTime.now())
+                .endTime(LocalDateTime.now())
+                .build();
+        timeFilterDBManager.createTimeFilter(timeFilter);
+
+        timeFilterDBManager.deleteTimeFilter(timeFilter.getId());
+
+        final List<TimeFilter> timeFiltersForUser =
+                timeFilterDBManager.getTimeFiltersByUserId(user.getId());
+
+        assertThat(timeFiltersForUser).isEmpty();
+    }
 }

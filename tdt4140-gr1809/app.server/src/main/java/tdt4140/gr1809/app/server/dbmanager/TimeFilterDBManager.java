@@ -36,6 +36,14 @@ public class TimeFilterDBManager extends DBManager {
         return timeFilters;
     }
 
+	public void deleteTimeFilter(final UUID timeFilterId) throws SQLException {
+		String query = "DELETE FROM TimeFilters " +
+				"WHERE timeFilterId = :timeFilterId:;";
+		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
+		statement.setString("timeFilterId", timeFilterId.toString());
+		statement.getStatement().executeUpdate();
+	}
+
 	public void createTimeFilter(final TimeFilter timeFilter) throws SQLException {
 		String query = "insert into TimeFilters (filterId, userId, startTime, endTime, dataType)" +
 				" values (:timeFilterId:, :userId:, :startTime:, :endTime:, :dataType:);";
