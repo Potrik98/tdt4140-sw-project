@@ -10,6 +10,7 @@ public class StatisticModelTest {
     @Test
     public void testParseStatisticModelToJson() throws IOException {
         final Statistic statistic = Statistic.builder()
+                .dataType(DataPoint.DataType.HEART_RATE)
                 .value(123)
                 .build();
 

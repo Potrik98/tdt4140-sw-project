@@ -10,23 +10,28 @@ import java.util.UUID;
 public class Statistic {
     private final UUID statisticId;
     private final double value;
+    private final DataPoint.DataType dataType;
 
     public static final ObjectMapper mapper = new ObjectMapper()
             .findAndRegisterModules();
 
     private Statistic(final UUID statisticId,
-                      final double value) {
+                      final double value,
+                      final DataPoint.DataType dataType) {
         this.statisticId = statisticId;
         this.value = value;
+        this.dataType = dataType;
     }
 
     public static class StatisticBuilder {
         private UUID statisticId;
         private double value;
+        private DataPoint.DataType dataType;
 
         private StatisticBuilder(final Statistic statistic) {
             statisticId = statistic.statisticId;
             value = statistic.value;
+            dataType = statistic.dataType;
         }
 
         private StatisticBuilder() {
@@ -45,10 +50,17 @@ public class Statistic {
             return this;
         }
 
+        @JsonProperty("dataType")
+        public StatisticBuilder dataType(final DataPoint.DataType dataType) {
+            this.dataType = dataType;
+            return this;
+        }
+
         public Statistic build() {
             return new Statistic(
                     statisticId,
-                    value);
+                    value,
+                    dataType);
         }
     }
 
@@ -66,5 +78,9 @@ public class Statistic {
 
     public double getValue() {
         return value;
+    }
+
+    public DataPoint.DataType getDataType() {
+        return dataType;
     }
 }
