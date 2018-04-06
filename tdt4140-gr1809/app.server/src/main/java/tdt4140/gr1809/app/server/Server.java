@@ -32,6 +32,8 @@ public class Server {
                 get("/datapoints", UserResource::getDataPointsOfUser);
                 get("/timefilters", UserResource::getTimeFiltersOfUser);
                 get("/notifications", UserResource::getNotificationsOfUser);
+                get("/customnotificationthresholds",
+                        CustomNotificationThresholdResource::getCustomNotificationThresholdsOfUser);
 
                 path("/serviceproviders", () -> {
                     get("",
@@ -65,6 +67,10 @@ public class Server {
         path("/statistics", () -> {
             get("/:dataType", StatisticsResource::getStatisticsForDataType);
             get("/:dataType/user/:userId", StatisticsResource::getStatisticsForDataTypeInDemographicGroupOfUser);
+        });
+        path("/customnotificationthresholds", () -> {
+            post("", CustomNotificationThresholdResource::createCustomNotificationThreshold);
+            delete("/:thresholdId", CustomNotificationThresholdResource::deleteCustomNotificationThreshold);
         });
 
         exception(IllegalArgumentException.class, (exception, request, response) -> {
