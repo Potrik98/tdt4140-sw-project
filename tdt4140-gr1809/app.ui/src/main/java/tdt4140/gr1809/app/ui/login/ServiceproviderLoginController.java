@@ -28,7 +28,6 @@ public class ServiceproviderLoginController {
 	
 	@FXML
 	private void initialLoginRequest() throws IOException {
-		//TODO uuid sjekk -> server sjekk -> bytt til serviceprovider sin home view -> bytt knapper i navbar
 		String username = UsernameTextfield.getText();
 		UUID uid = UUID.fromString(username);
 		ServiceProviderClient serviceproviderclient = new ServiceProviderClient();
@@ -36,7 +35,7 @@ public class ServiceproviderLoginController {
 		
 		fxAppController.serviceProvider = serviceprovider.get();
 		
-		fxAppController.goToServiceProviderView(null);
+		fxAppController.goToProfileView(null);
 		fxAppController.changeNavbarVisibility(true);
 		
 		}
@@ -55,8 +54,8 @@ public class ServiceproviderLoginController {
 	
 	public void setfxAppController(FxAppController controller) {
 		fxAppController = controller;
-		if(fxAppController.user != null) {
-		UsernameTextfield.setText(fxAppController.user.getId().toString());
+		if(fxAppController.serviceProvider != null) {
+		UsernameTextfield.setText(fxAppController.serviceProvider.getId().toString());
 		}
 	}
 }
