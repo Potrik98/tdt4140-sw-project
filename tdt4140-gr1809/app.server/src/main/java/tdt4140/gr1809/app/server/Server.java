@@ -64,6 +64,7 @@ public class Server {
         });
         path("/statistics", () -> {
             get("/:dataType", StatisticsResource::getStatisticsForDataType);
+            get("/:dataType/user/:userId", StatisticsResource::getStatisticsForDataTypeInDemographicGroupOfUser);
         });
 
         exception(IllegalArgumentException.class, (exception, request, response) -> {
