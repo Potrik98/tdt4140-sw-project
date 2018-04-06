@@ -34,6 +34,7 @@ public class FxAppController implements Initializable{
 	private ProfileViewController profileviewController;
 	private ServiceProviderViewController serviceProviderViewController;
 	private LoginController loginController;
+	private NotificationsViewController notificationcontroller;
 	private GraphViewController graphViewController;
 	public HeartRateViewController heartRateViewController;
 	public FxAppController Appcontroller;
@@ -89,6 +90,16 @@ public class FxAppController implements Initializable{
         loader.load();
         loginController = loader.getController();
         loginController.setfxAppController(this);
+        rightPane.getChildren().add(loader.getRoot());
+	}
+	
+	public void goToNotificationsView(ActionEvent event) throws IOException{
+		rightPane.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("NotificationsView.fxml"));
+        loader.load();
+        notificationcontroller = loader.getController();
+        notificationcontroller.setfxAppController(this);
         rightPane.getChildren().add(loader.getRoot());
 	}
 	
