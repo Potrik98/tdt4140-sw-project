@@ -20,6 +20,7 @@ public class ProfileViewController implements Initializable {
 	@FXML Label nameLabel;
 	@FXML Label birthdateLabel;
 	@FXML Label genderLabel;
+	@FXML CheckBox aggregateCheckbox;
 	
 	private FxAppController fxAppController;
 
@@ -31,6 +32,17 @@ public class ProfileViewController implements Initializable {
 		client.deleteUser(fxAppController.user.getId());
 		fxAppController.goToLoginView(null);
 		fxAppController.changeNavbarVisibility(false);
+	}
+	
+	@FXML
+	private void changeAggregateParticipation() {
+		System.out.println(aggregateCheckbox.isSelected());
+		UserClient userClient = new UserClient();
+		User user = User.from(fxAppController.user)
+				.participatingInAggregatedStatistics(aggregateCheckbox.isSelected())
+				.build();
+		userClient.updateUser(user);
+		fxAppController.user = user;
 	}
 
 	@Override
@@ -46,6 +58,7 @@ public class ProfileViewController implements Initializable {
 		nameLabel.setText(user.getFirstName() + " " + user.getLastName());
 		genderLabel.setText(user.getGender());
 		birthdateLabel.setText(fxAppController.user.getBirthDate().toLocalDate().toString());
+		aggregateCheckbox.setSelected(user.isParticipatingInAggregatedStatistics());
 	}
 
 }
