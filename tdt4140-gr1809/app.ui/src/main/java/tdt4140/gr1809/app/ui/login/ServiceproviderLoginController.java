@@ -36,6 +36,7 @@ public class ServiceproviderLoginController {
 		fxAppController.serviceProvider = serviceprovider.get();
 		
 		fxAppController.goToProfileView(null);
+		fxAppController.loginSP();
 		fxAppController.changeNavbarVisibility(true);
 		
 		}
