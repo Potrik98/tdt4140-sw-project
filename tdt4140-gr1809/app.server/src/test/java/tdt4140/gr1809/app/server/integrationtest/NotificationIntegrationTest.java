@@ -5,6 +5,7 @@ import static tdt4140.gr1809.app.server.integrationtest.IntegrationTestHelper.us
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.AfterClass;
@@ -70,6 +71,31 @@ public class NotificationIntegrationTest {
 	    			.build();
 	    	assertThatExceptionOfType(ClientException.class)
 	    			.isThrownBy(() -> notificationClient.createNotification(n1));
+	    }
+	    
+	    @Test
+	    public void testDeleteNotification() {
+	    	final User user = User.builder()
+	                .firstName("FirstName")
+	                .lastName("LastName")
+	                .birthDate(LocalDateTime.now())
+	                .gender("gender")
+					.maxPulse(123)
+	                .build();
+	        userClient.createUser(user);
+	        
+	        final Notification notification = Notification.builder()
+	        		.id(UUID.randomUUID())
+	        		.userId(user.getId())
+	        		.time(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
+	        		.message("Hei og h�, du kommer til � d� igjen.")
+	        		.build();
+	        notificationClient.createNotification(notification);
+	        
+	        notificationClient.deleteNotification(notification.getId());
+
+	        final List<Notification> retrievedNotification = notificationClient.getNotificationByUserId(notification.getId());
+	        assertThat(retrievedNotification).isEmpty();
 	    }
 
 }

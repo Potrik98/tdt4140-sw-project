@@ -61,7 +61,7 @@ public class Server {
         });
         path("/notifications", () -> {
         	post("", NotificationResource::createNotification);
-        	path("/notificationId", () -> {
+        	path("/:notificationId", () -> {
         		delete("", NotificationResource::deleteNotification);
         	});
         });

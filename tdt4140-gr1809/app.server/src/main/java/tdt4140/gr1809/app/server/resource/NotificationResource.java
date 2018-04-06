@@ -29,7 +29,7 @@ public class NotificationResource {
 	public static String deleteNotification(Request req, Response res) throws Exception {
         UUID notificationId = UUID.fromString(req.params("notificationId"));
         System.out.println("Delete notificationId: " + notificationId);
-        if (userDBManager.deleteUser(notificationId)) {
+        if (notificationDBManager.deleteNotification(notificationId)) {
             res.status(HttpStatus.NO_CONTENT_204);
         } else {
             res.status(HttpStatus.NOT_FOUND_404);
