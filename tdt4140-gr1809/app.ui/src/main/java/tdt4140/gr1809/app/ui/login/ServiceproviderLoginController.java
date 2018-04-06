@@ -32,12 +32,12 @@ public class ServiceproviderLoginController {
 		UUID uid = UUID.fromString(username);
 		ServiceProviderClient serviceproviderclient = new ServiceProviderClient();
 		Optional<ServiceProvider> serviceprovider = serviceproviderclient.getServiceProviderById(uid);
-		
+		fxAppController.setServiceProviderNavbar();
 		fxAppController.serviceProvider = serviceprovider.get();
 		
 		fxAppController.goToProfileView(null);
 		fxAppController.loginSP();
-		fxAppController.changeNavbarVisibility(true);
+
 		
 		}
 	

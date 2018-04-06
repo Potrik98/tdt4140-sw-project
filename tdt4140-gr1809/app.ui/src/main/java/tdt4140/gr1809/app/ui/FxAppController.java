@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.VBox;
 import tdt4140.gr1809.app.core.model.ServiceProvider;
 import tdt4140.gr1809.app.core.model.User;
 import javafx.scene.layout.Pane;
@@ -29,9 +30,13 @@ public class FxAppController implements Initializable{
 	@FXML private Button ServiceProviderViewButton;
 	@FXML private Button TimelimitViewButton;
 
+	@FXML private VBox userNavbar;
+	@FXML private VBox serviceProviderNavbar;
+
 	private RegisterViewController registerViewController;
 	private RegisterServiceProviderViewController registerServiceProviderViewController;
 	private ProfileViewController profileviewController;
+	private UserViewController userViewController;
 	private ServiceProviderViewController serviceProviderViewController;
 	private LoginController loginController;
 	private GraphViewController graphViewController;
@@ -82,6 +87,16 @@ public class FxAppController implements Initializable{
         rightPane.getChildren().add(loader.getRoot());
 	}
 
+	public void goToUserView(ActionEvent event) throws IOException{
+		rightPane.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("UserView.fxml"));
+		loader.load();
+		userViewController = loader.getController();
+		userViewController.setfxAppController(this);
+		rightPane.getChildren().add(loader.getRoot());
+	}
+
 	public void goToLoginView(ActionEvent event) throws IOException{
 		rightPane.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
@@ -94,7 +109,8 @@ public class FxAppController implements Initializable{
 	
 	@FXML
 	public void logout() throws IOException {
-		changeNavbarVisibility(false);
+		userNavbar.setVisible(false);
+		serviceProviderNavbar.setVisible(false);
 		user = null;
 		serviceProvider = null;
 		goToLoginView(null);
@@ -147,10 +163,11 @@ public class FxAppController implements Initializable{
 
 
 	public void initialize(URL arg0, ResourceBundle arg1){
-		changeNavbarVisibility(false);
 		rightPane.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("Login.fxml"));
+		userNavbar.setVisible(false);
+		serviceProviderNavbar.setVisible(false);
 
 		try {
 	        loader.load();
@@ -179,9 +196,13 @@ public class FxAppController implements Initializable{
 		
 	}
 	
-	public void changeNavbarVisibility(boolean change) {
-			NavBar.setVisible(change);
-			NavBar.setDisable(!change);
+	public void setUserNavbar() {
+		userNavbar.setVisible(true);
+		serviceProviderNavbar.setVisible(false);
+	}
 
+	public void setServiceProviderNavbar() {
+		userNavbar.setVisible(false);
+		serviceProviderNavbar.setVisible(true);
 	}
 }
