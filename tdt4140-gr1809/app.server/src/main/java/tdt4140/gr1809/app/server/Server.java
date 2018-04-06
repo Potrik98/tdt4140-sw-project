@@ -70,7 +70,7 @@ public class Server {
         });
         path("/customnotificationthresholds", () -> {
             post("", CustomNotificationThresholdResource::createCustomNotificationThreshold);
-            delete("/:thresholdId", CustomNotificationThresholdResource::createCustomNotificationThreshold);
+            delete("/:thresholdId", CustomNotificationThresholdResource::deleteCustomNotificationThreshold);
         });
 
         exception(IllegalArgumentException.class, (exception, request, response) -> {
