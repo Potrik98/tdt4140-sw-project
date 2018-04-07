@@ -1,14 +1,15 @@
 package tdt4140.gr1809.app.server.integrationtest;
 
-import tdt4140.gr1809.app.client.*;
+import tdt4140.gr1809.app.client.AccessClient;
+import tdt4140.gr1809.app.client.CustomNotificationThresholdClient;
+import tdt4140.gr1809.app.client.DataClient;
+import tdt4140.gr1809.app.client.NotificationClient;
+import tdt4140.gr1809.app.client.ServiceProviderClient;
+import tdt4140.gr1809.app.client.StatisticsClient;
+import tdt4140.gr1809.app.client.TimeFilterClient;
+import tdt4140.gr1809.app.client.UserClient;
 import tdt4140.gr1809.app.server.Server;
 import tdt4140.gr1809.app.server.dbmanager.DBManager;
-import tdt4140.gr1809.app.server.resource.AccessResource;
-import tdt4140.gr1809.app.server.resource.DataResource;
-import tdt4140.gr1809.app.server.resource.NotificationResource;
-import tdt4140.gr1809.app.server.resource.ServiceProviderResource;
-import tdt4140.gr1809.app.server.resource.TimeFilterResource;
-import tdt4140.gr1809.app.server.resource.UserResource;
 
 public class IntegrationTestHelper {
     public static final int TEST_PORT = 8192;
@@ -19,6 +20,7 @@ public class IntegrationTestHelper {
     public static ServiceProviderClient serviceProviderClient;
     public static AccessClient accessClient;
     public static StatisticsClient statisticsClient;
+    public static CustomNotificationThresholdClient customNotificationThresholdClient;
 
     public static void setupIntegrationTest() throws Exception {
         Server.startServer(TEST_PORT);
@@ -32,6 +34,7 @@ public class IntegrationTestHelper {
         notificationClient = new NotificationClient();
         accessClient = new AccessClient();
         statisticsClient = new StatisticsClient();
+        customNotificationThresholdClient = new CustomNotificationThresholdClient();
     }
 
     public static void stopIntegrationTest() throws Exception {
