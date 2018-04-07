@@ -19,7 +19,7 @@
                         <Button fx:id="ServiceProviderViewButton" maxHeight="-Infinity" maxWidth="100.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToServiceProviderView" prefHeight="100.0" prefWidth="100.0" text="Service Providers" textAlignment="CENTER" wrapText="true" />
             		<Button fx:id="heartRateViewButton" maxWidth="100.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToHeartRateView" prefHeight="100.0" prefWidth="100.0" text="Heart Rate" textAlignment="CENTER" VBox.vgrow="ALWAYS" />
             		<Button fx:id="GraphViewButton" maxHeight="-Infinity" maxWidth="100.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToGraphView" prefHeight="100.0" prefWidth="100.0" text="GraphView" textAlignment="CENTER" VBox.vgrow="ALWAYS" />
-                        <Button maxHeight="-Infinity" maxWidth="100.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToTimeLimitView" prefHeight="100.0" prefWidth="100.0" text="Tidsbegrensninger" />
+                        <Button fx:id="TimelimitViewButton" maxHeight="-Infinity" maxWidth="100.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToTimeLimitView" prefHeight="100.0" prefWidth="100.0" text="Tidsbegrensninger" />
                     <Button fx:id="LoginViewButton" maxHeight="-Infinity" maxWidth="100.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#logout" prefHeight="100.0" prefWidth="100.0" text="Logout" textAlignment="CENTER" VBox.vgrow="ALWAYS" />
                 </children>
       		</VBox>

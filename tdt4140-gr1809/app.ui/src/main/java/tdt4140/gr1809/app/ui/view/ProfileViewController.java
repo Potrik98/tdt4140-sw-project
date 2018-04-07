@@ -8,6 +8,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import tdt4140.gr1809.app.client.UserClient;
+import tdt4140.gr1809.app.core.model.ServiceProvider;
 import tdt4140.gr1809.app.core.model.User;
 import tdt4140.gr1809.app.ui.FxAppController;
 
@@ -54,11 +55,19 @@ public class ProfileViewController implements Initializable {
 		fxAppController = controller;
 		System.out.println(fxAppController);
 		User user = fxAppController.user;
+		ServiceProvider sp = fxAppController.serviceProvider;
 		
-		nameLabel.setText(user.getFirstName() + " " + user.getLastName());
-		genderLabel.setText(user.getGender());
-		birthdateLabel.setText(fxAppController.user.getBirthDate().toLocalDate().toString());
-		aggregateCheckbox.setSelected(user.isParticipatingInAggregatedStatistics());
+
+		if(user != null) {
+			nameLabel.setText(user.getFirstName() + " " + user.getLastName());
+			genderLabel.setText(user.getGender());
+			birthdateLabel.setText(fxAppController.user.getBirthDate().toLocalDate().toString());
+            aggregateCheckbox.setSelected(user.isParticipatingInAggregatedStatistics());
+		}else {
+			nameLabel.setText(sp.getFirstName() + " " + sp.getLastName());
+			genderLabel.setText(sp.getGender());
+			birthdateLabel.setText(sp.getBirthDate().toLocalDate().toString());
+		}
 	}
 
 }

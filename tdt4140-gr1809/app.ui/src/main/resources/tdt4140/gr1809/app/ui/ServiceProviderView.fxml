@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -28,15 +29,15 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfeffd" height="207.0" stroke="BLACK" strokeType="INSIDE" width="328.0" />
                   <Label layoutX="68.0" layoutY="14.0" prefHeight="46.0" prefWidth="190.0" text="Service providers who have access to your data:" textAlignment="CENTER" wrapText="true" />
                   <ComboBox fx:id="ServiceProvidersComboBox" layoutX="88.0" layoutY="74.0" prefWidth="150.0" />
-                  <Button layoutX="88.0" layoutY="125.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Revoke Access" />
+                  <Button layoutX="88.0" layoutY="125.0" mnemonicParsing="false" onAction="#revokeServiceProviderAccess" prefHeight="38.0" prefWidth="150.0" text="Revoke Access" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfeffd" height="207.0" stroke="BLACK" strokeType="INSIDE" width="328.0" AnchorPane.topAnchor="0.0" />
-                  <Label layoutX="86.0" layoutY="14.0" prefHeight="46.0" prefWidth="154.0" text="Service providers who don't have access to your data:" textAlignment="CENTER" wrapText="true" />
-                  <ComboBox fx:id="ServiceProvidersComboBox1" layoutX="88.0" layoutY="74.0" prefWidth="150.0" />
-                  <Button layoutX="88.0" layoutY="125.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Grant Access" />
+                  <Label layoutX="86.0" layoutY="14.0" prefHeight="46.0" prefWidth="154.0" text="Grant serviceprovider access to user:" textAlignment="CENTER" wrapText="true" />
+                  <Button layoutX="88.0" layoutY="125.0" mnemonicParsing="false" onAction="#grantServiceProviderAccess" prefHeight="38.0" prefWidth="150.0" text="Grant Access" />
+                  <TextField fx:id="serviceproviderID" layoutX="90.0" layoutY="80.0" />
                </children>
                <padding>
                   <Insets top="2.0" />

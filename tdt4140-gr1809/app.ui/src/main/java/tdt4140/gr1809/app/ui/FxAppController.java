@@ -1,6 +1,7 @@
 package tdt4140.gr1809.app.ui;
 
 import java.io.IOException;
+import javafx.scene.control.*;
 
 
 import java.net.URL;
@@ -24,6 +25,9 @@ public class FxAppController implements Initializable{
 	
 	@FXML private Pane rightPane;
 	@FXML private AnchorPane NavBar;
+	
+	@FXML private Button ServiceProviderViewButton;
+	@FXML private Button TimelimitViewButton;
 
 	private RegisterViewController registerViewController;
 	private RegisterServiceProviderViewController registerServiceProviderViewController;
@@ -92,7 +96,12 @@ public class FxAppController implements Initializable{
 	public void logout() throws IOException {
 		changeNavbarVisibility(false);
 		user = null;
+		serviceProvider = null;
 		goToLoginView(null);
+		TimelimitViewButton.setDisable(false);
+		TimelimitViewButton.setVisible(true);
+		ServiceProviderViewButton.setVisible(true);
+		ServiceProviderViewButton.setDisable(false);
 	}
 
 	public void goToGraphView(ActionEvent event) throws IOException {
@@ -156,6 +165,18 @@ public class FxAppController implements Initializable{
 	
 	public void setController(FxAppController controller) {
 		Appcontroller = controller;
+	}
+	
+	public void loginSP() {
+		TimelimitViewButton.setDisable(true);
+		TimelimitViewButton.setVisible(false);
+		ServiceProviderViewButton.setVisible(false);
+		ServiceProviderViewButton.setDisable(true);
+		
+	}
+	
+	public void loginUser() {
+		
 	}
 	
 	public void changeNavbarVisibility(boolean change) {
