@@ -35,6 +35,9 @@ public class HeartRateViewController implements Initializable {
 	public void initialize(final URL url, final ResourceBundle rb) {
 		heartRateGraph = new HeartRateGraph(lineGraph, 10);
 
+
+
+
 	}
 
 
@@ -107,5 +110,8 @@ public class HeartRateViewController implements Initializable {
 	}
 	public void setfxAppController(FxAppController controller) {
 		fxAppController = controller;
+
+		//just to test that the user selection works:
+		System.out.println("User Selected: " + fxAppController.user.getId() );
 	}
 }

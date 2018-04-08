@@ -31,7 +31,6 @@ public class ProfileViewController implements Initializable {
 		final UserClient client = new UserClient();
 		client.deleteUser(fxAppController.user.getId());
 		fxAppController.goToLoginView(null);
-		fxAppController.changeNavbarVisibility(false);
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import tdt4140.gr1809.app.client.UserClient;
 import tdt4140.gr1809.app.core.model.User;
 import tdt4140.gr1809.app.ui.FxAppController;
@@ -13,14 +14,12 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
-
 public class LoginController {
 	@FXML private TextField UsernameTextfield;
 	@FXML private TextField PasswordTextfield;
 	@FXML private Label LoginStatus;
-	@FXML private Button graphViewButton;
-	@FXML private Button heartRateViewButton;
-	@FXML private AnchorPane NavBar;
+
+
 	
 	private FxAppController fxAppController;
 	
@@ -36,7 +35,7 @@ public class LoginController {
 		fxAppController.user = user.get();
 		
 		fxAppController.goToProfileView(null);
-		fxAppController.changeNavbarVisibility(true);
+		fxAppController.setUserNavbar();
 	}
 	
 	@FXML

@@ -52,7 +52,6 @@ public class ServiceProviderViewController implements Initializable {
 	public void setfxAppController(FxAppController controller) {
 		fxAppController = controller;
 		List<ServiceProvider> gg = accessclient.getServiceProviderWithAccessToUser(fxAppController.user.getId());
-		System.out.println(gg);
 		ServiceProvidersComboBox.setItems(FXCollections.observableArrayList(gg));
 		ServiceProvidersComboBox.setConverter(new StringConverter<ServiceProvider>() {
 			

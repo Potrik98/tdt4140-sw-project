@@ -1,7 +1,6 @@
 package tdt4140.gr1809.app.ui;
 
 import java.io.IOException;
-import javafx.scene.control.*;
 
 
 import java.net.URL;
@@ -11,6 +10,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 import tdt4140.gr1809.app.core.model.ServiceProvider;
 import tdt4140.gr1809.app.core.model.User;
 import javafx.scene.layout.Pane;
@@ -24,14 +25,17 @@ public class FxAppController implements Initializable{
 
 	
 	@FXML private Pane rightPane;
-	@FXML private AnchorPane NavBar;
-	
-	@FXML private Button ServiceProviderViewButton;
-	@FXML private Button TimelimitViewButton;
+
+	@FXML private VBox userNavbar;
+	@FXML private VBox serviceProviderNavbar;
+
+	@FXML private Button heartRateViewButton;
+	@FXML private Button profileViewButton;
 
 	private RegisterViewController registerViewController;
 	private RegisterServiceProviderViewController registerServiceProviderViewController;
 	private ProfileViewController profileviewController;
+	private ClientsViewController clientsViewController;
 	private ServiceProviderViewController serviceProviderViewController;
 	private LoginController loginController;
 	private GraphViewController graphViewController;
@@ -82,6 +86,16 @@ public class FxAppController implements Initializable{
         rightPane.getChildren().add(loader.getRoot());
 	}
 
+	public void goToClientView(ActionEvent event) throws IOException{
+		rightPane.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("ClientsView.fxml"));
+		loader.load();
+		clientsViewController = loader.getController();
+		clientsViewController.setfxAppController(this);
+		rightPane.getChildren().add(loader.getRoot());
+	}
+
 	public void goToLoginView(ActionEvent event) throws IOException{
 		rightPane.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
@@ -94,24 +108,11 @@ public class FxAppController implements Initializable{
 	
 	@FXML
 	public void logout() throws IOException {
-		changeNavbarVisibility(false);
+		userNavbar.setVisible(false);
+		serviceProviderNavbar.setVisible(false);
 		user = null;
 		serviceProvider = null;
 		goToLoginView(null);
-		TimelimitViewButton.setDisable(false);
-		TimelimitViewButton.setVisible(true);
-		ServiceProviderViewButton.setVisible(true);
-		ServiceProviderViewButton.setDisable(false);
-	}
-
-	public void goToGraphView(ActionEvent event) throws IOException {
-		rightPane.getChildren().clear();
-		FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("GraphView.fxml"));
-        loader.load();
-        graphViewController = loader.getController();
-        graphViewController.setfxAppController(this);
-        rightPane.getChildren().add(loader.getRoot());
 	}
 
 	public void goToHeartRateView(ActionEvent event) throws IOException {
@@ -147,10 +148,11 @@ public class FxAppController implements Initializable{
 
 
 	public void initialize(URL arg0, ResourceBundle arg1){
-		changeNavbarVisibility(false);
 		rightPane.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("Login.fxml"));
+		userNavbar.setVisible(false);
+		serviceProviderNavbar.setVisible(false);
 
 		try {
 	        loader.load();
@@ -166,22 +168,26 @@ public class FxAppController implements Initializable{
 	public void setController(FxAppController controller) {
 		Appcontroller = controller;
 	}
-	
-	public void loginSP() {
-		TimelimitViewButton.setDisable(true);
-		TimelimitViewButton.setVisible(false);
-		ServiceProviderViewButton.setVisible(false);
-		ServiceProviderViewButton.setDisable(true);
-		
-	}
-	
-	public void loginUser() {
-		
-	}
-	
-	public void changeNavbarVisibility(boolean change) {
-			NavBar.setVisible(change);
-			NavBar.setDisable(!change);
 
+
+	public void setUserNavbar() {
+		userNavbar.setVisible(true);
+		serviceProviderNavbar.setVisible(false);
+	}
+
+	public void setServiceProviderNavbar() {
+		userNavbar.setVisible(false);
+		serviceProviderNavbar.setVisible(true);
+	}
+
+	public void disableDataView() {
+		heartRateViewButton.setDisable(true);
+		profileViewButton.setDisable(true);
+	}
+
+	public void enableDataView() {
+		heartRateViewButton.setDisable(false);
+		profileViewButton.setDisable(false);
+		profileViewButton.setText(user.getFirstName() + " " + user.getLastName());
 	}
 }
