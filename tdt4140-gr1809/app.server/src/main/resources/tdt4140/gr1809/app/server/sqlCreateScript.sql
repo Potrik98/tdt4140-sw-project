@@ -23,6 +23,7 @@ CREATE TABLE Notifications(
   userId varchar(36),
   message varchar(255),
   time TIMESTAMP,
+  deleted integer DEFAULT 0,
   FOREIGN KEY (userID) REFERENCES Users(userId)
 );
 

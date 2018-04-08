@@ -49,5 +49,19 @@ public class NotificationClient extends BasicClient {
         }
         response.close();
 	}
+	
+	public void deleteNotification(final UUID notificationId) {
+        final Response response = target
+                .path("/notifications/")
+                .path(notificationId.toString())
+                .request(MediaType.APPLICATION_JSON_TYPE)
+                .delete();
+        if (response.getStatus() != HttpURLConnection.HTTP_NO_CONTENT) {
+            response.close();
+            throw new ClientException("Failed to delete notification "
+                    .concat(notificationId.toString()));
+        }
+        response.close();
+    }
 
 }

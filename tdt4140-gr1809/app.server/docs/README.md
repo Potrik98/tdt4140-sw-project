@@ -32,6 +32,7 @@ All data is transferred using JSON, and Jackson is used for serialization.
  - `GET     /serviceprovider/{serviceProviderId}/users`: gets a list of users of the users the service provider has access to.
  - <br>
  - `POST    /notifications {Notification object}`: creates a notification from the notification object.
+ - `DELETE  /notifications {notificationId}`: deletes the notification with the notificationId.
  - <br>
  - `GET     /statistics/{dataType}`: gets the statistics for the data type.
  - <br>

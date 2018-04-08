@@ -63,6 +63,9 @@ public class Server {
         });
         path("/notifications", () -> {
         	post("", NotificationResource::createNotification);
+        	path("/:notificationId", () -> {
+        		delete("", NotificationResource::deleteNotification);
+        	});
         });
         path("/statistics", () -> {
             get("/:dataType", StatisticsResource::getStatisticsForDataType);
