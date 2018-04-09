@@ -19,11 +19,7 @@ import tdt4140.gr1809.app.ui.FxAppController;
 public class ServiceproviderLoginController {
 	@FXML private TextField UsernameTextfield;
 	@FXML private TextField PasswordTextfield;
-	@FXML private Label LoginStatus;
-	@FXML private Button graphViewButton;
-	@FXML private Button createUserButton;
-	@FXML private Button heartRateViewButton;
-	@FXML private AnchorPane NavBar;
+
 	
 	private FxAppController fxAppController;
 	
@@ -36,6 +32,7 @@ public class ServiceproviderLoginController {
 			ServiceProviderClient serviceproviderclient = new ServiceProviderClient();
 			Optional<ServiceProvider> serviceprovider = serviceproviderclient.getServiceProviderById(uid);
 			fxAppController.serviceProvider = serviceprovider.get();
+			fxAppController.lastLoggedInServiceProvider = serviceprovider.get();
 			fxAppController.goToClientView(null);
 			fxAppController.setUserNavbar();
 
@@ -71,6 +68,9 @@ public class ServiceproviderLoginController {
 		fxAppController = controller;
 		if(fxAppController.serviceProvider != null) {
 		UsernameTextfield.setText(fxAppController.serviceProvider.getId().toString());
+		}
+		else if(fxAppController.lastLoggedInServiceProvider != null) {
+			UsernameTextfield.setText(fxAppController.lastLoggedInServiceProvider.getId().toString());
 		}
 	}
 }

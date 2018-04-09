@@ -21,6 +21,8 @@ public class LoginController {
 	@FXML private Label LoginStatus;
 
 
+
+
 	
 	private FxAppController fxAppController;
 	
@@ -38,6 +40,7 @@ public class LoginController {
 			fxAppController.user = user.get();
 			fxAppController.goToProfileView(null);
 			fxAppController.setUserNavbar();
+			fxAppController.lastLoggedInUser = user.get();
 		}
 		catch (Exception e){
 			System.err.println(e);
@@ -90,6 +93,9 @@ public class LoginController {
 		fxAppController = controller;
 		if(fxAppController.user != null) {
 		UsernameTextfield.setText(fxAppController.user.getId().toString());
+		}
+		else if(fxAppController.lastLoggedInUser != null) {
+			UsernameTextfield.setText(fxAppController.lastLoggedInUser.getId().toString());
 		}
 	}
 }
