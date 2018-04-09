@@ -43,8 +43,11 @@ public class FxAppController implements Initializable{
 	public FxAppController Appcontroller;
 	public ServiceproviderLoginController serviceProviderLoginViewController;
 	public TimeLimitViewController timelimitViewController;
+
 	public User user;
 	public ServiceProvider serviceProvider;
+	public ServiceProvider lastLoggedInServiceProvider;
+	public User lastLoggedInUser;
 
 
 	public void goToRegisterView(ActionEvent event) throws IOException{
@@ -108,6 +111,8 @@ public class FxAppController implements Initializable{
 	
 	@FXML
 	public void logout() throws IOException {
+		lastLoggedInUser = user;
+		lastLoggedInServiceProvider = serviceProvider;
 		userNavbar.setVisible(false);
 		serviceProviderNavbar.setVisible(false);
 		user = null;

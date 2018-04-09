@@ -18,6 +18,7 @@ public class FxApp extends Application {
         controller.setController(controller);
         stage.setResizable(false);
         stage.setScene(scene);
+        stage.setTitle("Health Monitor 9000");
         stage.show();
     }
 
