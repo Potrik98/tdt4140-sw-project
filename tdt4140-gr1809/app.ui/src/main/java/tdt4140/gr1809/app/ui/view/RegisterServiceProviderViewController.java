@@ -12,6 +12,7 @@ import tdt4140.gr1809.app.ui.FxAppController;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class RegisterServiceProviderViewController implements Initializable {
@@ -61,6 +62,7 @@ public class RegisterServiceProviderViewController implements Initializable {
 	public void initialize(final URL url, final ResourceBundle rb) {
 		genderChoiceBox.getItems().addAll("Male", "Female");
 		genderChoiceBox.setValue("Male");
+		birthdateInput.setValue(LocalDate.now().minusYears(22));
 
 	}
 
