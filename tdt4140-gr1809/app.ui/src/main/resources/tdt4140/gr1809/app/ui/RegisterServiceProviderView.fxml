@@ -16,7 +16,7 @@
    <left>
       <VBox alignment="TOP_RIGHT" prefHeight="750.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TilePane maxWidth="200.0" minWidth="200.0" orientation="VERTICAL" prefHeight="564.0" prefWidth="200.0" tileAlignment="TOP_LEFT" vgap="15.0">
+            <TilePane maxWidth="200.0" minWidth="200.0" orientation="VERTICAL" prefHeight="564.0" prefWidth="200.0" tileAlignment="TOP_LEFT" vgap="10.0">
                <children>
                   <Label prefHeight="28.0" prefWidth="200.0" text="Register SP">
                      <font>
@@ -27,7 +27,7 @@
                      <children>
                         <Label fx:id="firstNameLabel" prefHeight="25.0" prefWidth="200.0" text="First Name">
                            <font>
-                              <Font name="System Bold" size="14.0" />
+                              <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
                         <TextField fx:id="firstNameInput" maxWidth="-Infinity" prefHeight="32.0" prefWidth="200.0" promptText="John" />
@@ -38,7 +38,7 @@
                      <children>
                         <Label fx:id="lastNameLabel" prefHeight="25.0" prefWidth="200.0" text="Last Name">
                            <font>
-                              <Font name="System Bold" size="14.0" />
+                              <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
                         <TextField fx:id="lastNameInput" maxWidth="-Infinity" prefHeight="32.0" prefWidth="200.0" promptText="Anderson" />
@@ -49,7 +49,7 @@
                      <children>
                         <Label fx:id="birthdateLabel" prefHeight="25.0" prefWidth="200.0" text="Birthdate">
                            <font>
-                              <Font name="System Bold" size="14.0" />
+                              <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
                         <DatePicker fx:id="birthdateInput" prefHeight="32.0" prefWidth="200.0" />
@@ -59,7 +59,7 @@
                      <children>
                         <Label fx:id="genderLabel" prefHeight="25.0" prefWidth="200.0" text="Gender">
                            <font>
-                              <Font name="System Bold" size="14.0" />
+                              <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
                         <ChoiceBox fx:id="genderChoiceBox" prefHeight="32.0" prefWidth="100.0" />
@@ -67,8 +67,14 @@
                   </VBox>
                   <HBox alignment="BOTTOM_CENTER" spacing="20.0">
                      <children>
-                        <Button fx:id="cancelRegisterButton" mnemonicParsing="false" onAction="#cancelButtonClicked" prefHeight="32.0" prefWidth="90.0" text="Cancel" />
-                        <Button fx:id="registerProfileButton1" minHeight="32.0" mnemonicParsing="false" onAction="#registerButtonClicked" prefHeight="32.0" prefWidth="90.0" text="Register" />
+                        <Button fx:id="cancelRegisterButton" mnemonicParsing="false" onAction="#cancelButtonClicked" prefHeight="32.0" prefWidth="90.0" text="Cancel">
+                           <font>
+                              <Font size="16.0" />
+                           </font></Button>
+                        <Button fx:id="registerProfileButton1" minHeight="32.0" mnemonicParsing="false" onAction="#registerButtonClicked" prefHeight="32.0" prefWidth="90.0" text="Register">
+                           <font>
+                              <Font size="16.0" />
+                           </font></Button>
                      </children>
                   </HBox>
                </children>

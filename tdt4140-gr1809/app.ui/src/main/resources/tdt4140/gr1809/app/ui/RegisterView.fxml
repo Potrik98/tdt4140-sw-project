@@ -17,7 +17,7 @@
    <left>
       <VBox alignment="TOP_RIGHT" prefHeight="750.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TilePane maxWidth="200.0" minWidth="200.0" orientation="VERTICAL" prefHeight="564.0" prefWidth="200.0" tileAlignment="TOP_LEFT" vgap="15.0">
+            <TilePane maxWidth="200.0" minWidth="200.0" orientation="VERTICAL" prefHeight="564.0" prefWidth="200.0" tileAlignment="TOP_LEFT" vgap="10.0">
                <children>
                   <Label prefHeight="28.0" prefWidth="200.0" text="Register User">
                      <font>
@@ -28,7 +28,7 @@
                      <children>
                         <Label fx:id="firstNameLabel" prefHeight="25.0" prefWidth="200.0" text="First Name">
                            <font>
-                              <Font name="System Bold" size="14.0" />
+                              <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
                         <TextField fx:id="firstNameInput" maxWidth="-Infinity" prefHeight="32.0" prefWidth="200.0" promptText="John" />
@@ -39,7 +39,7 @@
                      <children>
                         <Label fx:id="lastNameLabel" prefHeight="25.0" prefWidth="200.0" text="Last Name">
                            <font>
-                              <Font name="System Bold" size="14.0" />
+                              <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
                         <TextField fx:id="lastNameInput" maxWidth="-Infinity" prefHeight="32.0" prefWidth="200.0" promptText="Anderson" />
@@ -50,7 +50,7 @@
                      <children>
                         <Label fx:id="birthdateLabel" prefHeight="25.0" prefWidth="200.0" text="Birthdate">
                            <font>
-                              <Font name="System Bold" size="14.0" />
+                              <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
                         <DatePicker fx:id="birthdateInput" prefHeight="32.0" prefWidth="200.0" />
@@ -60,7 +60,7 @@
                      <children>
                         <Label fx:id="genderLabel" prefHeight="25.0" prefWidth="200.0" text="Gender">
                            <font>
-                              <Font name="System Bold" size="14.0" />
+                              <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
                         <ChoiceBox fx:id="genderChoiceBox" prefHeight="32.0" prefWidth="100.0" />
