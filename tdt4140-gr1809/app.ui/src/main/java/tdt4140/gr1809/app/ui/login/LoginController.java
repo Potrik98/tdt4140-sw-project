@@ -1,6 +1,7 @@
 package tdt4140.gr1809.app.ui.login;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -25,17 +26,30 @@ public class LoginController {
 	
 	@FXML
 	private void initialLoginRequest() throws IOException {
-		LoginStatus.setText("");
-		String username = UsernameTextfield.getText();
-		UUID uid = UUID.fromString(username);
+		String username = "Invalid username";
 		
-		UserClient userclient = new UserClient();
-		Optional<User> user = userclient.getUserById(uid);
+		try{
+			LoginStatus.setText("");
+			username = UsernameTextfield.getText();
+			UUID uid = UUID.fromString(username);
+
+			UserClient userclient = new UserClient();
+			Optional<User> user = userclient.getUserById(uid);
+			fxAppController.user = user.get();
+			fxAppController.goToProfileView(null);
+			fxAppController.setUserNavbar();
+		}
+		catch (Exception e){
+			System.err.println(e);
+
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Login failed");
+			alert.setHeaderText("Login Failed");
+			alert.setContentText("user\n" + username + "\ndoes not exist");
+			alert.showAndWait();
+		}
 		
-		fxAppController.user = user.get();
-		
-		fxAppController.goToProfileView(null);
-		fxAppController.setUserNavbar();
+
 	}
 	
 	@FXML
