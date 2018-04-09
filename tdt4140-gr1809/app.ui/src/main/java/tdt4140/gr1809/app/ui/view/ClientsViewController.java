@@ -58,9 +58,24 @@ public class ClientsViewController implements Initializable {
 		col_lastName.setOnEditStart(event -> {
 			User user = event.getRowValue();
 			selectClient(user);});
+		col_firstName.setOnEditStart(event -> {
+			User user = event.getRowValue();
+			selectClient(user);});
+		col_birthdate.setOnEditStart(event -> {
+			User user = event.getRowValue();
+			selectClient(user);});
+		col_gender.setOnEditStart(event -> {
+			User user = event.getRowValue();
+			selectClient(user);});
 
-		clientsObservableList.addAll(accessClient.getUsersServiceProviderHasAccessTo(serviceProvider.getId()));
-		clientsTable.setItems(clientsObservableList);
+		try{
+			clientsObservableList.addAll(accessClient.getUsersServiceProviderHasAccessTo(serviceProvider.getId()));
+			clientsTable.setItems(clientsObservableList);
+		}
+		catch (Exception e){
+			System.err.println(e);
+		}
+
 	}
 
 	public void selectClient(User user){
