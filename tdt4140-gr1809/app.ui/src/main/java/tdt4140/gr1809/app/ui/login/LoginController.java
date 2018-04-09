@@ -18,24 +18,31 @@ public class LoginController {
 	@FXML private TextField UsernameTextfield;
 	@FXML private TextField PasswordTextfield;
 	@FXML private Label LoginStatus;
-
+	@FXML private Label ErrorLabel;
 
 	
 	private FxAppController fxAppController;
 	
 	@FXML
 	private void initialLoginRequest() throws IOException {
-		LoginStatus.setText("");
 		String username = UsernameTextfield.getText();
-		UUID uid = UUID.fromString(username);
+		UUID uid = getUUIDByUsername();
+		if(uid == null) {
+			wrongLoginCredentials();
+		}
 		
 		UserClient userclient = new UserClient();
 		Optional<User> user = userclient.getUserById(uid);
 		
-		fxAppController.user = user.get();
-		
-		fxAppController.goToProfileView(null);
-		fxAppController.setUserNavbar();
+		if(user.isPresent()) {
+			fxAppController.user = user.get();
+			
+			correctLoginCredentials();
+			fxAppController.goToProfileView(null);
+			fxAppController.setUserNavbar();
+		} else {
+			wrongLoginCredentials();
+		}
 	}
 	
 	@FXML
@@ -48,26 +55,25 @@ public class LoginController {
 			fxAppController.goToRegisterView(null);
 	}
 
-	private void WrongLoginCredentials() {
+	private void wrongLoginCredentials() {
 		//Clear login textboxes (use if username/password is wrong)
 		UsernameTextfield.setText("");
 		PasswordTextfield.setText("");
-		LoginStatus.setText("Wrong login credentials");
+		ErrorLabel.setVisible(true);
 	}
 	
-	private void CorrectLoginCredentials() {
-		LoginStatus.setText("Welcome " + UsernameTextfield.getText());
+	private void correctLoginCredentials() {
 		UsernameTextfield.setText("");
 		PasswordTextfield.setText("");
+		ErrorLabel.setVisible(false);
 	}
 	
-	private UUID getUUIDUsername() {
+	private UUID getUUIDByUsername() {
 		try {
 			UUID uid = UUID.fromString(UsernameTextfield.getText());
 			return uid;
 		} catch (Exception e) {
 			UsernameTextfield.setText("");
-			LoginStatus.setText("Invalid UUID as username");
 			return null;
 		}
 	}
@@ -75,7 +81,7 @@ public class LoginController {
 	public void setfxAppController(FxAppController controller) {
 		fxAppController = controller;
 		if(fxAppController.user != null) {
-		UsernameTextfield.setText(fxAppController.user.getId().toString());
+			UsernameTextfield.setText(fxAppController.user.getId().toString());
 		}
 	}
 }
