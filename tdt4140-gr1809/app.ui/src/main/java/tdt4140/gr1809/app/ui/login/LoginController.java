@@ -18,7 +18,7 @@ import java.util.UUID;
 public class LoginController {
 	@FXML private TextField UsernameTextfield;
 	@FXML private TextField PasswordTextfield;
-	@FXML private Label LoginStatus;
+
 
 
 
@@ -31,7 +31,6 @@ public class LoginController {
 		String username = "Invalid username";
 		
 		try{
-			LoginStatus.setText("");
 			username = UsernameTextfield.getText();
 			UUID uid = UUID.fromString(username);
 
@@ -65,29 +64,6 @@ public class LoginController {
 			fxAppController.goToRegisterView(null);
 	}
 
-	private void WrongLoginCredentials() {
-		//Clear login textboxes (use if username/password is wrong)
-		UsernameTextfield.setText("");
-		PasswordTextfield.setText("");
-		LoginStatus.setText("Wrong login credentials");
-	}
-	
-	private void CorrectLoginCredentials() {
-		LoginStatus.setText("Welcome " + UsernameTextfield.getText());
-		UsernameTextfield.setText("");
-		PasswordTextfield.setText("");
-	}
-	
-	private UUID getUUIDUsername() {
-		try {
-			UUID uid = UUID.fromString(UsernameTextfield.getText());
-			return uid;
-		} catch (Exception e) {
-			UsernameTextfield.setText("");
-			LoginStatus.setText("Invalid UUID as username");
-			return null;
-		}
-	}
 	
 	public void setfxAppController(FxAppController controller) {
 		fxAppController = controller;
