@@ -13,14 +13,14 @@
 
 <BorderPane minHeight="750.0" minWidth="880.0" prefHeight="750.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.login.LoginController">
    <left>
-      <VBox alignment="TOP_RIGHT" prefWidth="210.0" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_RIGHT" prefWidth="200.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets top="120.0" />
          </BorderPane.margin>
          <children>
             <TilePane alignment="TOP_RIGHT" maxWidth="200.0" orientation="VERTICAL" prefHeight="400.0" prefTileWidth="200.0" prefWidth="200.0" tileAlignment="TOP_RIGHT" vgap="20.0">
                <children>
-                  <Label prefHeight="16.0" prefWidth="200.0" text="Login">
+                  <Label prefHeight="16.0" prefWidth="200.0" text="User Login">
                      <font>
                         <Font size="28.0" />
                      </font>
