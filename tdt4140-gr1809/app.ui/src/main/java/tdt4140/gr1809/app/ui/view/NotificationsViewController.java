@@ -1,11 +1,13 @@
 package tdt4140.gr1809.app.ui.view;
 
 import javafx.collections.FXCollections;
+
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.collections.*;
 import javafx.util.StringConverter;
 import tdt4140.gr1809.app.client.NotificationClient;
 import tdt4140.gr1809.app.client.UserClient;
@@ -21,36 +23,43 @@ import java.util.UUID;
 
 public class NotificationsViewController implements Initializable{
 
-	private FxAppController fxAppController;
-	@FXML ListView<Notification> NotificationsList;
+	@FXML ListView<Notification> NotificationsListView = new ListView<Notification>();
 	@FXML TextArea NotificationText;
+	
+	private FxAppController fxAppController;
 	private NotificationClient client = new NotificationClient();
+	private ObservableList<Notification> notificationList;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
 	}
 	
+	@FXML
 	public void updateNotification() {
-		Notification note = NotificationsList.getSelectionModel().getSelectedItem();
-		NotificationText.setText(note.getMessage());
+		Notification note = NotificationsListView.getFocusModel().getFocusedItem();
+		if(note != null) {
+			NotificationText.setText(note.getMessage());
+		}
 	}
 	
 	public void setfxAppController(FxAppController controller) {
 		fxAppController = controller;
-		
-		final Notification eksempel = Notification.builder()
-			.message("DU MÅ TIL LEGEN DU HAR PULS OVER 9000 BPM!!!")
-			.userId(fxAppController.user.getId())
-			.id(UUID.randomUUID())
-			.time(LocalDateTime.now())
-			.build();
-		NotificationClient client2 = new NotificationClient();
-		client2.createNotification(eksempel);
-		
-		List<Notification> notificationList = client.getNotificationByUserId(fxAppController.user.getId());
-		NotificationsList.setItems(FXCollections.observableArrayList(notificationList));
+		notificationList = FXCollections.observableArrayList(client.getNotificationByUserId(fxAppController.user.getId()));
+		System.out.println(notificationList);
+		NotificationsListView.setItems(notificationList);
+		NotificationsListView.setCellFactory(param -> new ListCell<Notification>() {
+		    @Override
+		    protected void updateItem(Notification item, boolean empty) {
+		        super.updateItem(item, empty);
+
+		        if (empty || item == null || item.getMessage() == null) {
+		            setText(null);
+		        } else {
+		            setText(item.getMessage().substring(0, 20) + "...");
+		        }
+		    }
+		});
 	}
 
 }
