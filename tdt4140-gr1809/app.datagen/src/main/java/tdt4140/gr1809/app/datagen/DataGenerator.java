@@ -2,12 +2,11 @@ package tdt4140.gr1809.app.datagen;
 
 import tdt4140.gr1809.app.client.DataClient;
 import tdt4140.gr1809.app.core.model.DataPoint;
-import tdt4140.gr1809.app.datagen.generator.AbstractGenerator;
+import tdt4140.gr1809.app.datagen.generator.Generator;
 
 import java.util.UUID;
 
 public class DataGenerator {
-    private static DataClient dataClient;
     private static final String usage = "DataGenerator <DataType> <UserId> <count>";
 
     public static void main(String[] args) {
@@ -39,8 +38,8 @@ public class DataGenerator {
             return;
         }
 
-        AbstractGenerator generator = AbstractGenerator.getDataGenerator(userId, dataType);
-        dataClient = new DataClient();
+        Generator generator = Generator.getDataGenerator(userId, dataType);
+        DataClient dataClient = new DataClient();
         generator.generateDataPoints(count).forEach(dataClient::createDataPoint);
     }
 }
