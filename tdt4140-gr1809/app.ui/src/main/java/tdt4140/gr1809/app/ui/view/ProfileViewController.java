@@ -2,6 +2,7 @@ package tdt4140.gr1809.app.ui.view;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -24,6 +25,8 @@ public class ProfileViewController implements Initializable {
 	
 	private FxAppController fxAppController;
 
+	private UserClient userClient = new UserClient();
+
 	//TODO: validate user input
 
 	@FXML
@@ -35,6 +38,25 @@ public class ProfileViewController implements Initializable {
 	
 	@FXML
 	public void updateUser() throws IOException {
+		try {
+			final Integer maxPulse = Integer.valueOf(this.maxPulse.getText());
+			fxAppController.user = User.from(fxAppController.user)
+					.maxPulse(maxPulse)
+					.build();
+			userClient.updateUser(fxAppController.user);
+		} catch (final NumberFormatException e) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Update failed");
+			alert.setHeaderText("Failed to update user");
+			alert.setContentText("Please input a valid value for max pulse");
+			alert.showAndWait();
+		} catch (final Exception e) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Update failed");
+			alert.setHeaderText("Failed to update user");
+			alert.setContentText("Something went wrong: " + e.getMessage());
+			alert.showAndWait();
+		}
 	}
 	
 	@FXML
@@ -44,7 +66,6 @@ public class ProfileViewController implements Initializable {
 	@FXML
 	private void changeAggregateParticipation() {
 		System.out.println(aggregateCheckbox.isSelected());
-		UserClient userClient = new UserClient();
 		User user = User.from(fxAppController.user)
 				.participatingInAggregatedStatistics(aggregateCheckbox.isSelected())
 				.build();
@@ -64,12 +85,13 @@ public class ProfileViewController implements Initializable {
 		ServiceProvider sp = fxAppController.serviceProvider;
 		
 
-		if(user != null) {
+		if (user != null) {
 			nameLabel.setText(user.getFirstName() + " " + user.getLastName());
 			genderLabel.setText(user.getGender());
 			birthdateLabel.setText(fxAppController.user.getBirthDate().toLocalDate().toString());
             aggregateCheckbox.setSelected(user.isParticipatingInAggregatedStatistics());
-		}else {
+            maxPulse.setText(user.getMaxPulse().toString());
+		} else {
 			nameLabel.setText(sp.getFirstName() + " " + sp.getLastName());
 			genderLabel.setText(sp.getGender());
 			birthdateLabel.setText(sp.getBirthDate().toLocalDate().toString());
