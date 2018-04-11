@@ -32,6 +32,7 @@ public class FxAppController implements Initializable{
 	@FXML private Button heartRateViewButton;
 	@FXML private Button profileViewButton;
 	@FXML private Button NotificationsViewButton;
+	@FXML private Button NotifyUserButton;
 
 	private RegisterViewController registerViewController;
 	private RegisterServiceProviderViewController registerServiceProviderViewController;
@@ -45,6 +46,7 @@ public class FxAppController implements Initializable{
 	public FxAppController Appcontroller;
 	public ServiceproviderLoginController serviceProviderLoginViewController;
 	public TimeLimitViewController timelimitViewController;
+	public NotifyUserViewController notifyuserviewcontroller;
 
 	public User user;
 	public ServiceProvider serviceProvider;
@@ -130,6 +132,7 @@ public class FxAppController implements Initializable{
 		user = null;
 		serviceProvider = null;
 		goToLoginView(null);
+		disableDataView();
 	}
 
 	public void goToHeartRateView(ActionEvent event) throws IOException {
@@ -161,7 +164,17 @@ public class FxAppController implements Initializable{
 		serviceProviderViewController.setfxAppController(this);
 		rightPane.getChildren().add(loader.getRoot());
 	}
-
+	
+	public void goToNotifyUserView(ActionEvent event) throws IOException {
+		rightPane.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("NotifyUserView.fxml"));
+		loader.load();
+		notifyuserviewcontroller = loader.getController();
+		notifyuserviewcontroller.setfxAppController(this);
+		rightPane.getChildren().add(loader.getRoot());
+	}
+	
 
 
 	public void initialize(URL arg0, ResourceBundle arg1){
@@ -201,12 +214,16 @@ public class FxAppController implements Initializable{
 		heartRateViewButton.setDisable(true);
 		profileViewButton.setDisable(true);
 		NotificationsViewButton.setDisable(true);
+		NotifyUserButton.setDisable(true);
+		NotifyUserButton.setText("Notify user");
 	}
 
 	public void enableDataView() {
 		heartRateViewButton.setDisable(false);
 		profileViewButton.setDisable(false);
 		NotificationsViewButton.setDisable(false);
+		NotifyUserButton.setDisable(false);
 		profileViewButton.setText(user.getFirstName() + " " + user.getLastName());
+		NotifyUserButton.setText("Notify " + user.getFirstName() + " " + user.getLastName());
 	}
 }
