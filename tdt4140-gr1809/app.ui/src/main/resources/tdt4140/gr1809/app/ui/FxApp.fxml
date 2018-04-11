@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="750.0" maxWidth="1000.0" minHeight="750.0" minWidth="1000.0" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.FxAppController">
+<BorderPane maxHeight="750.0" maxWidth="1000.0" minHeight="750.0" minWidth="1000.0" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.FxAppController">
    <left>
     <AnchorPane maxHeight="750.0" maxWidth="100.0" minHeight="750.0" minWidth="100.0" prefHeight="750.0" prefWidth="120.0" BorderPane.alignment="CENTER">
 		   <children>
@@ -16,8 +15,9 @@
                   <Button fx:id="ProfileViewButton1" maxHeight="-Infinity" maxWidth="100.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToProfileView" prefHeight="100.0" prefWidth="100.0" text="Profile" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS" />
                   <Button fx:id="ServiceProviderViewButton1" maxHeight="-Infinity" maxWidth="100.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToServiceProviderView" prefHeight="100.0" prefWidth="100.0" text="Service Providers" textAlignment="CENTER" wrapText="true" />
                   <Button fx:id="heartRateViewButton1" maxWidth="100.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToHeartRateView" prefHeight="100.0" prefWidth="100.0" text="Heart Rate" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS" />
+                  <Button maxHeight="-Infinity" maxWidth="100.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToNotificationsView" prefHeight="100.0" prefWidth="100.0" text="Notifications" wrapText="true" />
                   <Button fx:id="TimelimitViewButton1" maxHeight="-Infinity" maxWidth="100.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToTimeLimitView" prefHeight="100.0" prefWidth="100.0" text="Settings" wrapText="true" />
-                  <VBox alignment="BOTTOM_CENTER" prefHeight="352.0" prefWidth="100.0">
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="255.0" prefWidth="100.0">
                      <children>
                         <Button fx:id="LoginViewButton2" maxHeight="-Infinity" maxWidth="100.0" minHeight="36.0" minWidth="80.0" mnemonicParsing="false" onAction="#logout" prefHeight="36.0" prefWidth="100.0" text="Logout" textAlignment="CENTER" />
                      </children>
@@ -29,7 +29,7 @@
                   <Button maxHeight="-Infinity" maxWidth="100.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToClientView" prefHeight="100.0" prefWidth="100.0" text="Clients" textAlignment="CENTER" wrapText="true" />
       		<Button fx:id="profileViewButton" maxHeight="-Infinity" maxWidth="100.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToProfileView" prefHeight="100.0" prefWidth="100.0" text="Profile" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS" />
       		<Button fx:id="heartRateViewButton" maxWidth="100.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToHeartRateView" prefHeight="100.0" prefWidth="100.0" text="Heart Rate" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS" />
-                  <VBox alignment="BOTTOM_CENTER" prefHeight="137.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="NotificationsViewButton" alignment="BOTTOM_CENTER" prefHeight="137.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                      <children>
                     <Button fx:id="LoginViewButton" maxHeight="-Infinity" maxWidth="100.0" minHeight="36.0" minWidth="80.0" mnemonicParsing="false" onAction="#logout" prefHeight="36.0" prefWidth="100.0" text="Logout" textAlignment="CENTER" />
                      </children>
