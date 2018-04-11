@@ -62,7 +62,11 @@ public class NotificationsViewController implements Initializable{
 		        if (empty || item == null || item.getMessage() == null) {
 		            setText(null);
 		        } else {
-		            setText(item.getMessage().substring(0, 20) + "...");
+		        	if(item.getMessage().length() < 22) {
+		        		setText(item.getMessage());
+		        	}else {
+			            setText(item.getMessage().substring(0, 20) + "...");
+		        	}
 		        }
 		    }
 		});
