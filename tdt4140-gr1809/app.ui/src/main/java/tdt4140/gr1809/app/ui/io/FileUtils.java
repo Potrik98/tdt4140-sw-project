@@ -7,7 +7,7 @@ import tdt4140.gr1809.app.core.model.User;
 
 public class FileUtils {
 	
-	public static void WriterObjectToFile(final Object object, final String fileName) {
+	public static void writeObjectToFile(final Object object, final String fileName) {
 		try {
 			PrintWriter writer = new PrintWriter(new File(fileName));
 			writer.println(User.mapper.writerWithDefaultPrettyPrinter().writeValueAsString(object));
