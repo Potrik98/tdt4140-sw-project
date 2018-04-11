@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
@@ -19,9 +20,10 @@
             </Label>
             <AnchorPane prefHeight="527.0" prefWidth="328.0">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfeffd" height="537.0" stroke="BLACK" strokeType="INSIDE" width="446.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfeffd" height="583.0" stroke="BLACK" strokeType="INSIDE" width="446.0" />
                   <ListView fx:id="NotificationsListView" layoutX="75.0" layoutY="14.0" onMouseClicked="#updateNotification" prefHeight="271.0" prefWidth="295.0" />
-                  <TextArea fx:id="NotificationText" editable="false" layoutX="75.0" layoutY="295.0" prefHeight="222.0" prefWidth="295.0" wrapText="true" />
+                  <TextArea fx:id="NotificationText" editable="false" layoutX="75.0" layoutY="346.0" prefHeight="222.0" prefWidth="295.0" wrapText="true" />
+                  <TextField fx:id="itemDateTime" editable="false" layoutX="75.0" layoutY="307.0" prefHeight="26.0" prefWidth="295.0" />
                </children>
             </AnchorPane>
          </children>
