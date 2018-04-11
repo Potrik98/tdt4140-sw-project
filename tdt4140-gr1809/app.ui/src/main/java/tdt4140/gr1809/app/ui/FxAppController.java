@@ -31,6 +31,7 @@ public class FxAppController implements Initializable{
 
 	@FXML private Button heartRateViewButton;
 	@FXML private Button profileViewButton;
+	@FXML private Button NotificationsViewButton;
 
 	private RegisterViewController registerViewController;
 	private RegisterServiceProviderViewController registerServiceProviderViewController;
@@ -38,6 +39,7 @@ public class FxAppController implements Initializable{
 	private ClientsViewController clientsViewController;
 	private ServiceProviderViewController serviceProviderViewController;
 	private LoginController loginController;
+	private NotificationsViewController notificationcontroller;
 	private GraphViewController graphViewController;
 	public HeartRateViewController heartRateViewController;
 	public FxAppController Appcontroller;
@@ -106,6 +108,16 @@ public class FxAppController implements Initializable{
         loader.load();
         loginController = loader.getController();
         loginController.setfxAppController(this);
+        rightPane.getChildren().add(loader.getRoot());
+	}
+	
+	public void goToNotificationsView(ActionEvent event) throws IOException{
+		rightPane.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("NotificationsView.fxml"));
+        loader.load();
+        notificationcontroller = loader.getController();
+        notificationcontroller.setfxAppController(this);
         rightPane.getChildren().add(loader.getRoot());
 	}
 	
@@ -188,11 +200,13 @@ public class FxAppController implements Initializable{
 	public void disableDataView() {
 		heartRateViewButton.setDisable(true);
 		profileViewButton.setDisable(true);
+		NotificationsViewButton.setDisable(true);
 	}
 
 	public void enableDataView() {
 		heartRateViewButton.setDisable(false);
 		profileViewButton.setDisable(false);
+		NotificationsViewButton.setDisable(false);
 		profileViewButton.setText(user.getFirstName() + " " + user.getLastName());
 	}
 }
