@@ -31,6 +31,7 @@ public class FxAppController implements Initializable{
 
 	@FXML private Button heartRateViewButton;
 	@FXML private Button profileViewButton;
+	@FXML private Button NotificationsViewButton;
 
 	private RegisterViewController registerViewController;
 	private RegisterServiceProviderViewController registerServiceProviderViewController;
@@ -199,11 +200,13 @@ public class FxAppController implements Initializable{
 	public void disableDataView() {
 		heartRateViewButton.setDisable(true);
 		profileViewButton.setDisable(true);
+		NotificationsViewButton.setDisable(true);
 	}
 
 	public void enableDataView() {
 		heartRateViewButton.setDisable(false);
 		profileViewButton.setDisable(false);
+		NotificationsViewButton.setDisable(false);
 		profileViewButton.setText(user.getFirstName() + " " + user.getLastName());
 	}
 }
