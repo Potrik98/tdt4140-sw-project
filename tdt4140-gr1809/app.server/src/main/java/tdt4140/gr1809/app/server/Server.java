@@ -28,6 +28,7 @@ public class Server {
             path("/:userId", () -> {
                 post("", UserResource::updateUser);
                 get("", UserResource::getUserById);
+                get("/data", UserResource::getAllUserDataById);
                 delete("", UserResource::deleteUser);
                 get("/datapoints", UserResource::getDataPointsOfUser);
                 get("/timefilters", UserResource::getTimeFiltersOfUser);

@@ -3,9 +3,12 @@ package tdt4140.gr1809.app.server.resource;
 import org.eclipse.jetty.http.HttpStatus;
 import spark.Request;
 import spark.Response;
+import tdt4140.gr1809.app.core.model.DataPoint;
+import tdt4140.gr1809.app.core.model.Notification;
 import tdt4140.gr1809.app.core.model.User;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -26,6 +29,29 @@ public class UserResource {
         }
 
         return User.mapper.writeValueAsString(user);
+    }
+    
+    public static String getAllUserDataById(Request req, Response res) throws Exception {
+    	final UUID userId = UUID.fromString(req.params("userID"));
+    	System.out.println("Get all user data for userId: " + userId.toString());
+    	final Optional<User> user = userDBManager.getUserById(userId);
+    	
+    	if (user.isPresent()) {
+            res.type("application/json");
+            res.status(HttpStatus.OK_200);
+        } else {
+            res.status(HttpStatus.NOT_FOUND_404);
+            return "";
+        }
+    	
+    	final List<Notification> notifications = notificationDBManager.getNotificationByUserId(userId);
+    	final List<DataPoint> datapoints = dataDBManager.getDataByUserId(userId);
+    	final User userWithData = User.from(user.get())
+    			.notifications(notifications)
+    			.dataPoints(datapoints)
+    			.build();
+    	System.out.println(User.mapper.writeValueAsString(userWithData));
+    	return User.mapper.writeValueAsString(userWithData);
     }
 
     public static String createUser(Request req, Response res) throws Exception {
@@ -86,4 +112,5 @@ public class UserResource {
         res.type("application/json");
         return User.mapper.writeValueAsString(timeFilterDBManager.getTimeFiltersByUserId(userId));
     }
+    
 }
