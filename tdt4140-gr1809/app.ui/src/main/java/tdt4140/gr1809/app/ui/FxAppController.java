@@ -31,11 +31,13 @@ public class FxAppController implements Initializable{
 
 	@FXML private Button heartRateViewButton;
 	@FXML private Button profileViewButton;
+	@FXML private Button thresholdsViewButton;
 
 	private RegisterViewController registerViewController;
 	private RegisterServiceProviderViewController registerServiceProviderViewController;
 	private ProfileViewController profileviewController;
 	private ClientsViewController clientsViewController;
+	private ThresholdsViewController thresholdsViewController;
 	private ServiceProviderViewController serviceProviderViewController;
 	private LoginController loginController;
 	private GraphViewController graphViewController;
@@ -129,7 +131,16 @@ public class FxAppController implements Initializable{
         heartRateViewController.setfxAppController(this);        
         rightPane.getChildren().add(loader.getRoot());
         }
-	
+
+	public void goToThresholdsView(ActionEvent event) throws IOException {
+		rightPane.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("ThresholdsView.fxml"));
+		loader.load();
+		thresholdsViewController = loader.getController();
+		thresholdsViewController.setfxAppController(this);
+		rightPane.getChildren().add(loader.getRoot());
+	}
 	public void goToServiceproviderLoginView(ActionEvent event) throws IOException {
 		rightPane.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
@@ -188,11 +199,13 @@ public class FxAppController implements Initializable{
 	public void disableDataView() {
 		heartRateViewButton.setDisable(true);
 		profileViewButton.setDisable(true);
+		thresholdsViewButton.setDisable(false);
 	}
 
 	public void enableDataView() {
 		heartRateViewButton.setDisable(false);
 		profileViewButton.setDisable(false);
+		thresholdsViewButton.setDisable(false);
 		profileViewButton.setText(user.getFirstName() + " " + user.getLastName());
 	}
 }
