@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="750" maxWidth="880" minHeight="400.0" minWidth="600.0" prefHeight="750" prefWidth="880" styleClass="root" stylesheets="" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.view.ClientsViewController">
+   <children>
+      <BorderPane prefHeight="750.0" prefWidth="886.0">
+         <center>
+            <TableView fx:id="clientsTable" editable="true" prefHeight="750.0" prefWidth="519.0">
+              <columns>
+                  <TableColumn fx:id="col_lastName" prefWidth="148.0" text="Last Name" />
+                <TableColumn fx:id="col_firstName" prefWidth="118.0" text="First Name" />
+                  <TableColumn fx:id="col_birthdate" prefWidth="147.0" text="Birthdate" />
+                  <TableColumn fx:id="col_gender" prefWidth="107.0" text="Gender" />
+              </columns>
+            </TableView>
+         </center>
+         <right>
+            <VBox fx:id="selectedPersonDetails" prefHeight="750.0" prefWidth="368.0" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox>
+                     <children>
+                        <Label fx:id="lastName" text="Pedersen">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="18.0" prefWidth="8.0" text=",">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="firstName" text="Rolf">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label text="Birthdate: ">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="birthDate" text="19.08.1999">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label prefWidth="72.0" text="Gender:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="gender" text="male">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label prefHeight="18.0" prefWidth="78.0" text="HR-max:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="hrMax" text="205">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="50.0" left="50.0" right="50.0" top="100.0" />
+               </padding>
+            </VBox>
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>

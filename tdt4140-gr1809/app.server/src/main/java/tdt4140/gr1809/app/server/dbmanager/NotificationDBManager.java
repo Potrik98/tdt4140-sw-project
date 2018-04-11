@@ -46,6 +46,14 @@ public class NotificationDBManager extends DBManager {
 		statement.getStatement().executeUpdate();
 	}
 	
+	// Soft delete user
+    public boolean deleteNotification(final UUID notificationId) throws SQLException {
+    	String query = "update Notifications set deleted = 1 where notificationId = :notificationId:;";
+		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
+		statement.setString("notificationId", notificationId.toString());
+		return statement.getStatement().executeUpdate() == 1;
+    }
+	
 	
 
 }

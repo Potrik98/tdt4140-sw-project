@@ -15,6 +15,7 @@ All data is transferred using JSON, and Jackson is used for serialization.
  - `GET     /user/{userId}/datapoints`: gets a list of data points of the user's data points.
  - `GET     /user/{userId}/notifications`: gets a list of notifications of the user's notifications.
  - `GET     /user/{userId}/timefilters`: gets a list of time filters of the user's time filters.
+ - `GET     /user/{userId}/customnotificationtresholds`: gets a list of the user's custom notification thresholds.
  - `GET     /user/{userId}/serviceproviders`: gets a list of service providers of the service providers with access to the user.
  - `POST    /user/{userId}/serviceproviders/{serviceProviderId}`: adds the service provider with the serviceProviderId to the list of service providers with access.
  - `DELETE  /user/{userId}/serviceproviders/{serviceProviderId}`: deletes the service provider with the serviceProviderId from the list of service providers with access.
@@ -31,8 +32,12 @@ All data is transferred using JSON, and Jackson is used for serialization.
  - `GET     /serviceprovider/{serviceProviderId}/users`: gets a list of users of the users the service provider has access to.
  - <br>
  - `POST    /notifications {Notification object}`: creates a notification from the notification object.
+ - `DELETE  /notifications {notificationId}`: deletes the notification with the notificationId.
  - <br>
- - `GET     /statistics/{dataType}`: gets the statistics for the data type
+ - `GET     /statistics/{dataType}`: gets the statistics for the data type.
+ - <br>
+ - `POST    /customnotificationthresholds {CustomNotificationThreshold object}`: create a custom notification threshold from the given object.
+ - `DELETE  /customnotificationthresholds/{thresholdId}`: deletes the custom notification threshold with the thresholdId.
 
 <h3>Class overview:</h3>
  - `Server`: contains the server main method and routing table

@@ -12,15 +12,18 @@ import tdt4140.gr1809.app.ui.FxAppController;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class RegisterViewController implements Initializable {
 
-	@FXML Button registerProfileButton;
 	@FXML Label firstNameLabel;
 	@FXML Label lastNameLabel;
 	@FXML Label birthdateLabel;
 	@FXML Label genderLabel;
+
+	@FXML Label firstNameError;
+	@FXML Label lastNameError;
 
 	@FXML TextField firstNameInput;
 	@FXML TextField lastNameInput;
@@ -36,23 +39,60 @@ public class RegisterViewController implements Initializable {
 		genderChoiceBox.setValue("Male");
 	}
 
-	public void registerButtonClicked(ActionEvent event) throws IOException{
-		//TODO: send data to database
+	public void registerButtonClicked(ActionEvent event){
 
-		final UserClient client = new UserClient();
+		//note that the  & operator is bitwise forcing the evaluation of both clauses!
+		if(validateFirstNameInput() & validateLastNameInput()){
 
-		final User user = User.builder()
-				.firstName(firstNameInput.getText())
-				.lastName(lastNameInput.getText())
-				.gender(genderChoiceBox.getValue().toString())
-				.birthDate(birthdateInput.getValue().atStartOfDay())
-				.build();
-		client.createUser(user); //TODO: can throw exception
+			final UserClient client = new UserClient();
 
-		clearInput();
-		System.out.println("Created user: " + user.getId());
-		fxAppController.user = user;
-		fxAppController.goToLoginView(null);
+			final User user = User.builder()
+					.firstName(firstNameInput.getText())
+					.lastName(lastNameInput.getText())
+					.gender(genderChoiceBox.getValue().toString())
+					.birthDate(birthdateInput.getValue().atStartOfDay())
+					.build();
+			try{
+				client.createUser(user);
+				System.out.println("Created user: " + user.getId());
+				fxAppController.user = user;
+				fxAppController.goToLoginView(null);
+			}
+			catch (Exception e){
+				System.err.println(e);
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setTitle("Register Failed");
+				alert.setHeaderText("Register Failed");
+				alert.setContentText("failed to create user");
+				alert.showAndWait();
+			}
+
+			clearInput();
+		}
+
+	}
+
+	public boolean validateFirstNameInput(){
+		if (firstNameInput.getText().isEmpty()){
+			firstNameError.setVisible(true);
+			return false;
+		}
+		firstNameError.setVisible(false);
+		return true;
+
+	}
+
+	public boolean validateLastNameInput(){
+		if (lastNameInput.getText().isEmpty()){
+			lastNameError.setVisible(true);
+			return false;
+		}
+		lastNameError.setVisible(false);
+		return true;
+	}
+
+	public void cancelButtonClicked(ActionEvent event) throws IOException {
+		fxAppController.goToLoginView(event);
 	}
 
 
@@ -62,6 +102,7 @@ public class RegisterViewController implements Initializable {
 	public void initialize(final URL url, final ResourceBundle rb) {
 		genderChoiceBox.getItems().addAll("Male", "Female");
 		genderChoiceBox.setValue("Male");
+		birthdateInput.setValue(LocalDate.now().minusYears(22));
 
 	}
 

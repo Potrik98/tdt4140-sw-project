@@ -9,6 +9,7 @@ import tdt4140.gr1809.app.core.model.User;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -63,6 +64,35 @@ public class NotificationDBManagerTest {
         final List<Notification> retrievedNotification = notificationDBManager.getNotificationByUserId(invalidUserId);
 
         assertThat(retrievedNotification).isEmpty();
+    }
+    
+    @Test
+    public void testDeleteNotification() throws SQLException {
+    	final User user = User.builder()
+                .firstName("Firstname")
+                .lastName("Lastname")
+                .gender("gender")
+                .birthDate(LocalDateTime.now())
+                .maxPulse(123)
+                .build();
+        userDBManager.createUser(user);
+        final Notification notification = Notification.builder()
+        		.userId(user.getId())
+                .message("Hei og h�, du kommer til � d� snart")
+                .time(LocalDateTime.now())
+                .build();
+
+        notificationDBManager.createNotification(notification);
+
+        final List<Notification> retrievedNotifications = notificationDBManager.getNotificationByUserId(user.getId());
+
+        assertThat(retrievedNotifications).usingFieldByFieldElementComparator()
+                .containsExactly(notification);
+        notificationDBManager.deleteNotification(notification.getId());
+
+        final List<Notification> deletedNotification = notificationDBManager.getNotificationByUserId(notification.getId());
+
+        assertThat(deletedNotification).isEmpty();
     }
     
 }

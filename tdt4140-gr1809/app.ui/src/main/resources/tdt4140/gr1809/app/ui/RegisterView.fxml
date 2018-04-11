@@ -1,55 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="750" maxWidth="880" minHeight="400.0" minWidth="600.0" prefHeight="750" prefWidth="880" styleClass="root" stylesheets="" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.view.RegisterViewController">
-   <children>
-      <VBox layoutX="275.0" layoutY="14.0" prefHeight="750.0" prefWidth="329.0">
+
+<BorderPane maxHeight="750.0" maxWidth="880.0" minHeight="750.0" minWidth="880.0" prefHeight="750.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.view.RegisterViewController">
+   <left>
+      <VBox alignment="TOP_RIGHT" prefHeight="750.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" prefHeight="72.0" prefWidth="329.0" text="Register user">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <AnchorPane prefHeight="51.0" prefWidth="327.0">
+            <TilePane maxWidth="200.0" minWidth="200.0" orientation="VERTICAL" prefHeight="564.0" prefWidth="200.0" tileAlignment="TOP_LEFT" vgap="10.0">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfeffd" height="250.0" stroke="BLACK" strokeType="INSIDE" width="328.0" />
-                  <Label fx:id="firstNameLabel" layoutX="20.0" layoutY="34.0" prefHeight="25.0" prefWidth="97.0" text="First Name">
+                  <Label prefHeight="28.0" prefWidth="200.0" text="Register User">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font size="28.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="firstNameInput" layoutX="118.0" layoutY="33.0" maxWidth="-Infinity" prefHeight="26.0" prefWidth="200.0" promptText="John" />
-                  <Label fx:id="lastNameLabel" layoutX="22.0" layoutY="77.0" prefHeight="25.0" prefWidth="97.0" text="Last Name">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="lastNameInput" layoutX="118.0" layoutY="77.0" maxWidth="-Infinity" prefHeight="26.0" prefWidth="200.0" promptText="Anderson" />
-                  <Label fx:id="birthdateLabel" layoutX="22.0" layoutY="127.0" prefHeight="25.0" prefWidth="97.0" text="Birthdate">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <DatePicker fx:id="birthdateInput" layoutX="120.0" layoutY="127.0" />
-                  <Label fx:id="genderLabel" layoutX="22.0" layoutY="173.0" prefHeight="25.0" prefWidth="97.0" text="Gender">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <ChoiceBox fx:id="genderChoiceBox" layoutX="120.0" layoutY="173.0" prefWidth="150.0" />
-                  <Button fx:id="registerProfileButton" layoutX="112.0" layoutY="208.0" mnemonicParsing="false" onAction="#registerButtonClicked" prefHeight="34.0" prefWidth="105.0" text="Register" />
+                  <VBox>
+                     <children>
+                        <Label fx:id="firstNameLabel" prefHeight="25.0" prefWidth="200.0" text="First Name">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="firstNameInput" maxWidth="-Infinity" prefHeight="32.0" prefWidth="200.0" promptText="John" />
+                        <Label fx:id="firstNameError" prefWidth="200.0" text="*first name required" textFill="RED" visible="false" />
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label fx:id="lastNameLabel" prefHeight="25.0" prefWidth="200.0" text="Last Name">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="lastNameInput" maxWidth="-Infinity" prefHeight="32.0" prefWidth="200.0" promptText="Anderson" />
+                        <Label fx:id="lastNameError" prefWidth="200.0" text="*last name required" textFill="RED" visible="false" />
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label fx:id="birthdateLabel" prefHeight="25.0" prefWidth="200.0" text="Birthdate">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="birthdateInput" prefHeight="32.0" prefWidth="200.0" />
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label fx:id="genderLabel" prefHeight="25.0" prefWidth="200.0" text="Gender">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="genderChoiceBox" prefHeight="32.0" prefWidth="100.0" />
+                     </children>
+                  </VBox>
+                  <HBox alignment="BOTTOM_CENTER" spacing="20.0">
+                     <children>
+                        <Button fx:id="cancelRegisterButton" mnemonicParsing="false" onAction="#cancelButtonClicked" prefHeight="32.0" prefWidth="90.0" text="Cancel" />
+                        <Button fx:id="registerProfileButton1" minHeight="32.0" mnemonicParsing="false" onAction="#registerButtonClicked" prefHeight="32.0" prefWidth="90.0" text="Register" />
+                     </children>
+                  </HBox>
                </children>
-            </AnchorPane>
+               <VBox.margin>
+                  <Insets top="120.0" />
+               </VBox.margin>
+            </TilePane>
          </children>
       </VBox>
-   </children>
-</AnchorPane>
+   </left>
+</BorderPane>
