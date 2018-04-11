@@ -3,6 +3,7 @@ package tdt4140.gr1809.app.ui.login;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import tdt4140.gr1809.app.client.UserClient;
@@ -16,6 +17,7 @@ import java.util.UUID;
 public class LoginController {
 	@FXML private TextField UsernameTextfield;
 	@FXML private TextField PasswordTextfield;
+	@FXML private Label passwordError;
 
 	
 	private FxAppController fxAppController;
@@ -23,28 +25,39 @@ public class LoginController {
 	@FXML
 	private void initialLoginRequest() throws IOException {
         String username = "Invalid username";
+		if(validatePassword()){
+			try {
+				username = UsernameTextfield.getText();
+				UUID uid = UUID.fromString(username);
 
-        try {
-            username = UsernameTextfield.getText();
-            UUID uid = UUID.fromString(username);
+				UserClient userclient = new UserClient();
+				Optional<User> user = userclient.getUserById(uid);
+				fxAppController.user = user.get();
+				fxAppController.goToProfileView(null);
+				fxAppController.setUserNavbar();
+				fxAppController.lastLoggedInUser = user.get();
+			} catch (Exception e) {
+				System.err.println(e);
 
-            UserClient userclient = new UserClient();
-            Optional<User> user = userclient.getUserById(uid);
-            fxAppController.user = user.get();
-            fxAppController.goToProfileView(null);
-            fxAppController.setUserNavbar();
-            fxAppController.lastLoggedInUser = user.get();
-        } catch (Exception e) {
-            System.err.println(e);
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setTitle("Login failed");
+				alert.setHeaderText("Login Failed");
+				alert.setContentText("user\n" + username + "\ndoes not exist");
+				alert.showAndWait();
+			}
+		}
 
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Login failed");
-            alert.setHeaderText("Login Failed");
-            alert.setContentText("user\n" + username + "\ndoes not exist");
-            alert.showAndWait();
-        }
 
     }
+
+	public boolean validatePassword(){
+		if (PasswordTextfield.getText().isEmpty()){
+			passwordError.setVisible(true);
+			return false;
+		}
+		passwordError.setVisible(false);
+		return true;
+	}
 	
 	@FXML
 	private void serviceproviderLoginRequest() throws IOException {
