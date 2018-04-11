@@ -1,12 +1,8 @@
 package tdt4140.gr1809.app.ui.view;
 
-import javafx.event.ActionEvent;
-
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import tdt4140.gr1809.app.client.UserClient;
@@ -23,6 +19,7 @@ public class ProfileViewController implements Initializable {
 	@FXML Label nameLabel;
 	@FXML Label birthdateLabel;
 	@FXML Label genderLabel;
+	@FXML TextField maxPulse;
 	@FXML CheckBox aggregateCheckbox;
 	
 	private FxAppController fxAppController;
@@ -34,6 +31,14 @@ public class ProfileViewController implements Initializable {
 		final UserClient client = new UserClient();
 		client.deleteUser(fxAppController.user.getId());
 		fxAppController.goToLoginView(null);
+	}
+	
+	@FXML
+	public void updateUser() throws IOException {
+	}
+	
+	@FXML
+	public void exportData() throws IOException {
 	}
 	
 	@FXML
