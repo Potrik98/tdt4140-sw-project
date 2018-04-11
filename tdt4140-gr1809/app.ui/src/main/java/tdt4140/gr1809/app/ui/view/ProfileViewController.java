@@ -1,21 +1,20 @@
 package tdt4140.gr1809.app.ui.view;
 
-import javafx.event.ActionEvent;
-
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import tdt4140.gr1809.app.client.UserClient;
 import tdt4140.gr1809.app.core.model.ServiceProvider;
 import tdt4140.gr1809.app.core.model.User;
 import tdt4140.gr1809.app.ui.FxAppController;
+import tdt4140.gr1809.app.ui.io.FileUtils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ProfileViewController implements Initializable {
@@ -23,9 +22,12 @@ public class ProfileViewController implements Initializable {
 	@FXML Label nameLabel;
 	@FXML Label birthdateLabel;
 	@FXML Label genderLabel;
+	@FXML TextField maxPulse;
 	@FXML CheckBox aggregateCheckbox;
 	
 	private FxAppController fxAppController;
+
+	private UserClient userClient = new UserClient();
 
 	//TODO: validate user input
 
@@ -37,9 +39,47 @@ public class ProfileViewController implements Initializable {
 	}
 	
 	@FXML
+	public void updateUser() {
+		try {
+			final Integer maxPulse = Integer.valueOf(this.maxPulse.getText());
+			fxAppController.user = User.from(fxAppController.user)
+					.maxPulse(maxPulse)
+					.build();
+			userClient.updateUser(fxAppController.user);
+		} catch (final NumberFormatException e) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Update failed");
+			alert.setHeaderText("Failed to update user");
+			alert.setContentText("Please input a valid value for max pulse");
+			alert.showAndWait();
+		} catch (final Exception e) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Update failed");
+			alert.setHeaderText("Failed to update user");
+			alert.setContentText("Something went wrong: " + e.getMessage());
+			alert.showAndWait();
+		}
+	}
+	
+	@FXML
+	public void exportData() {
+		final Optional<User> user = userClient.getAllUserDataById(fxAppController.user.getId());
+		if (user.isPresent()) {
+			final User userWithData = user.get();
+			final String fileName = userWithData.getId().toString().concat(".json");
+			FileUtils.writeObjectToFile(userWithData, fileName);
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Export failed");
+			alert.setHeaderText("Failed to export user");
+			alert.setContentText("Something went wrong");
+			alert.showAndWait();
+		}
+	}
+	
+	@FXML
 	private void changeAggregateParticipation() {
 		System.out.println(aggregateCheckbox.isSelected());
-		UserClient userClient = new UserClient();
 		User user = User.from(fxAppController.user)
 				.participatingInAggregatedStatistics(aggregateCheckbox.isSelected())
 				.build();
@@ -59,12 +99,13 @@ public class ProfileViewController implements Initializable {
 		ServiceProvider sp = fxAppController.serviceProvider;
 		
 
-		if(user != null) {
+		if (user != null) {
 			nameLabel.setText(user.getFirstName() + " " + user.getLastName());
 			genderLabel.setText(user.getGender());
 			birthdateLabel.setText(fxAppController.user.getBirthDate().toLocalDate().toString());
             aggregateCheckbox.setSelected(user.isParticipatingInAggregatedStatistics());
-		}else {
+            maxPulse.setText(user.getMaxPulse().toString());
+		} else {
 			nameLabel.setText(sp.getFirstName() + " " + sp.getLastName());
 			genderLabel.setText(sp.getGender());
 			birthdateLabel.setText(sp.getBirthDate().toLocalDate().toString());
