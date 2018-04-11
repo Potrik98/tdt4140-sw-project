@@ -29,11 +29,16 @@
                         <Font size="16.0" />
                      </font>
                   </TextField>
-                  <PasswordField fx:id="PasswordTextfield" prefHeight="32.0" prefWidth="232.0" promptText="password">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </PasswordField>
+                  <VBox>
+                     <children>
+                        <PasswordField fx:id="PasswordTextfield" prefHeight="32.0" prefWidth="232.0" promptText="bankID code">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </PasswordField>
+                        <Label fx:id="passwordError" prefHeight="16.0" prefWidth="200.0" text="*bankID code required" textFill="RED" visible="false" />
+                     </children>
+                  </VBox>
                   <Button fx:id="LoginButton" mnemonicParsing="false" onAction="#initialLoginRequest" prefHeight="32.0" prefWidth="200.0" text="Login">
                      <font>
                         <Font size="16.0" />
