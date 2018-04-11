@@ -17,11 +17,13 @@ import java.util.ResourceBundle;
 
 public class RegisterServiceProviderViewController implements Initializable {
 
-	@FXML Button registerProfileButton;
 	@FXML Label firstNameLabel;
 	@FXML Label lastNameLabel;
 	@FXML Label birthdateLabel;
 	@FXML Label genderLabel;
+
+	@FXML Label firstNameError;
+	@FXML Label lastNameError;
 
 	@FXML TextField firstNameInput;
 	@FXML TextField lastNameInput;
@@ -39,21 +41,60 @@ public class RegisterServiceProviderViewController implements Initializable {
 
 	public void registerButtonClicked(ActionEvent event) throws IOException{
 
-		final ServiceProviderClient client = new ServiceProviderClient();
+		//note that the  & operator is bitwise forcing the evaluation of both clauses!
+		if(validateFirstNameInput() & validateLastNameInput()){
 
-		final ServiceProvider serviceProvider = ServiceProvider.builder()
-				.firstName(firstNameInput.getText())
-				.lastName(lastNameInput.getText())
-				.gender(genderChoiceBox.getValue().toString())
-				.birthDate(birthdateInput.getValue().atStartOfDay())
-				.build();
-		client.createServiceProvider(serviceProvider);
+			final ServiceProviderClient client = new ServiceProviderClient();
 
-		clearInput();
-		System.out.println("Created serviceProvider: " + serviceProvider.getId());
-		fxAppController.serviceProvider= serviceProvider;
-		fxAppController.goToServiceproviderLoginView(null);
+			final ServiceProvider serviceProvider = ServiceProvider.builder()
+					.firstName(firstNameInput.getText())
+					.lastName(lastNameInput.getText())
+					.gender(genderChoiceBox.getValue().toString())
+					.birthDate(birthdateInput.getValue().atStartOfDay())
+					.build();
+
+			try{
+				client.createServiceProvider(serviceProvider);
+				System.out.println("Created Service Provider: " + serviceProvider.getId());
+				fxAppController.serviceProvider = serviceProvider;
+				fxAppController.goToServiceproviderLoginView(null);
+			}
+			catch (Exception e){
+				System.err.println(e);
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setTitle("Register Failed");
+				alert.setHeaderText("Register Failed");
+				alert.setContentText("failed to create Service Provider");
+				alert.showAndWait();
+			}
+
+			clearInput();
+		}
 	}
+
+	public boolean validateFirstNameInput(){
+		if (firstNameInput.getText().isEmpty()){
+			firstNameError.setVisible(true);
+			return false;
+		}
+		firstNameError.setVisible(false);
+		return true;
+
+	}
+
+	public boolean validateLastNameInput(){
+		if (lastNameInput.getText().isEmpty()){
+			lastNameError.setVisible(true);
+			return false;
+		}
+		lastNameError.setVisible(false);
+		return true;
+	}
+
+	public void cancelButtonClicked(ActionEvent event) throws IOException {
+		fxAppController.goToServiceproviderLoginView(event);
+	}
+
 
 
 
