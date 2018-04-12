@@ -10,8 +10,8 @@ import tdt4140.gr1809.app.client.DataClient;
 import tdt4140.gr1809.app.core.model.DataPoint;
 import tdt4140.gr1809.app.core.util.StreamUtils;
 import tdt4140.gr1809.app.ui.FxAppController;
+import tdt4140.gr1809.app.ui.graph.DataGraph;
 import tdt4140.gr1809.app.ui.graph.HeartRateGraph;
-import tdt4140.gr1809.app.ui.graph.TimeAxisGraph;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -35,7 +35,7 @@ public class HeartRateViewController implements Initializable {
 	private AnchorPane graphAnchorPane;
 
 	private HeartRateGraph heartRateGraph;
-	private TimeAxisGraph timeAxisGraph;
+	private DataGraph dataGraph;
 	
 	private FxAppController fxAppController;
 
@@ -43,7 +43,7 @@ public class HeartRateViewController implements Initializable {
 	@Override
 	public void initialize(final URL url, final ResourceBundle rb) {
 		//heartRateGraph = new HeartRateGraph(lineGraph, 10);
-		timeAxisGraph = new TimeAxisGraph();
+		dataGraph = new DataGraph();
 		Random random = new Random();
 		List<DataPoint> dataPoints = StreamUtils.takeWhile(
 				Stream.iterate(LocalDateTime.now(), time -> time.minus(1, ChronoUnit.MINUTES)),
@@ -54,8 +54,8 @@ public class HeartRateViewController implements Initializable {
 						.value(40 + random.nextInt(100))
 						.build())
 				.collect(Collectors.toList());
-		timeAxisGraph.addDataPoints(dataPoints);
-		graphAnchorPane.getChildren().add(timeAxisGraph.getGraph());
+		dataGraph.addDataPoints(dataPoints);
+		graphAnchorPane.getChildren().add(dataGraph.getGraph());
 	}
 
 

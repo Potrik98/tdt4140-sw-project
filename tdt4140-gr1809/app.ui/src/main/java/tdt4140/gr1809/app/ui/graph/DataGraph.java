@@ -12,12 +12,11 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-
-public class LocalDateTimeAxisGraph {
+public class DataGraph {
     private final XYChart<LocalDateTime, Number> graph;
     private final Map<DataPoint.DataType, XYChart.Series<LocalDateTime, Number>> seriesMap;
 
-    public LocalDateTimeAxisGraph() {
+    public DataGraph() {
         this.graph = new LineChart<>(new LocalDateTimeAxis().getUnwrappedAxis(), new NumberAxis());
         seriesMap = Arrays.stream(DataPoint.DataType.values())
                 .collect(Collectors.toMap(
@@ -31,7 +30,7 @@ public class LocalDateTimeAxisGraph {
 
     public void addDataPoints(final List<DataPoint> dataPoints) {
         dataPoints.forEach(dataPoint -> seriesMap.get(dataPoint.getDataType()).getData()
-                        .add(new XYChart.Data<>(dataPoint.getTime(), dataPoint.getValue())));
+                .add(new XYChart.Data<>(dataPoint.getTime(), dataPoint.getValue())));
     }
 
     public void clear() {
