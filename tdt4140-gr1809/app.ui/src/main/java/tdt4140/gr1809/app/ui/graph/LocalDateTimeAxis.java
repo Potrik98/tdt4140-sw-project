@@ -13,6 +13,8 @@ import javafx.geometry.Side;
 import javafx.scene.chart.ValueAxis;
 import javafx.util.StringConverter;
 import tdt4140.gr1809.app.core.util.NumberUtils;
+import tdt4140.gr1809.app.core.value.LocalDateTimeNumberConverter;
+import tdt4140.gr1809.app.core.value.Numerable;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -24,7 +26,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
-public class LocalDateTimeAxis extends ValueAxis<Long> {
+public class LocalDateTimeAxis extends ValueAxis<Numerable<LocalDateTime>> {
+    private static final Numerable.NumerableBuilder<LocalDateTime> localDateTimeNumerableBuilder =
+            new Numerable.NumerableBuilder<>(new LocalDateTimeNumberConverter());
+
     private static class Range {
         final long lowerBound;
         final long upperBound;
@@ -182,18 +187,18 @@ public class LocalDateTimeAxis extends ValueAxis<Long> {
      * @return List of data values where to draw minor tick marks
      */
     @Override
-    protected List<Long> calculateMinorTickMarks() {
+    protected List<Numerable<LocalDateTime>> calculateMinorTickMarks() {
         final double minorUnit = getTickUnit() / getMinorTickCount();
         if (minorUnit > 0 && getUpperBound() > getLowerBound()) {
             return DoubleStream.iterate(getLowerBound(), d -> d + minorUnit)
                     .limit((long) getUpperBound())
-                    .mapToObj(d -> ((long) d))
+                    .mapToObj(localDateTimeNumerableBuilder::numerableOfDouble)
                     .collect(Collectors.toList());
         } else if (getUpperBound() < getLowerBound()) {
             return DoubleStream.iterate(getUpperBound(), d -> d - minorUnit)
                     .limit((long) getLowerBound())
                     .map(d -> -d)
-                    .mapToObj(d -> ((long) d))
+                    .mapToObj(localDateTimeNumerableBuilder::numerableOfDouble)
                     .collect(Collectors.toList());
         } else {
             return ImmutableList.of();
@@ -246,7 +251,7 @@ public class LocalDateTimeAxis extends ValueAxis<Long> {
      * @return A list of tick marks that fit along the axis if it was the given length
      */
     @Override
-    protected List<Long> calculateTickValues(double length, Object rangeObject) {
+    protected List<Numerable<LocalDateTime>> calculateTickValues(double length, Object rangeObject) {
         if (!(rangeObject instanceof Range)) {
             throw new IllegalArgumentException("Range object must be of type Range!");
         }
@@ -255,13 +260,13 @@ public class LocalDateTimeAxis extends ValueAxis<Long> {
         if (range.tickUnit > 0 && range.upperBound > range.lowerBound) {
             return DoubleStream.iterate(range.lowerBound, d -> d + range.tickUnit)
                     .limit(range.upperBound)
-                    .mapToObj(d -> ((long) d))
+                    .mapToObj(localDateTimeNumerableBuilder::numerableOfDouble)
                     .collect(Collectors.toList());
         } else if (range.upperBound < range.lowerBound) {
             return DoubleStream.iterate(range.upperBound, d -> d - range.tickUnit)
                     .limit(range.lowerBound)
                     .map(d -> -d)
-                    .mapToObj(d -> ((long) d))
+                    .mapToObj(localDateTimeNumerableBuilder::numerableOfDouble)
                     .collect(Collectors.toList());
         } else {
             return ImmutableList.of();
@@ -269,8 +274,8 @@ public class LocalDateTimeAxis extends ValueAxis<Long> {
     }
 
     @Override
-    protected String getTickMarkLabel(final Long value) {
-        final StringConverter<Long> formatter = Objects.isNull(getTickLabelFormatter())
+    protected String getTickMarkLabel(final Numerable<LocalDateTime> value) {
+        final StringConverter<Numerable<LocalDateTime>> formatter = Objects.isNull(getTickLabelFormatter())
                 ? getDefaultFormatter()
                 : getTickLabelFormatter();
         return formatter.toString(value);
@@ -328,12 +333,12 @@ public class LocalDateTimeAxis extends ValueAxis<Long> {
      * @param rangeObject range to use during calculations
      * @return size of tick mark label for given value
      */
-    @Override protected Dimension2D measureTickMarkSize(final Long value, final Object rangeObject) {
+    @Override protected Dimension2D measureTickMarkSize(final Numerable<LocalDateTime> value, final Object rangeObject) {
         if (!(rangeObject instanceof Range)) {
             throw new IllegalArgumentException("Range object must be of type Range!");
         }
         final Range range = (Range) rangeObject;
-        final StringConverter<Long> formatter = Objects.isNull(getTickLabelFormatter())
+        final StringConverter<Numerable<LocalDateTime>> formatter = Objects.isNull(getTickLabelFormatter())
                 ? getDefaultFormatter(range)
                 : getTickLabelFormatter();
         final String labelText = formatter.toString(value);
@@ -352,7 +357,7 @@ public class LocalDateTimeAxis extends ValueAxis<Long> {
      * Default number formatter for LocalDateTimeAxis.
      * Stays in sync with auto-ranging and formats values appropriately.
      */
-    public static class DefaultFormatter extends StringConverter<Long> {
+    public static class DefaultFormatter extends StringConverter<Numerable<LocalDateTime>> {
         private DateTimeFormatter formatter;
 
         /**
@@ -388,9 +393,8 @@ public class LocalDateTimeAxis extends ValueAxis<Long> {
          * @see StringConverter#toString
          */
         @Override
-        public String toString(final Long epochSeconds) {
-            final LocalDateTime time = LocalDateTime.ofEpochSecond(epochSeconds, 0, ZoneOffset.UTC);
-            return formatter.format(time);
+        public String toString(final Numerable<LocalDateTime> localDateTimeNumerable) {
+            return formatter.format(localDateTimeNumerable.getValue());
         }
 
         /**
@@ -400,8 +404,8 @@ public class LocalDateTimeAxis extends ValueAxis<Long> {
          * @see StringConverter#toString
          */
         @Override
-        public Long fromString(final String string) {
-            return LocalDateTime.parse(string, formatter).toEpochSecond(ZoneOffset.UTC);
+        public Numerable<LocalDateTime> fromString(final String string) {
+            return localDateTimeNumerableBuilder.numerableOfValue(LocalDateTime.parse(string, formatter));
         }
     }
 }
