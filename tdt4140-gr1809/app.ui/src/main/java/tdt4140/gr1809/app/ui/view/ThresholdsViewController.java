@@ -68,22 +68,22 @@ public class ThresholdsViewController implements Initializable {
         col_value.setCellValueFactory(new PropertyValueFactory<>("value"));
         col_message.setCellValueFactory(new PropertyValueFactory<>("message"));
 
-        col_dataType.setOnEditStart(event -> {
-            CustomNotificationThreshold threshold = event.getRowValue();
-            displaySelectedThreshold(threshold);});
-        col_threshold.setOnEditStart(event -> {
-            CustomNotificationThreshold threshold = event.getRowValue();
-            displaySelectedThreshold(threshold);});
-        col_value.setOnEditStart(event -> {
-            CustomNotificationThreshold threshold = event.getRowValue();
-            displaySelectedThreshold(threshold);});
-        col_message.setOnEditStart(event -> {
-            CustomNotificationThreshold threshold = event.getRowValue();
-            displaySelectedThreshold(threshold);});
+
         try{
-            customThresholdsObservableList.addAll(thresholdClient.getCustomNotificationThresholdsForUserId(UUID.fromString("4e9ce214-fbf6-4eb4-bdac-be2e9a0609ec")));
+            customThresholdsObservableList.addAll(thresholdClient.getCustomNotificationThresholdsForUserId(user.getId()));
             thresholdsTable.setItems(customThresholdsObservableList);
-            usernameLabel.setText("Anderson, John"); //set it to user.getName()
+            col_dataType.setOnEditStart(event -> {
+                CustomNotificationThreshold threshold = event.getRowValue();
+                displaySelectedThreshold(threshold);});
+            col_threshold.setOnEditStart(event -> {
+                CustomNotificationThreshold threshold = event.getRowValue();
+                displaySelectedThreshold(threshold);});
+            col_value.setOnEditStart(event -> {
+                CustomNotificationThreshold threshold = event.getRowValue();
+                displaySelectedThreshold(threshold);});
+            col_message.setOnEditStart(event -> {
+                CustomNotificationThreshold threshold = event.getRowValue();
+                displaySelectedThreshold(threshold);});
         }
         catch (Exception e){
             System.err.println(e);
@@ -91,11 +91,11 @@ public class ThresholdsViewController implements Initializable {
 
     }
     public void displaySelectedThreshold(CustomNotificationThreshold customNotificationThreshold){
+        selectedThresholdBox.setVisible(true);
         dataTypeLabel.setText(customNotificationThreshold.getDataType().toString());
         thresholdTypeLabel.setText(customNotificationThreshold.getThresholdType().toString());
         valueLabel.setText(customNotificationThreshold.getValue().toString());
         messageLabel.setText(customNotificationThreshold.getMessage());
-        selectedThresholdBox.setVisible(true);
         selectedThreshold = customNotificationThreshold;
     }
 
@@ -108,7 +108,7 @@ public class ThresholdsViewController implements Initializable {
 	public void createCustomNotificationThreshold(){
         if (validateValueInput()){
             final CustomNotificationThreshold customNotificationThreshold = CustomNotificationThreshold.builder()
-                    .userId(UUID.fromString("4e9ce214-fbf6-4eb4-bdac-be2e9a0609ec")) //replace with user.getId()
+                    .userId(user.getId())
                     .dataType(dataTypeComboBox.getValue())
                     .value(Integer.parseInt(valueInput.getText()))
                     .message(messageInput.getText())
@@ -160,8 +160,6 @@ public class ThresholdsViewController implements Initializable {
 
         selectedThresholdBox.setVisible(false);
 
-        loadCustomThresholds();
-
 
 	}
 	
@@ -170,6 +168,9 @@ public class ThresholdsViewController implements Initializable {
 		System.out.println(fxAppController);
 		serviceProvider = controller.serviceProvider;
 		user = controller.user;
+        usernameLabel.setText(user.getLastName() + "," + user.getFirstName());
+        selectedThresholdBox.setVisible(false);
+        loadCustomThresholds();
 	}
 
 }

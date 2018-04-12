@@ -100,15 +100,15 @@
                <children>
                   <HBox>
                      <children>
-                        <Label prefHeight="30.0" prefWidth="301.0" text="Custom Thresholds:">
+                        <Label text="Custom Thresholds:">
                            <font>
                               <Font size="24.0" />
                            </font>
                            <padding>
-                              <Insets right="20.0" />
+                              <Insets right="10.0" />
                            </padding>
                         </Label>
-                        <Label fx:id="usernameLabel" prefHeight="30.0" prefWidth="270.0" text="username">
+                        <Label fx:id="usernameLabel" prefHeight="30.0" prefWidth="258.0" text="username">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -155,7 +155,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <Label fx:id="messageLabel" alignment="TOP_LEFT" prefHeight="104.0" prefWidth="332.0" text="Message" wrapText="true">
+                        <Label fx:id="messageLabel" alignment="TOP_LEFT" prefHeight="79.0" prefWidth="332.0" text="Message" wrapText="true">
                            <font>
                               <Font size="14.0" />
                            </font>

@@ -225,7 +225,7 @@ public class FxAppController implements Initializable{
 	public void disableDataView() {
 		heartRateViewButton.setDisable(true);
 		profileViewButton.setDisable(true);
-		thresholdsViewButton.setDisable(false);
+		thresholdsViewButton.setDisable(true);
 		NotificationsViewButton.setDisable(true);
 		NotifyUserButton.setDisable(true);
 		NotifyUserButton.setText("Notify user");
