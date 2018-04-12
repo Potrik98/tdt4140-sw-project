@@ -31,13 +31,16 @@ public class FxAppController implements Initializable{
 
 	@FXML private Button heartRateViewButton;
 	@FXML private Button profileViewButton;
+	@FXML private Button thresholdsViewButton;
 	@FXML private Button NotificationsViewButton;
 	@FXML private Button NotifyUserButton;
+
 
 	private RegisterViewController registerViewController;
 	private RegisterServiceProviderViewController registerServiceProviderViewController;
 	private ProfileViewController profileviewController;
 	private ClientsViewController clientsViewController;
+	private ThresholdsViewController thresholdsViewController;
 	private ServiceProviderViewController serviceProviderViewController;
 	private LoginController loginController;
 	private NotificationsViewController notificationcontroller;
@@ -144,7 +147,16 @@ public class FxAppController implements Initializable{
         heartRateViewController.setfxAppController(this);        
         rightPane.getChildren().add(loader.getRoot());
         }
-	
+
+	public void goToThresholdsView(ActionEvent event) throws IOException {
+		rightPane.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("ThresholdsView.fxml"));
+		loader.load();
+		thresholdsViewController = loader.getController();
+		thresholdsViewController.setfxAppController(this);
+		rightPane.getChildren().add(loader.getRoot());
+	}
 	public void goToServiceproviderLoginView(ActionEvent event) throws IOException {
 		rightPane.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
@@ -213,17 +225,17 @@ public class FxAppController implements Initializable{
 	public void disableDataView() {
 		heartRateViewButton.setDisable(true);
 		profileViewButton.setDisable(true);
+		thresholdsViewButton.setDisable(true);
 		NotificationsViewButton.setDisable(true);
 		NotifyUserButton.setDisable(true);
-		NotifyUserButton.setText("Notify user");
 	}
 
 	public void enableDataView() {
 		heartRateViewButton.setDisable(false);
 		profileViewButton.setDisable(false);
+		thresholdsViewButton.setDisable(false);
 		NotificationsViewButton.setDisable(false);
 		NotifyUserButton.setDisable(false);
 		profileViewButton.setText(user.getFirstName() + " " + user.getLastName());
-		NotifyUserButton.setText("Notify " + user.getFirstName() + " " + user.getLastName());
 	}
 }

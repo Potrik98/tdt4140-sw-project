@@ -2,10 +2,7 @@ package tdt4140.gr1809.app.ui.view;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import tdt4140.gr1809.app.client.UserClient;
 import tdt4140.gr1809.app.core.model.ServiceProvider;
 import tdt4140.gr1809.app.core.model.User;
@@ -24,7 +21,7 @@ public class ProfileViewController implements Initializable {
 	@FXML Label genderLabel;
 	@FXML TextField maxPulse;
 	@FXML CheckBox aggregateCheckbox;
-	
+
 	private FxAppController fxAppController;
 
 	private UserClient userClient = new UserClient();
@@ -35,7 +32,7 @@ public class ProfileViewController implements Initializable {
 	public void deleteUser() throws IOException {
 		final UserClient client = new UserClient();
 		client.deleteUser(fxAppController.user.getId());
-		fxAppController.goToLoginView(null);
+		fxAppController.logout();
 	}
 	
 	@FXML
@@ -59,6 +56,9 @@ public class ProfileViewController implements Initializable {
 			alert.setContentText("Something went wrong: " + e.getMessage());
 			alert.showAndWait();
 		}
+
+
+
 	}
 	
 	@FXML
