@@ -6,6 +6,7 @@ import static spark.Spark.get;
 import static spark.Spark.path;
 import static spark.Spark.port;
 import static spark.Spark.post;
+import static spark.Spark.put;
 import static spark.Spark.stop;
 
 import org.eclipse.jetty.http.HttpStatus;
@@ -48,6 +49,7 @@ public class Server {
         });
         path("/datapoints", () -> {
             post("", DataResource::createDataPoint);
+            put("", DataResource::createDataPoints);
         });
         path( "/timefilters", () -> {
             post("", TimeFilterResource::createTimeFilter);
