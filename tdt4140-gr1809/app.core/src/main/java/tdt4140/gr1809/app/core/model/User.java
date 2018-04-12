@@ -2,6 +2,7 @@ package tdt4140.gr1809.app.core.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.validation.constraints.Null;
@@ -67,8 +68,8 @@ public class User {
 		return gender;
 	}
 
-	public Integer getMaxPulse() {
-		return maxPulse;
+	public Optional<Integer> getMaxPulse() {
+		return Optional.ofNullable(maxPulse);
 	}
 
 	public LocalDateTime getBirthDate() {

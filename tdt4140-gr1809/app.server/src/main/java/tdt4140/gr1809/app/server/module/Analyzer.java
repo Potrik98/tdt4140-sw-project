@@ -126,7 +126,7 @@ public class Analyzer {
         if (dataPoint.getDataType() != DataPoint.DataType.HEART_RATE)
             throw new IllegalArgumentException("Invalid datatype, expected HEART_RATE, but was "
                     + dataPoint.getDataType());
-        if (!Objects.isNull(user.getMaxPulse()) && dataPoint.getValue() > user.getMaxPulse()) {
+        if (user.getMaxPulse().isPresent() && dataPoint.getValue() > user.getMaxPulse().get()) {
             return Optional.of(Notification.builder()
                     .time(LocalDateTime.now())
                     .userId(user.getId())
