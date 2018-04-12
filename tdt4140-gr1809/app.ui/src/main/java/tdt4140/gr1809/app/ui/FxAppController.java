@@ -228,7 +228,6 @@ public class FxAppController implements Initializable{
 		thresholdsViewButton.setDisable(true);
 		NotificationsViewButton.setDisable(true);
 		NotifyUserButton.setDisable(true);
-		NotifyUserButton.setText("Notify user");
 	}
 
 	public void enableDataView() {
@@ -238,6 +237,5 @@ public class FxAppController implements Initializable{
 		NotificationsViewButton.setDisable(false);
 		NotifyUserButton.setDisable(false);
 		profileViewButton.setText(user.getFirstName() + " " + user.getLastName());
-		NotifyUserButton.setText("Notify " + user.getFirstName() + " " + user.getLastName());
 	}
 }
