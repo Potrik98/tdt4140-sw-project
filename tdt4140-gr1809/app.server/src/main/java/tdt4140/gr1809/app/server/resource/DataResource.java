@@ -34,4 +34,20 @@ public class DataResource {
         }
         return "";
     }
+
+    public static String createDataPoints(final Request req, final Response res) throws Exception {
+        System.out.println("Create datapoints.");
+        try {
+            final List<DataPoint> dataPoints = User.mapper.readValue(req.body(),
+                    User.mapper.getTypeFactory().constructCollectionType(List.class, DataPoint.class));
+            final List<DataPoint> filteredDataPoints = filter.filterDataPoints(dataPoints);
+            analyzer.analyzeDataPoints(filteredDataPoints);
+            filteredDataPoints.forEach(dp -> uncheckRun(() -> dataDBManager.createDataPoint(dp)));
+            res.status(HttpStatus.CREATED_201);
+        } catch (IOException | NullPointerException e) {
+            e.printStackTrace();
+            res.status(HttpStatus.BAD_REQUEST_400);
+        }
+        return "";
+    }
 }

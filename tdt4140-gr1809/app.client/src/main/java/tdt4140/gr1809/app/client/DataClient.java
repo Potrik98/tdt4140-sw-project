@@ -47,4 +47,17 @@ public class DataClient extends BasicClient {
         }
         response.close();
     }
+
+    public void createDataPoints(final List<DataPoint> dataPoints) {
+        final Response response = target
+                .path("/datapoints")
+                .request(MediaType.APPLICATION_JSON_TYPE)
+                .put(Entity.json(dataPoints));
+        if (response.getStatus() != HttpURLConnection.HTTP_CREATED) {
+            System.out.println("Response: " + response.getStatus());
+            response.close();
+            throw new ClientException("Failed to create datapoints.");
+        }
+        response.close();
+    }
 }
