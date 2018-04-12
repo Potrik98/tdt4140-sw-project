@@ -38,9 +38,9 @@ public class LoginController {
 				fxAppController.user = user.get();
 				DataClient dataClient = new DataClient();
 				Arrays.stream(DataPoint.DataType.values())
-						.forEach(dataType -> Generator.getDataGenerator(user.get().getId(), dataType)
-								.generateDataPoints(25)
-								.forEach(dataPoint -> dataClient.createDataPoint(dataPoint)));
+						.forEach(dataType -> dataClient.createDataPoints(
+								Generator.getDataGenerator(user.get().getId(), dataType)
+								.generateDataPoints(25)));
 				fxAppController.goToProfileView(null);
 				fxAppController.setUserNavbar();
 				fxAppController.lastLoggedInUser = user.get();
