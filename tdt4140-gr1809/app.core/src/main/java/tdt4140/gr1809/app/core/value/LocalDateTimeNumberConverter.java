@@ -10,17 +10,17 @@ public class LocalDateTimeNumberConverter implements NumberConverter<LocalDateTi
     }
 
     @Override
-    public LocalDateTime ofLongValue(int longValue) {
+    public LocalDateTime ofLongValue(long longValue) {
         return LocalDateTime.ofEpochSecond(longValue, 0, ZoneOffset.UTC);
     }
 
     @Override
-    public LocalDateTime ofFloatValue(int floatValue) {
+    public LocalDateTime ofFloatValue(float floatValue) {
         return ofLongValue(Math.round(floatValue));
     }
 
     @Override
-    public LocalDateTime ofDoubleValue(int doubleValue) {
+    public LocalDateTime ofDoubleValue(double doubleValue) {
         return ofLongValue(Math.round(doubleValue));
     }
 
