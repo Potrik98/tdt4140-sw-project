@@ -50,7 +50,7 @@ public class UserDBManager extends DBManager {
     	statement.setString("lastName", user.getLastName());
     	statement.setString("gender", user.getGender());
     	statement.setTimestamp("birthDate", user.getBirthDate());
-    	statement.setInt("maxPulse", user.getMaxPulse());
+    	statement.setInt("maxPulse", user.getMaxPulse().orElse(null));
     	statement.setBoolean("participatingInAggregatedStatistics",
 				user.isParticipatingInAggregatedStatistics());
 		statement.getStatement().executeUpdate();
@@ -71,7 +71,7 @@ public class UserDBManager extends DBManager {
 		statement.setString("lastName", user.getLastName());
 		statement.setString("gender", user.getGender());
 		statement.setTimestamp("birthDate", user.getBirthDate());
-		statement.setInt("maxPulse", user.getMaxPulse());
+		statement.setInt("maxPulse", user.getMaxPulse().orElse(null));
 		statement.setBoolean("participatingInAggregatedStatistics",
 				user.isParticipatingInAggregatedStatistics());
 		statement.getStatement().executeUpdate();

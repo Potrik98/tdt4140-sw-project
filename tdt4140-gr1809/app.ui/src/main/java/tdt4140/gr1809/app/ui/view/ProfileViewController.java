@@ -104,7 +104,7 @@ public class ProfileViewController implements Initializable {
 			genderLabel.setText(user.getGender());
 			birthdateLabel.setText(fxAppController.user.getBirthDate().toLocalDate().toString());
             aggregateCheckbox.setSelected(user.isParticipatingInAggregatedStatistics());
-            maxPulse.setText(user.getMaxPulse().toString());
+            if (user.getMaxPulse().isPresent()) maxPulse.setText(user.getMaxPulse().get().toString());
 		} else {
 			nameLabel.setText(sp.getFirstName() + " " + sp.getLastName());
 			genderLabel.setText(sp.getGender());
