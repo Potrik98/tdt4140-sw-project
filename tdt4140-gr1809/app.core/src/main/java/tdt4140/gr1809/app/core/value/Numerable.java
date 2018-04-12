@@ -4,15 +4,31 @@ public class Numerable<T> extends Number {
     private final T value;
     private final NumberConverter<T> numberConverter;
 
-    public class NumerableBuilder {
+    public static class NumerableBuilder<T> {
         private NumberConverter<T> numberConverter;
 
         public NumerableBuilder(final NumberConverter<T> numberConverter) {
             this.numberConverter = numberConverter;
         }
 
-        public Numerable of(final T value) {
+        public Numerable<T> numerableOfValue(final T value) {
             return new Numerable<>(value, numberConverter);
+        }
+
+        public Numerable<T> numerableOfInt(final int intValue) {
+            return new Numerable<>(numberConverter.ofIntValue(intValue), numberConverter);
+        }
+
+        public Numerable<T> numerableOfLong(final long longValue) {
+            return new Numerable<>(numberConverter.ofLongValue(longValue), numberConverter);
+        }
+
+        public Numerable<T> numerableOfFloat(final float floatValue) {
+            return new Numerable<>(numberConverter.ofFloatValue(floatValue), numberConverter);
+        }
+
+        public Numerable<T> numerableOfDouble(final double doubleValue) {
+            return new Numerable<>(numberConverter.ofDoubleValue(doubleValue), numberConverter);
         }
     }
 

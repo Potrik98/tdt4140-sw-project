@@ -3,11 +3,11 @@ package tdt4140.gr1809.app.core.value;
 public interface NumberConverter<T> {
     T ofIntValue(final int intValue);
 
-    T ofLongValue(final int longValue);
+    T ofLongValue(final long longValue);
 
-    T ofFloatValue(final int floatValue);
+    T ofFloatValue(final float floatValue);
 
-    T ofDoubleValue(final int doubleValue);
+    T ofDoubleValue(final double doubleValue);
 
     int toIntValue(final T value);
 
