@@ -45,6 +45,8 @@ public class ThresholdsViewController implements Initializable {
     @FXML Label valueLabel;
     @FXML Label messageLabel;
 
+    @FXML Label valueErrorLabel;
+
     private CustomNotificationThreshold selectedThreshold;
 
 
@@ -104,25 +106,40 @@ public class ThresholdsViewController implements Initializable {
     }
 
 	public void createCustomNotificationThreshold(){
-		final CustomNotificationThreshold customNotificationThreshold = CustomNotificationThreshold.builder()
-				.userId(UUID.fromString("4e9ce214-fbf6-4eb4-bdac-be2e9a0609ec")) //replace with user.getId()
-				.dataType(dataTypeComboBox.getValue())
-				.value(Integer.parseInt(valueInput.getText()))
-				.message(messageInput.getText())
-				.thresholdType(thresholdTypeComboBox.getValue())
-				.build();
+        if (validateValueInput()){
+            final CustomNotificationThreshold customNotificationThreshold = CustomNotificationThreshold.builder()
+                    .userId(UUID.fromString("4e9ce214-fbf6-4eb4-bdac-be2e9a0609ec")) //replace with user.getId()
+                    .dataType(dataTypeComboBox.getValue())
+                    .value(Integer.parseInt(valueInput.getText()))
+                    .message(messageInput.getText())
+                    .thresholdType(thresholdTypeComboBox.getValue())
+                    .build();
 
-		thresholdClient.createCustomNotificationThreshold(customNotificationThreshold);
-		System.out.println("Created Custom Notification for: " + dataTypeComboBox.getValue().toString() + " " + thresholdTypeComboBox.getValue().toString() +" " + customNotificationThreshold.getValue().toString());
-        displaySelectedThreshold(customNotificationThreshold);
-		loadCustomThresholds();
-        clearInput();
+            thresholdClient.createCustomNotificationThreshold(customNotificationThreshold);
+            System.out.println("Created Custom Notification for: " + dataTypeComboBox.getValue().toString() + " " + thresholdTypeComboBox.getValue().toString() +" " + customNotificationThreshold.getValue().toString());
+            displaySelectedThreshold(customNotificationThreshold);
+            loadCustomThresholds();
+            clearInput();
+        }
+
 
 	}
 
 	public void clearInput(){
         messageInput.clear();
         valueInput.clear();
+        valueErrorLabel.setVisible(false);
+    }
+
+    public boolean validateValueInput(){
+        try{
+            Integer.parseInt(valueInput.getText());
+            return true;
+        }
+        catch (Exception e){
+            valueErrorLabel.setVisible(true);
+            return false;
+        }
     }
 
 

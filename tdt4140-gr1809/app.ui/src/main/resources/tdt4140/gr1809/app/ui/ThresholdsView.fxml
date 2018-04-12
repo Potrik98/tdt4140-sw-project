@@ -24,12 +24,12 @@
                <children>
                   <TilePane maxWidth="300.0" minHeight="424.0" minWidth="250.0" orientation="VERTICAL" prefColumns="1" prefHeight="750.0" prefRows="1" prefWidth="250.0">
                      <children>
-                        <Label prefHeight="54.0" prefWidth="250.0" text="Create Threshold">
+                        <Label alignment="TOP_LEFT" prefHeight="60.0" prefWidth="250.0" text="Create Threshold">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <VBox prefHeight="144.0" prefWidth="250.0">
+                        <VBox prefHeight="144.0" prefWidth="250.0" spacing="5.0">
                            <children>
                               <Label text="Message to client">
                                  <font>
@@ -41,7 +41,7 @@
                         </VBox>
                         <HBox maxHeight="50.0" maxWidth="250.0" prefHeight="100.0" prefWidth="250.0">
                            <children>
-                              <VBox spacing="10.0">
+                              <VBox spacing="5.0">
                                  <children>
                                     <Label maxWidth="100.0" minWidth="90.0" prefHeight="25.0" prefWidth="90.0" text="Datatype">
                                        <font>
@@ -55,7 +55,7 @@
                         </HBox>
                         <HBox maxHeight="50.0" maxWidth="250.0" prefHeight="100.0" prefWidth="250.0">
                            <children>
-                              <VBox prefWidth="250.0" spacing="10.0">
+                              <VBox prefWidth="250.0" spacing="5.0">
                                  <children>
                                     <Label prefHeight="25.0" prefWidth="90.0" text="Threshold">
                                        <font>
@@ -68,11 +68,12 @@
                                           <TextField fx:id="valueInput" alignment="CENTER_RIGHT" maxWidth="85.0" minWidth="50.0" prefHeight="26.0" prefWidth="85.0" promptText="180" />
                                        </children>
                                     </HBox>
+                                    <Label fx:id="valueErrorLabel" alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="252.0" text="*invalid value" textFill="RED" visible="false" />
                                  </children>
                               </VBox>
                            </children>
                         </HBox>
-                        <HBox alignment="TOP_RIGHT" prefHeight="89.0" prefWidth="250.0" spacing="15.0">
+                        <HBox alignment="TOP_RIGHT" prefHeight="103.0" prefWidth="250.0" spacing="15.0">
                            <children>
                               <Button mnemonicParsing="false" onAction="#clearInput" text="Cancel">
                                  <font>
@@ -114,7 +115,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <TableView fx:id="thresholdsTable" editable="true" maxWidth="-Infinity" prefHeight="464.0" prefWidth="521.0">
+                  <TableView fx:id="thresholdsTable" editable="true" maxWidth="-Infinity" prefHeight="455.0" prefWidth="521.0">
                     <columns>
                       <TableColumn fx:id="col_dataType" prefWidth="118.0" text="Datatype" />
                       <TableColumn fx:id="col_threshold" prefWidth="100.0" text="Threshold" />
@@ -122,7 +123,7 @@
                         <TableColumn fx:id="col_message" minWidth="131.0" prefWidth="225.0" text="Message" />
                     </columns>
                   </TableView>
-                  <VBox fx:id="selectedThresholdBox" prefHeight="144.0" prefWidth="521.0" spacing="10.0">
+                  <VBox fx:id="selectedThresholdBox" prefHeight="167.0" prefWidth="521.0" spacing="10.0">
                      <children>
                         <HBox prefHeight="21.0" prefWidth="440.0">
                            <children>
@@ -154,7 +155,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <Label fx:id="messageLabel" alignment="TOP_LEFT" prefHeight="67.0" prefWidth="332.0" text="Message" wrapText="true">
+                        <Label fx:id="messageLabel" alignment="TOP_LEFT" prefHeight="104.0" prefWidth="332.0" text="Message" wrapText="true">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -166,7 +167,7 @@
                         </Button>
                      </children>
                      <VBox.margin>
-                        <Insets top="40.0" />
+                        <Insets top="50.0" />
                      </VBox.margin>
                   </VBox>
                </children>
