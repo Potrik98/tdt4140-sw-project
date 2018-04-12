@@ -35,7 +35,7 @@ public class ProfileViewController implements Initializable {
 	public void deleteUser() throws IOException {
 		final UserClient client = new UserClient();
 		client.deleteUser(fxAppController.user.getId());
-		fxAppController.goToLoginView(null);
+		fxAppController.logout();
 	}
 	
 	@FXML
