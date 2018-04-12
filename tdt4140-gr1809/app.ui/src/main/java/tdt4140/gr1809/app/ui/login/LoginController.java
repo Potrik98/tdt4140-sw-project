@@ -5,12 +5,15 @@ import javafx.scene.control.Alert;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
+import tdt4140.gr1809.app.client.DataClient;
 import tdt4140.gr1809.app.client.UserClient;
+import tdt4140.gr1809.app.core.model.DataPoint;
 import tdt4140.gr1809.app.core.model.User;
+import tdt4140.gr1809.app.datagen.generator.Generator;
 import tdt4140.gr1809.app.ui.FxAppController;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -33,6 +36,11 @@ public class LoginController {
 				UserClient userclient = new UserClient();
 				Optional<User> user = userclient.getUserById(uid);
 				fxAppController.user = user.get();
+				DataClient dataClient = new DataClient();
+				Arrays.stream(DataPoint.DataType.values())
+						.forEach(dataType -> dataClient.createDataPoints(
+								Generator.getDataGenerator(user.get().getId(), dataType)
+								.generateDataPoints(25)));
 				fxAppController.goToProfileView(null);
 				fxAppController.setUserNavbar();
 				fxAppController.lastLoggedInUser = user.get();

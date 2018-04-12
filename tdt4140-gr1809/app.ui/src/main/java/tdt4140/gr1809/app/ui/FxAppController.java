@@ -32,6 +32,9 @@ public class FxAppController implements Initializable{
 	@FXML private Button heartRateViewButton;
 	@FXML private Button profileViewButton;
 	@FXML private Button thresholdsViewButton;
+	@FXML private Button NotificationsViewButton;
+	@FXML private Button NotifyUserButton;
+
 
 	private RegisterViewController registerViewController;
 	private RegisterServiceProviderViewController registerServiceProviderViewController;
@@ -40,11 +43,13 @@ public class FxAppController implements Initializable{
 	private ThresholdsViewController thresholdsViewController;
 	private ServiceProviderViewController serviceProviderViewController;
 	private LoginController loginController;
+	private NotificationsViewController notificationcontroller;
 	private GraphViewController graphViewController;
 	public HeartRateViewController heartRateViewController;
 	public FxAppController Appcontroller;
 	public ServiceproviderLoginController serviceProviderLoginViewController;
 	public TimeLimitViewController timelimitViewController;
+	public NotifyUserViewController notifyuserviewcontroller;
 
 	public User user;
 	public ServiceProvider serviceProvider;
@@ -111,6 +116,16 @@ public class FxAppController implements Initializable{
         rightPane.getChildren().add(loader.getRoot());
 	}
 	
+	public void goToNotificationsView(ActionEvent event) throws IOException{
+		rightPane.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("NotificationsView.fxml"));
+        loader.load();
+        notificationcontroller = loader.getController();
+        notificationcontroller.setfxAppController(this);
+        rightPane.getChildren().add(loader.getRoot());
+	}
+	
 	@FXML
 	public void logout() throws IOException {
 		lastLoggedInUser = user;
@@ -120,6 +135,7 @@ public class FxAppController implements Initializable{
 		user = null;
 		serviceProvider = null;
 		goToLoginView(null);
+		disableDataView();
 	}
 
 	public void goToHeartRateView(ActionEvent event) throws IOException {
@@ -160,7 +176,17 @@ public class FxAppController implements Initializable{
 		serviceProviderViewController.setfxAppController(this);
 		rightPane.getChildren().add(loader.getRoot());
 	}
-
+	
+	public void goToNotifyUserView(ActionEvent event) throws IOException {
+		rightPane.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("NotifyUserView.fxml"));
+		loader.load();
+		notifyuserviewcontroller = loader.getController();
+		notifyuserviewcontroller.setfxAppController(this);
+		rightPane.getChildren().add(loader.getRoot());
+	}
+	
 
 
 	public void initialize(URL arg0, ResourceBundle arg1){
@@ -200,12 +226,18 @@ public class FxAppController implements Initializable{
 		heartRateViewButton.setDisable(true);
 		profileViewButton.setDisable(true);
 		thresholdsViewButton.setDisable(false);
+		NotificationsViewButton.setDisable(true);
+		NotifyUserButton.setDisable(true);
+		NotifyUserButton.setText("Notify user");
 	}
 
 	public void enableDataView() {
 		heartRateViewButton.setDisable(false);
 		profileViewButton.setDisable(false);
 		thresholdsViewButton.setDisable(false);
+		NotificationsViewButton.setDisable(false);
+		NotifyUserButton.setDisable(false);
 		profileViewButton.setText(user.getFirstName() + " " + user.getLastName());
+		NotifyUserButton.setText("Notify " + user.getFirstName() + " " + user.getLastName());
 	}
 }

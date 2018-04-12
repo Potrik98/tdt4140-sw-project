@@ -34,6 +34,29 @@ public class UserClient extends BasicClient {
         throw new ClientException("Failed to get user "
                 .concat(userId.toString()));
     }
+    
+    public Optional<User> getAllUserDataById(final UUID userId) {
+        final Response response = target
+                .path("/user/")
+                .path(userId.toString())
+                .path("/data")
+                .request(MediaType.APPLICATION_JSON_TYPE)
+                .get();
+        if (response.getStatus() == HttpURLConnection.HTTP_OK) {
+            final User user = response.readEntity(User.class);
+            response.close();
+            return Optional.of(user);
+        } else if (response.getStatus() == HttpURLConnection.HTTP_NOT_FOUND) {
+            response.close();
+            return Optional.empty();
+        }
+        System.out.println("Response: " + response.getStatus());
+        response.close();
+        throw new ClientException("Failed to get user data "
+                .concat(userId.toString()));
+    }
+    
+    
 
     public void createUser(final User user) {
         final Response response = target

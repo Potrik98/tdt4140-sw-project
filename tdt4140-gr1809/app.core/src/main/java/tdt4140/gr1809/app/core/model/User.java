@@ -1,12 +1,15 @@
 package tdt4140.gr1809.app.core.model;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import javax.validation.constraints.Null;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-import javax.validation.constraints.Null;
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @JsonDeserialize(builder=User.UserBuilder.class)
 public class User {
@@ -18,6 +21,9 @@ public class User {
 	private final Boolean participatingInAggregatedStatistics;
 	@Null
 	private final Integer maxPulse;
+	private final List<Notification> notifications;
+	private final List<DataPoint> dataPoints;
+	
 
 	public static final ObjectMapper mapper = new ObjectMapper()
 			.findAndRegisterModules();
@@ -28,7 +34,9 @@ public class User {
 			String gender, 
 			LocalDateTime birthDate,
 			Integer maxPulse,
-			Boolean participatingInAggregatedStatistics) {
+			Boolean participatingInAggregatedStatistics,
+			List<Notification> notifications,
+			List<DataPoint> dataPoints) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -36,6 +44,8 @@ public class User {
 		this.birthDate = birthDate;
 		this.maxPulse = maxPulse;
 		this.participatingInAggregatedStatistics = participatingInAggregatedStatistics;
+		this.notifications = notifications;
+		this.dataPoints = dataPoints;
 	}
 
 
@@ -58,8 +68,8 @@ public class User {
 		return gender;
 	}
 
-	public Integer getMaxPulse() {
-		return maxPulse;
+	public Optional<Integer> getMaxPulse() {
+		return Optional.ofNullable(maxPulse);
 	}
 
 	public LocalDateTime getBirthDate() {
@@ -68,6 +78,14 @@ public class User {
 
 	public Boolean isParticipatingInAggregatedStatistics() {
 		return participatingInAggregatedStatistics;
+	}
+	
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
+	
+	public List<DataPoint> getDataPoints() {
+		return dataPoints;
 	}
 
 	public static class UserBuilder {
@@ -78,6 +96,8 @@ public class User {
 		private LocalDateTime birthDate;
 		private Integer maxPulse;
 		private Boolean participatingInAggregatedStatistics;
+		private List<Notification> notifications;
+		private List<DataPoint> dataPoints;
 
 		private UserBuilder(final User user) {
 			userId = user.id;
@@ -87,6 +107,8 @@ public class User {
 			birthDate = user.birthDate;
 			maxPulse = user.maxPulse;
 			participatingInAggregatedStatistics = user.participatingInAggregatedStatistics;
+			notifications = user.notifications;
+			dataPoints = user.dataPoints;
 		}
 
 		private UserBuilder() {
@@ -135,6 +157,18 @@ public class User {
 			this.participatingInAggregatedStatistics = participatingInAggregatedStatistics;
 			return  this;
 		}
+		
+		@JsonProperty("notifications")
+		public UserBuilder notifications(final List<Notification> notifications) {
+			this.notifications = notifications;
+			return this;
+		}
+		
+		@JsonProperty("dataPoints")
+		public UserBuilder dataPoints(final List<DataPoint> dataPoints) {
+			this.dataPoints = dataPoints;
+			return this;
+		}
 
 		public User build() {
 			return new User(userId,
@@ -143,7 +177,9 @@ public class User {
 					gender,
 					birthDate,
 					maxPulse,
-					participatingInAggregatedStatistics);
+					participatingInAggregatedStatistics,
+					notifications,
+					dataPoints);
 		}
 	}
 
