@@ -6,19 +6,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import tdt4140.gr1809.app.client.DataClient;
 import tdt4140.gr1809.app.core.model.DataPoint;
-import tdt4140.gr1809.app.core.util.StreamUtils;
 import tdt4140.gr1809.app.ui.FxAppController;
 import tdt4140.gr1809.app.ui.graph.DataGraph;
 
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.Random;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class DataViewController implements Initializable {
 	@FXML Label timePeriodLabel;
@@ -33,48 +28,50 @@ public class DataViewController implements Initializable {
 	
 	private FxAppController fxAppController;
 
+	private DataClient dataClient;
+
 	@Override
 	public void initialize(final URL url, final ResourceBundle rb) {
+		dataClient = new DataClient();
 		dataGraph = new DataGraph();
-		Random random = new Random();
-		List<DataPoint> dataPoints = StreamUtils.takeWhile(
-				Stream.iterate(LocalDateTime.now(), time -> time.minus(1, ChronoUnit.MINUTES)),
-						time -> time.isAfter(LocalDateTime.now().minus(2, ChronoUnit.HOURS)))
-				.map(time -> DataPoint.builder()
-						.time(time)
-						.dataType(DataPoint.DataType.HEART_RATE)
-						.value(40 + random.nextInt(100))
-						.build())
-				.collect(Collectors.toList());
 		graphAnchorPane.getChildren().add(dataGraph.getGraph());
 		dataGraph.clear();
-		dataGraph.addDataPoints(dataPoints);
-
-		dataGraph.plotDataType(DataPoint.DataType.HEART_RATE);
 	}
 
 	// Methods just to illustrate that we can plot different time intervals.
 	@FXML
 	private void plotHeartRateLastHour(final ActionEvent event) {
 		timePeriodLabel.setText("Last Hour");
+		final LocalDateTime now = LocalDateTime.now();
+		dataGraph.setRange(now.minusHours(1), now);
 	}
 
 	@FXML
 	private void plotHeartRateLast24Hours(final ActionEvent event) {
-		timePeriodLabel.setText("24 Hours");}
+		timePeriodLabel.setText("24 Hours");
+		final LocalDateTime now = LocalDateTime.now();
+		dataGraph.setRange(now.minusHours(24), now);
+	}
 
 	@FXML
 	private void plotHeartRateLastWeek(final ActionEvent event) {
-		timePeriodLabel.setText("Last Week");}
+		timePeriodLabel.setText("Last Week");
+		final LocalDateTime now = LocalDateTime.now();
+		dataGraph.setRange(now.minusWeeks(1), now);
+	}
 
 	@FXML
 	private void plotHeartRateLastMonth(final ActionEvent event) {
 		timePeriodLabel.setText("Last Month");
+		final LocalDateTime now = LocalDateTime.now();
+		dataGraph.setRange(now.minusMonths(1), now);
 	}
 
 	@FXML
 	private void plotHeartRateLastYear(final ActionEvent event) {
 		timePeriodLabel.setText("Last Year");
+		final LocalDateTime now = LocalDateTime.now();
+		dataGraph.setRange(now.minusYears(1), now);
 	}
 
 	@FXML
@@ -84,7 +81,8 @@ public class DataViewController implements Initializable {
 
 	public void setfxAppController(FxAppController controller) {
 		fxAppController = controller;
-
+		dataGraph.setData(dataClient.getDataPointsForUserId(fxAppController.user.getId()));
+		dataGraph.plotDataType(DataPoint.DataType.HEART_RATE);
 		//just to test that the user selection works:
 		System.out.println("User Selected: " + fxAppController.user.getId() );
 	}
