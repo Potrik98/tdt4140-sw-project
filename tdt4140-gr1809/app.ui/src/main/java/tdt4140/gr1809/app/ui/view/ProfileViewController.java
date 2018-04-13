@@ -3,12 +3,14 @@ package tdt4140.gr1809.app.ui.view;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.*;
 import tdt4140.gr1809.app.client.UserClient;
 import tdt4140.gr1809.app.core.model.ServiceProvider;
 import tdt4140.gr1809.app.core.model.User;
 import tdt4140.gr1809.app.ui.FxAppController;
 import tdt4140.gr1809.app.ui.io.FileUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -63,9 +65,14 @@ public class ProfileViewController implements Initializable {
 	public void exportData() {
 		final Optional<User> user = userClient.getAllUserDataById(fxAppController.user.getId());
 		if (user.isPresent()) {
+			DirectoryChooser directoryChooser = new DirectoryChooser();
+			directoryChooser.setTitle("Open Resource File");
+			File selectedDir = directoryChooser.showDialog(nameLabel.getScene().getWindow());
+			
 			final User userWithData = user.get();
 			final String fileName = userWithData.getId().toString().concat(".json");
-			FileUtils.writeObjectToFile(userWithData, fileName);
+			FileUtils.writeObjectToFile(userWithData, selectedDir.getPath() + "\\" + fileName);
+			System.out.println(selectedDir.getPath() + fileName);
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setTitle("Export failed");
