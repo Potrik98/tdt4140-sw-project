@@ -35,22 +35,22 @@ public class LocalDateTimeAxis extends NumerableAxis<LocalDateTime> {
      * for the axis intervals.
      */
     private enum TickUnitDefault {
-        MINUTES_1(60000, "dd-MMM HH:mm:ss"),
-        MINUTES_5(300000, "dd-MMM HH:mm:ss"),
-        MINUTES_10(600000, "dd-MMM HH:mm:ss"),
-        MINUTES_20(1200000, "dd-MMM HH:mm:ss"),
-        MINUTES_30(1800000, "dd-MMM HH:mm"),
-        HOURS_1(3600000, "dd-MMM HH:mm"),
-        HOURS_2(7200000, "dd-MMM HH:mm"),
-        HOURS_3(10800000, "dd-MMM HH:mm"),
-        HOURS_6(21600000, "dd-MMM HH"),
-        HOURS_12(43200000, "dd-MMM HH"),
-        DAYS_1(86400000, "dd-MMM HH"),
-        DAYS_2(172800000, "dd-MMM HH"),
-        DAYS_3(259200000, "dd-MMM HH"),
-        WEEKS_1(604800000, "dd-MMM"),
-        WEEKS_2(1209600000, "dd-MMM"),
-        MONTHS_1(872640000E1, "dd-MM");
+        MINUTES_1(60, "dd-MMM HH:mm:ss"),
+        MINUTES_5(300, "dd-MMM HH:mm:ss"),
+        MINUTES_10(600, "dd-MMM HH:mm:ss"),
+        MINUTES_20(1200, "dd-MMM HH:mm:ss"),
+        MINUTES_30(1800, "dd-MMM HH:mm"),
+        HOURS_1(3600, "dd-MMM HH:mm"),
+        HOURS_2(7200, "dd-MMM HH:mm"),
+        HOURS_3(10800, "dd-MMM HH:mm"),
+        HOURS_6(21600, "dd-MMM HH"),
+        HOURS_12(43200, "dd-MMM HH"),
+        DAYS_1(86400, "dd-MMM HH"),
+        DAYS_2(172800, "dd-MMM HH"),
+        DAYS_3(259200, "dd-MMM HH"),
+        WEEKS_1(604800, "dd-MMM"),
+        WEEKS_2(1209600, "dd-MMM"),
+        MONTHS_1(2629744, "dd-MM");
         private final double tickUnit;
         private final String format;
         TickUnitDefault(final double tickUnit, final String format) {
