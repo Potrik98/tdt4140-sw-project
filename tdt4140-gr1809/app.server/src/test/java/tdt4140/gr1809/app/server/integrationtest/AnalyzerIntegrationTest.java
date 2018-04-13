@@ -9,6 +9,7 @@ import tdt4140.gr1809.app.core.model.Notification;
 import tdt4140.gr1809.app.core.model.User;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -152,10 +153,10 @@ public class AnalyzerIntegrationTest {
 
         assertThat(notificationMessages).containsExactlyInAnyOrder(
                 customNotificationThresholdHighValue.getMessage()
-                        .concat("\nTime: " + dataPointHighValue.getTime())
+                        .concat("\nTime: " + dataPointHighValue.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString())
                         .concat("\nValue: " + dataPointHighValue.getValue()),
                 customNotificationThresholdLowValue.getMessage()
-                        .concat("\nTime: " + dataPointLowValue.getTime())
+                        .concat("\nTime: " + dataPointLowValue.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString())
                         .concat("\nValue: " + dataPointLowValue.getValue())
         );
     }
