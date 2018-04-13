@@ -76,7 +76,7 @@ public class AnalyzerIntegrationTest {
         final Notification notification = notificationsForUser.get(0);
 
         assertThat(notification.getMessage()).isEqualTo("Pulse was over max-pulse at "
-                + dataPointHeartRateValueOverMaxPulse.getTime()
+                + dataPointHeartRateValueOverMaxPulse.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString()
                 + ".\nValue: " + dataPointHeartRateValueOverMaxPulse.getValue());
     }
 
