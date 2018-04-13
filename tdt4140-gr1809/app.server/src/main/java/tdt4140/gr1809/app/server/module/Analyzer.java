@@ -116,7 +116,7 @@ public class Analyzer {
                         .time(LocalDateTime.now())
                         .userId(dataPoint.getUserId())
                         .message(customNotificationThreshold.getMessage()
-                                .concat("\nTime: " + dataPoint.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                                .concat("\nTime: " + dataPoint.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString())
                                 .concat("\nValue: " + dataPoint.getValue()))
                         .build())
                 .collect(Collectors.toList());
