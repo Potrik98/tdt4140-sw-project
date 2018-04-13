@@ -40,35 +40,35 @@ public class DataViewController implements Initializable {
 
 	// Methods just to illustrate that we can plot different time intervals.
 	@FXML
-	private void plotHeartRateLastHour(final ActionEvent event) {
+	private void plotDataLastHour(final ActionEvent event) {
 		timePeriodLabel.setText("Last Hour");
 		final LocalDateTime now = LocalDateTime.now();
 		dataGraph.setRange(now.minusHours(1), now);
 	}
 
 	@FXML
-	private void plotHeartRateLast24Hours(final ActionEvent event) {
+	private void plotDataLast24Hours(final ActionEvent event) {
 		timePeriodLabel.setText("24 Hours");
 		final LocalDateTime now = LocalDateTime.now();
 		dataGraph.setRange(now.minusHours(24), now);
 	}
 
 	@FXML
-	private void plotHeartRateLastWeek(final ActionEvent event) {
+	private void plotDataLastWeek(final ActionEvent event) {
 		timePeriodLabel.setText("Last Week");
 		final LocalDateTime now = LocalDateTime.now();
 		dataGraph.setRange(now.minusWeeks(1), now);
 	}
 
 	@FXML
-	private void plotHeartRateLastMonth(final ActionEvent event) {
+	private void plotDataLastMonth(final ActionEvent event) {
 		timePeriodLabel.setText("Last Month");
 		final LocalDateTime now = LocalDateTime.now();
 		dataGraph.setRange(now.minusMonths(1), now);
 	}
 
 	@FXML
-	private void plotHeartRateLastYear(final ActionEvent event) {
+	private void plotDataLastYear(final ActionEvent event) {
 		timePeriodLabel.setText("Last Year");
 		final LocalDateTime now = LocalDateTime.now();
 		dataGraph.setRange(now.minusYears(1), now);

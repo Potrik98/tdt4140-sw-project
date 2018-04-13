@@ -56,11 +56,11 @@
                   <Label prefHeight="172.0" prefWidth="183.0" text="Maybe something  about time spent in different heart rate zones. Maybe a bar chart.." wrapText="true" />
                </children>
             </VBox>
-                  <Button fx:id="hourButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotHeartRateLastHour" prefHeight="66.0" prefWidth="266.0" text="Hour" VBox.vgrow="ALWAYS" />
-                  <Button fx:id="hour24Button" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotHeartRateLast24Hours" prefHeight="66.0" prefWidth="266.0" text="24Hours" VBox.vgrow="ALWAYS" />
-                  <Button fx:id="weekButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotHeartRateLastWeek" prefHeight="66.0" prefWidth="266.0" text="Week" VBox.vgrow="ALWAYS" />
-                  <Button fx:id="monthButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotHeartRateLastMonth" prefHeight="66.0" prefWidth="266.0" text="Month" VBox.vgrow="ALWAYS" />
-                  <Button fx:id="yearButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotHeartRateLastYear" prefHeight="66.0" prefWidth="266.0" text="Year" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="hourButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotDataLastHour" prefHeight="66.0" prefWidth="266.0" text="Hour" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="hour24Button" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotDataLast24Hours" prefHeight="66.0" prefWidth="266.0" text="24Hours" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="weekButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotDataLastWeek" prefHeight="66.0" prefWidth="266.0" text="Week" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="monthButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotDataLastMonth" prefHeight="66.0" prefWidth="266.0" text="Month" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="yearButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#plotDataLastYear" prefHeight="66.0" prefWidth="266.0" text="Year" VBox.vgrow="ALWAYS" />
 
                   <Button fx:id="clearButton" maxHeight="Infinity" mnemonicParsing="false" onAction="#handleClearButtonAction" prefHeight="67.0" prefWidth="266.0" text="clear" VBox.vgrow="ALWAYS" />
               </children>
