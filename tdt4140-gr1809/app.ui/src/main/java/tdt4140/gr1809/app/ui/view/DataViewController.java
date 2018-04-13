@@ -82,7 +82,7 @@ public class DataViewController implements Initializable {
 	public void setfxAppController(FxAppController controller) {
 		fxAppController = controller;
 		dataGraph.setData(dataClient.getDataPointsForUserId(fxAppController.user.getId()));
-		dataGraph.plotDataType(DataPoint.DataType.HEART_RATE);
+		dataGraph.plotDataType(DataPoint.DataType.TEMPERATURE);
 		//just to test that the user selection works:
 		System.out.println("User Selected: " + fxAppController.user.getId() );
 	}
