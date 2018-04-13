@@ -3,6 +3,7 @@ package tdt4140.gr1809.app.ui.graph;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.StringPropertyBase;
 import javafx.beans.value.ChangeListener;
+import javafx.geometry.Side;
 import javafx.util.StringConverter;
 import tdt4140.gr1809.app.core.value.LocalDateTimeNumberConverter;
 import tdt4140.gr1809.app.core.value.NumberConverter;
@@ -90,7 +91,6 @@ public class LocalDateTimeAxis extends NumerableAxis<LocalDateTime> {
      */
     public LocalDateTimeAxis(final double lowerBound, final double upperBound, final double tickUnit) {
         super(localDateTimeNumberConverter, lowerBound, upperBound, tickUnit);
-        tickUnitFormat.setValue(TickUnitDefault.HOURS_1.format);
     }
 
     /**
@@ -106,7 +106,15 @@ public class LocalDateTimeAxis extends NumerableAxis<LocalDateTime> {
                              final double tickUnit,
                              final String axisLabel) {
         super(localDateTimeNumberConverter, lowerBound, upperBound, tickUnit, axisLabel);
-        tickUnitFormat.setValue(TickUnitDefault.HOURS_1.format);
+    }
+
+    /**
+     * Rotates the tick mark labels if the axis is horizontal.
+     */
+    private void rotateTickLabelsIfHorizontal() {
+        final Side side = getSide();
+        final boolean isVertical = side.isHorizontal();
+        if (isVertical) setTickLabelRotation(80.0);
     }
 
     /**
@@ -125,6 +133,8 @@ public class LocalDateTimeAxis extends NumerableAxis<LocalDateTime> {
         }
         final LocalDateTimeRange range = (LocalDateTimeRange) rangeObject;
         tickUnitFormat.setValue(range.format);
+        rotateTickLabelsIfHorizontal();
+        setTickLabelFormatter(getDefaultTickLabelFormatter());
     }
 
     /**
