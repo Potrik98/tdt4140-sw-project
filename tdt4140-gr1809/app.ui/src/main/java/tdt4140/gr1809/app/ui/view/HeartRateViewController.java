@@ -54,8 +54,9 @@ public class HeartRateViewController implements Initializable {
 						.value(40 + random.nextInt(100))
 						.build())
 				.collect(Collectors.toList());
-		dataGraph.addDataPoints(dataPoints);
 		graphAnchorPane.getChildren().add(dataGraph.getGraph());
+		dataGraph.clear();
+		dataGraph.addDataPoints(dataPoints);
 	}
 
 

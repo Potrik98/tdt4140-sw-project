@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class LocalDateTimeAxis extends NumerableAxis<LocalDateTime> {
     private static final NumberConverter<LocalDateTime> localDateTimeNumberConverter =
@@ -61,7 +62,7 @@ public class LocalDateTimeAxis extends NumerableAxis<LocalDateTime> {
     /*
      * The format used for the tick unit marks
      */
-    private StringProperty tickUnitFormat = new StringPropertyBase("dd-MMM HH:mm") {
+    private final StringProperty tickUnitFormat = new StringPropertyBase("dd-MMM HH:mm") {
         @Override
         public Object getBean() {
             return LocalDateTimeAxis.this;
@@ -78,8 +79,6 @@ public class LocalDateTimeAxis extends NumerableAxis<LocalDateTime> {
      */
     public LocalDateTimeAxis() {
         super(localDateTimeNumberConverter);
-        forceZeroInRange.set(false);
-        setTickLabelFormatter(getDefaultTickLabelFormatter());
     }
 
     /**
@@ -91,6 +90,7 @@ public class LocalDateTimeAxis extends NumerableAxis<LocalDateTime> {
      */
     public LocalDateTimeAxis(final double lowerBound, final double upperBound, final double tickUnit) {
         super(localDateTimeNumberConverter, lowerBound, upperBound, tickUnit);
+        tickUnitFormat.setValue(TickUnitDefault.HOURS_1.format);
     }
 
     /**
@@ -106,6 +106,7 @@ public class LocalDateTimeAxis extends NumerableAxis<LocalDateTime> {
                              final double tickUnit,
                              final String axisLabel) {
         super(localDateTimeNumberConverter, lowerBound, upperBound, tickUnit, axisLabel);
+        tickUnitFormat.setValue(TickUnitDefault.HOURS_1.format);
     }
 
     /**
@@ -133,8 +134,8 @@ public class LocalDateTimeAxis extends NumerableAxis<LocalDateTime> {
     @Override
     protected Object getRange() {
         return new LocalDateTimeRange(
-                (long) getLowerBound(),
-                (long) getUpperBound(),
+                getLowerBound(),
+                getUpperBound(),
                 getTickUnit(),
                 getScale(),
                 tickUnitFormat.getValue());
@@ -153,6 +154,7 @@ public class LocalDateTimeAxis extends NumerableAxis<LocalDateTime> {
                                          final double maxDataValue,
                                          final double length,
                                          final double labelSize) {
+        System.out.println("Computing auto range...");
         final Range range = (Range) super.autoRange(minDataValue, maxDataValue, length, labelSize);
 
         // search for the best tick unit that fits
@@ -167,8 +169,9 @@ public class LocalDateTimeAxis extends NumerableAxis<LocalDateTime> {
         // calculate new scale
         final double newScale = calculateNewScale(length, lowerBound, upperBound);
 
+        System.out.printf("Auto range was computed: lb:%d ub:%d tu:%.1f\n", lowerBound, upperBound, newTickUnit);
         // return new range
-        return new LocalDateTimeRange(lowerBound, upperBound, range.tickUnit, newScale, tickUnitDefault.format);
+        return new LocalDateTimeRange(lowerBound, upperBound, newTickUnit, newScale, tickUnitDefault.format);
     }
 
     @Override
@@ -189,12 +192,16 @@ public class LocalDateTimeAxis extends NumerableAxis<LocalDateTime> {
          * @param axis The axis to format tick marks for
          */
         DefaultLocalDateTimeStringConverter(final LocalDateTimeAxis axis) {
-            formatter = DateTimeFormatter.ofPattern(axis.tickUnitFormat.getValue());
+            if (Objects.isNull(axis.tickUnitFormat)) {
+                formatter = DateTimeFormatter.ofPattern(TickUnitDefault.HOURS_1.format);
+                System.out.println("weird stuff");
+            } else {
+                formatter = DateTimeFormatter.ofPattern(axis.tickUnitFormat.getValue());
+                final ChangeListener<String> axisListener =
+                        (observable, oldValue, newValue) -> formatter = DateTimeFormatter.ofPattern(newValue);
 
-            final ChangeListener<String> axisListener =
-                    (observable, oldValue, newValue) -> formatter = DateTimeFormatter.ofPattern(newValue);
-
-            axis.tickUnitFormat.addListener(axisListener);
+                axis.tickUnitFormat.addListener(axisListener);
+            }
         }
 
         /**

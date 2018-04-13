@@ -9,6 +9,7 @@ import javafx.scene.chart.Axis;
 import javafx.scene.chart.ValueAxis;
 import javafx.util.StringConverter;
 import tdt4140.gr1809.app.core.util.NumberUtils;
+import tdt4140.gr1809.app.core.util.StreamUtils;
 import tdt4140.gr1809.app.core.value.NumberConverter;
 import tdt4140.gr1809.app.core.value.Numerable;
 
@@ -116,6 +117,7 @@ public class NumerableAxis<T> extends ValueAxis<Numerable<T>> {
         numerableBuilder = new Numerable.NumerableBuilder<>(numberConverter);
         forceZeroInRange.set(false);
         setTickLabelFormatter(getDefaultTickLabelFormatter());
+        setAutoRanging(false);
     }
 
     /**
@@ -142,17 +144,14 @@ public class NumerableAxis<T> extends ValueAxis<Numerable<T>> {
      */
     @Override
     protected List<Numerable<T>> calculateMinorTickMarks() {
+        System.out.println("Calculating minor tick marks...");
         final double minorUnit = getTickUnit() / getMinorTickCount();
         if (minorUnit > 0 && getUpperBound() > getLowerBound()) {
-            return DoubleStream.iterate(getLowerBound(), d -> d + minorUnit)
-                    .limit((long) getUpperBound())
-                    .mapToObj(numerableBuilder::numerableOfDouble)
-                    .collect(Collectors.toList());
-        } else if (getUpperBound() < getLowerBound()) {
-            return DoubleStream.iterate(getUpperBound(), d -> d - minorUnit)
-                    .limit((long) getLowerBound())
-                    .map(d -> -d)
-                    .mapToObj(numerableBuilder::numerableOfDouble)
+            return StreamUtils.takeWhile(
+                    DoubleStream.iterate(getLowerBound(), d -> d + minorUnit).boxed(),
+                    d -> d < getUpperBound())
+                    .peek(System.out::println)
+                    .map(numerableBuilder::numerableOfDouble)
                     .collect(Collectors.toList());
         } else {
             return ImmutableList.of();
@@ -204,21 +203,19 @@ public class NumerableAxis<T> extends ValueAxis<Numerable<T>> {
      */
     @Override
     protected List<Numerable<T>> calculateTickValues(final double length, final Object rangeObject) {
+        System.out.println("Calculating tick values...");
         if (!(rangeObject instanceof Range)) {
             throw new IllegalArgumentException("Range object must be of type Range!");
         }
         final Range range = (Range) rangeObject;
 
         if (range.tickUnit > 0 && range.upperBound > range.lowerBound) {
-            return DoubleStream.iterate(range.lowerBound, d -> d + range.tickUnit)
-                    .limit((long) range.upperBound)
-                    .mapToObj(numerableBuilder::numerableOfDouble)
-                    .collect(Collectors.toList());
-        } else if (range.upperBound < range.lowerBound) {
-            return DoubleStream.iterate(range.upperBound, d -> d - range.tickUnit)
-                    .limit((long) range.lowerBound)
-                    .map(d -> -d)
-                    .mapToObj(numerableBuilder::numerableOfDouble)
+            System.out.println("Limit to ");
+            return StreamUtils.takeWhile(
+                    DoubleStream.iterate(range.lowerBound, d -> d + range.tickUnit).boxed(),
+                    d -> d < range.upperBound)
+                    .peek(System.out::println)
+                    .map(numerableBuilder::numerableOfDouble)
                     .collect(Collectors.toList());
         } else {
             return ImmutableList.of();
@@ -364,7 +361,7 @@ public class NumerableAxis<T> extends ValueAxis<Numerable<T>> {
 
         @Override
         protected List<T> calculateTickValues(double v, Object o) {
-            return numerableAxis.calculateTickValues(v, 0).stream()
+            return numerableAxis.calculateTickValues(v, o).stream()
                     .map(Numerable::getValue).collect(Collectors.toList());
         }
 

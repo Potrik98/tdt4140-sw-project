@@ -1,5 +1,6 @@
 package tdt4140.gr1809.app.ui.graph;
 
+import javafx.collections.FXCollections;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -22,6 +23,9 @@ public class DataGraph {
                 .collect(Collectors.toMap(
                         Function.identity(),
                         a -> new XYChart.Series<LocalDateTime, Number>()));
+        graph.setData(seriesMap.values().stream()
+                .collect(Collectors.toCollection(FXCollections::observableArrayList)));
+        System.out.println("Data was set");
     }
 
     public XYChart<LocalDateTime, Number> getGraph() {
@@ -31,6 +35,10 @@ public class DataGraph {
     public void addDataPoints(final List<DataPoint> dataPoints) {
         dataPoints.forEach(dataPoint -> seriesMap.get(dataPoint.getDataType()).getData()
                 .add(new XYChart.Data<>(dataPoint.getTime(), dataPoint.getValue())));
+        graph.setData(seriesMap.values().stream()
+                .collect(Collectors.toCollection(FXCollections::observableArrayList)));
+        System.out.println("Data was set");
+        System.out.println("Added " + dataPoints.size() + " datapoints");
     }
 
     public void clear() {
