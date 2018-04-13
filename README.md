@@ -34,7 +34,7 @@ Programmet består av følgende moduler:
 
 <h3>Tekniske forutsetninger</h3>
 
-Programmet krever maven og java 8 jdk med java fx for å kompilere.
+Programmet er utviklet i **Eclipse**, men andre utviklingsmiljø burde også fungere. Programmet krever maven og java 8 jdk med java fx for å kompilere. 
 
 <h3>Tekniske instillinger</h3>
 
@@ -45,6 +45,16 @@ Bruker-applikasjonen kobler seg automatisk til serveren som er definert i
 client.properties under client resources.
 
 <h3>Installering og kjøring<h3>
+
+Start med å klone repoet fra gitlab.
+
+<h4>Med Eclipse</h4>
+
+Etter du har klonet repoet kan du importere det i Eclipse ved å bruke **Import.. > Exisitng Projects intro Workspace** og følge veiledningen som kommer opp. Prosjektet burde nå være synlig i **Project Explorer** fanen.
+
+Du kan nå kjøre prosjektet fra Eclipse ved å navigere til FxApp.java, høyreklikke og velge **Run as > Java Application**
+
+<h4>Med kommandolinje</h4>
 
 Sette opp prosjektet:<br>
 `mvn clean install -f tdt4140-gr1809/pom.xml`
