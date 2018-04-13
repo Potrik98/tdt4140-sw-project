@@ -50,9 +50,9 @@ Start med å klone repoet fra gitlab.
 
 <h4>Med Eclipse</h4>
 
-Etter du har klonet repoet kan du importere det i Eclipse ved å bruke **Import.. > Exisitng Projects intro Workspace** og følge veiledningen som kommer opp. Prosjektet burde nå være synlig i **Project Explorer** fanen.
+Etter du har klonet repoet kan du importere det i Eclipse ved å bruke **Import.. > Exisitng Projects into Workspace** og følge veiledningen som kommer opp. Prosjektet burde nå være synlig i **Project Explorer** fanen.
 
-Du kan nå kjøre prosjektet fra Eclipse ved å navigere til FxApp.java, høyreklikke og velge **Run as > Java Application**
+Du kan nå kjøre prosjektet fra Eclipse ved å navigere til FxApp.java i tdt4140.gr1809.app.ui modulen, høyreklikke og velge **Run as > Java Application**
 
 <h4>Med kommandolinje</h4>
 
