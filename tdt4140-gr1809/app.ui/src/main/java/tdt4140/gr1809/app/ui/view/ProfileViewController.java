@@ -66,7 +66,7 @@ public class ProfileViewController implements Initializable {
 		final Optional<User> user = userClient.getAllUserDataById(fxAppController.user.getId());
 		if (user.isPresent()) {
 			DirectoryChooser directoryChooser = new DirectoryChooser();
-			directoryChooser.setTitle("Open Resource File");
+			directoryChooser.setTitle("Choose where to save the data");
 			File selectedDir = directoryChooser.showDialog(nameLabel.getScene().getWindow());
 			
 			final User userWithData = user.get();
