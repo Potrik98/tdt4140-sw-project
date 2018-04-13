@@ -164,7 +164,6 @@ public class LocalDateTimeAxis extends NumerableAxis<LocalDateTime> {
                                          final double maxDataValue,
                                          final double length,
                                          final double labelSize) {
-        System.out.println("Computing auto range...");
         final Range range = (Range) super.autoRange(minDataValue, maxDataValue, length, labelSize);
 
         // search for the best tick unit that fits
@@ -179,7 +178,6 @@ public class LocalDateTimeAxis extends NumerableAxis<LocalDateTime> {
         // calculate new scale
         final double newScale = calculateNewScale(length, lowerBound, upperBound);
 
-        System.out.printf("Auto range was computed: lb:%d ub:%d tu:%.1f\n", lowerBound, upperBound, newTickUnit);
         // return new range
         return new LocalDateTimeRange(lowerBound, upperBound, newTickUnit, newScale, tickUnitDefault.format);
     }

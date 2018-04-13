@@ -144,13 +144,11 @@ public class NumerableAxis<T> extends ValueAxis<Numerable<T>> {
      */
     @Override
     protected List<Numerable<T>> calculateMinorTickMarks() {
-        System.out.println("Calculating minor tick marks...");
         final double minorUnit = getTickUnit() / getMinorTickCount();
         if (minorUnit > 0 && getUpperBound() > getLowerBound()) {
             return StreamUtils.takeWhile(
                     DoubleStream.iterate(getLowerBound(), d -> d + minorUnit).boxed(),
                     d -> d < getUpperBound())
-                    .peek(System.out::println)
                     .map(numerableBuilder::numerableOfDouble)
                     .collect(Collectors.toList());
         } else {
@@ -203,18 +201,15 @@ public class NumerableAxis<T> extends ValueAxis<Numerable<T>> {
      */
     @Override
     protected List<Numerable<T>> calculateTickValues(final double length, final Object rangeObject) {
-        System.out.println("Calculating tick values...");
         if (!(rangeObject instanceof Range)) {
             throw new IllegalArgumentException("Range object must be of type Range!");
         }
         final Range range = (Range) rangeObject;
 
         if (range.tickUnit > 0 && range.upperBound > range.lowerBound) {
-            System.out.println("Limit to ");
             return StreamUtils.takeWhile(
                     DoubleStream.iterate(range.lowerBound, d -> d + range.tickUnit).boxed(),
                     d -> d < range.upperBound)
-                    .peek(System.out::println)
                     .map(numerableBuilder::numerableOfDouble)
                     .collect(Collectors.toList());
         } else {
