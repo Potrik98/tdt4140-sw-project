@@ -1,0 +1,9 @@
+.root {
+    -fx-background-image: url("images/blur.jpg");
+}
+
+.button {
+    -fx-background-color: #FFFFFF;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 0, 0);
+
+}
