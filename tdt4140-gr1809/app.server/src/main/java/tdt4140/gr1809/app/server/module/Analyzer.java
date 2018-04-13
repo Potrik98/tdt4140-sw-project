@@ -131,7 +131,7 @@ public class Analyzer {
             return Optional.of(Notification.builder()
                     .time(LocalDateTime.now())
                     .userId(user.getId())
-                    .message("Pulse was over max-pulse at " + dataPoint.getTime()
+                    .message("Pulse was over max-pulse at " + dataPoint.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString()
                             + ".\nValue: " + dataPoint.getValue())
                     .build());
         }
@@ -155,7 +155,7 @@ public class Analyzer {
             return Optional.of(Notification.builder()
                     .time(LocalDateTime.now())
                     .userId(user.getId())
-                    .message("Low body temperature at " + dataPoint.getTime()
+                    .message("Low body temperature at " + dataPoint.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString()
                             + ".\nValue: " + dataPoint.getValue())
                     .build());
         }
@@ -163,7 +163,7 @@ public class Analyzer {
             return Optional.of(Notification.builder()
                     .time(LocalDateTime.now())
                     .userId(user.getId())
-                    .message("High body temperature at " + dataPoint.getTime()
+                    .message("High body temperature at " + dataPoint.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString()
                             + ".\nValue: " + dataPoint.getValue())
                     .build());
         }
