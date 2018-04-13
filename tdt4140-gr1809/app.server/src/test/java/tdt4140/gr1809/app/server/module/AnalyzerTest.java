@@ -11,6 +11,7 @@ import tdt4140.gr1809.app.core.model.User;
 import tdt4140.gr1809.app.server.integrationtest.IntegrationTestHelper;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,7 +81,7 @@ public class AnalyzerTest {
         final Notification notification = notificationsForUser.get(0);
 
         assertThat(notification.getMessage()).isEqualTo("Pulse was over max-pulse at "
-                + dataPointHeartRateValueOverMaxPulse.getTime()
+                + dataPointHeartRateValueOverMaxPulse.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString()
                 + ".\nValue: " + dataPointHeartRateValueOverMaxPulse.getValue());
     }
 
@@ -133,9 +134,9 @@ public class AnalyzerTest {
                 .collect(Collectors.toList());
 
         assertThat(notificationMessages).containsExactlyInAnyOrder(
-                "Low body temperature at " + dataPointTemperatureLowValue.getTime()
+                "Low body temperature at " + dataPointTemperatureLowValue.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString()
                         + ".\nValue: " + dataPointTemperatureLowValue.getValue(),
-                "High body temperature at " + dataPointTemperatureHighValue.getTime()
+                "High body temperature at " + dataPointTemperatureHighValue.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString()
                         + ".\nValue: " + dataPointTemperatureHighValue.getValue()
         );
     }
@@ -215,10 +216,10 @@ public class AnalyzerTest {
 
         assertThat(notificationMessages).containsExactlyInAnyOrder(
                 customNotificationThresholdHighValue.getMessage()
-                        .concat("\nTime: " + dataPointHighValue.getTime())
+                        .concat("\nTime: " + dataPointHighValue.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString())
                         .concat("\nValue: " + dataPointHighValue.getValue()),
                 customNotificationThresholdLowValue.getMessage()
-                        .concat("\nTime: " + dataPointLowValue.getTime())
+                        .concat("\nTime: " + dataPointLowValue.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString())
                         .concat("\nValue: " + dataPointLowValue.getValue())
         );
     }
