@@ -14,6 +14,7 @@ public class FxApp extends Application {
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("FxApp.fxml"));
     	
         Scene scene = new Scene(loader.load());
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         controller = loader.<FxAppController>getController();
         controller.setController(controller);
         stage.setResizable(false);

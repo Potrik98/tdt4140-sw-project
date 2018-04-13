@@ -26,8 +26,6 @@ public class ProfileViewController implements Initializable {
 
 	private UserClient userClient = new UserClient();
 
-	//TODO: validate user input
-
 	@FXML
 	public void deleteUser() throws IOException {
 		final UserClient client = new UserClient();
