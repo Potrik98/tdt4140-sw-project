@@ -8,6 +8,7 @@ import tdt4140.gr1809.app.core.model.Notification;
 import tdt4140.gr1809.app.core.model.User;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -115,7 +116,7 @@ public class Analyzer {
                         .time(LocalDateTime.now())
                         .userId(dataPoint.getUserId())
                         .message(customNotificationThreshold.getMessage()
-                                .concat("\nTime: " + dataPoint.getTime())
+                                .concat("\nTime: " + dataPoint.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString())
                                 .concat("\nValue: " + dataPoint.getValue()))
                         .build())
                 .collect(Collectors.toList());
@@ -130,7 +131,7 @@ public class Analyzer {
             return Optional.of(Notification.builder()
                     .time(LocalDateTime.now())
                     .userId(user.getId())
-                    .message("Pulse was over max-pulse at " + dataPoint.getTime()
+                    .message("Pulse was over max-pulse at " + dataPoint.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString()
                             + ".\nValue: " + dataPoint.getValue())
                     .build());
         }
@@ -154,7 +155,7 @@ public class Analyzer {
             return Optional.of(Notification.builder()
                     .time(LocalDateTime.now())
                     .userId(user.getId())
-                    .message("Low body temperature at " + dataPoint.getTime()
+                    .message("Low body temperature at " + dataPoint.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString()
                             + ".\nValue: " + dataPoint.getValue())
                     .build());
         }
@@ -162,7 +163,7 @@ public class Analyzer {
             return Optional.of(Notification.builder()
                     .time(LocalDateTime.now())
                     .userId(user.getId())
-                    .message("High body temperature at " + dataPoint.getTime()
+                    .message("High body temperature at " + dataPoint.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString()
                             + ".\nValue: " + dataPoint.getValue())
                     .build());
         }
