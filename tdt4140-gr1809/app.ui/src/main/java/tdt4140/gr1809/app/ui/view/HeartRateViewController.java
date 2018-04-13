@@ -57,6 +57,8 @@ public class HeartRateViewController implements Initializable {
 		graphAnchorPane.getChildren().add(dataGraph.getGraph());
 		dataGraph.clear();
 		dataGraph.addDataPoints(dataPoints);
+
+		dataGraph.plotDataType(DataPoint.DataType.HEART_RATE);
 	}
 
 
