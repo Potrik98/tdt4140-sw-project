@@ -15,7 +15,6 @@ import javafx.scene.layout.VBox;
 import tdt4140.gr1809.app.core.model.ServiceProvider;
 import tdt4140.gr1809.app.core.model.User;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.AnchorPane;
 import tdt4140.gr1809.app.ui.login.LoginController;
 import tdt4140.gr1809.app.ui.login.ServiceproviderLoginController;
 import tdt4140.gr1809.app.ui.view.*;
@@ -44,8 +43,7 @@ public class FxAppController implements Initializable{
 	private ServiceProviderViewController serviceProviderViewController;
 	private LoginController loginController;
 	private NotificationsViewController notificationcontroller;
-	private GraphViewController graphViewController;
-	public HeartRateViewController heartRateViewController;
+	public DataViewController dataViewController;
 	public FxAppController Appcontroller;
 	public ServiceproviderLoginController serviceProviderLoginViewController;
 	public TimeLimitViewController timelimitViewController;
@@ -138,13 +136,13 @@ public class FxAppController implements Initializable{
 		disableDataView();
 	}
 
-	public void goToHeartRateView(ActionEvent event) throws IOException {
+	public void goToDataView(ActionEvent event) throws IOException {
 		rightPane.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("HeartRateView.fxml"));
+        loader.setLocation(getClass().getResource("DataView.fxml"));
         loader.load();
-        heartRateViewController = loader.getController();
-        heartRateViewController.setfxAppController(this);        
+        dataViewController = loader.getController();
+        dataViewController.setfxAppController(this);
         rightPane.getChildren().add(loader.getRoot());
         }
 
