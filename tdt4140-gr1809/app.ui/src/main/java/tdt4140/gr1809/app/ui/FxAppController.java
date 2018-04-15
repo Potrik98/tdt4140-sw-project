@@ -43,7 +43,6 @@ public class FxAppController implements Initializable{
 	private ServiceProviderViewController serviceProviderViewController;
 	private LoginController loginController;
 	private NotificationsViewController notificationcontroller;
-	private GraphViewController graphViewController;
 	public DataViewController dataViewController;
 	public FxAppController Appcontroller;
 	public ServiceproviderLoginController serviceProviderLoginViewController;
