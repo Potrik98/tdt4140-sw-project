@@ -1,9 +1,12 @@
 package tdt4140.gr1809.app.ui.view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import tdt4140.gr1809.app.client.DataClient;
@@ -13,6 +16,7 @@ import tdt4140.gr1809.app.ui.graph.DataGraph;
 
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class DataViewController implements Initializable {
@@ -30,12 +34,17 @@ public class DataViewController implements Initializable {
 
 	private DataClient dataClient;
 
+	@FXML
+	private ComboBox<DataPoint.DataType> dataDropdown;
+
 	@Override
 	public void initialize(final URL url, final ResourceBundle rb) {
 		dataClient = new DataClient();
 		dataGraph = new DataGraph();
 		graphAnchorPane.getChildren().add(dataGraph.getGraph());
 		dataGraph.clear();
+		dataDropdown.setItems(FXCollections.observableList(Arrays.asList(DataPoint.DataType.values())));
+		dataDropdown.setValue(DataPoint.DataType.HEART_RATE);
 	}
 
 	// Methods just to illustrate that we can plot different time intervals.
@@ -79,6 +88,11 @@ public class DataViewController implements Initializable {
 		timePeriodLabel.setText("Last 15 Minutes");
 		final LocalDateTime now = LocalDateTime.now();
 		dataGraph.setRange(now.minusMinutes(15), now);
+	}
+
+	@FXML
+	public void selectDataType(final ActionEvent actionEvent) {
+		dataGraph.plotDataType(dataDropdown.getValue());
 	}
 
 	public void setfxAppController(FxAppController controller) {
