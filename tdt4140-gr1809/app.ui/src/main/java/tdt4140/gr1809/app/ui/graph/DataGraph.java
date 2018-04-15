@@ -84,7 +84,9 @@ public class DataGraph {
         final ObservableList<XYChart.Data<Numerable<LocalDateTime>, Number>> chartData =
                 aggregatedDataPoints.stream()
                         .map(dataPoint -> new XYChart.Data<Numerable<LocalDateTime>, Number>(
-                                numerableBuilder.numerableOfValue(dataPoint.getTime()), dataPoint.getValue()
+                                numerableBuilder.numerableOfValue(dataPoint.getTime()),
+                                dataType == DataPoint.DataType.TEMPERATURE
+                                        ? dataPoint.getValue() / 100.0 : dataPoint.getValue()
                         ))
                         .collect(Collectors.toCollection(FXCollections::observableArrayList));
         graph.setData(FXCollections.observableArrayList(new XYChart.Series<>(chartData)));
