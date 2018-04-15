@@ -45,7 +45,6 @@
             </VBox>
             		      <VBox fx:id="serviceProviderNavbar" maxHeight="750.0" maxWidth="110.0" minHeight="750.0" minWidth="110.0" prefHeight="750.0" prefWidth="110.0">
    		<children>
-<<<<<<< c79e0daab3e53a5f04fe6e93604948fe744e73ce
                   <Button maxHeight="-Infinity" maxWidth="110.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToClientView" prefHeight="100.0" prefWidth="110.0" text="Clients" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="13.0" />
@@ -58,15 +57,8 @@
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font></Button>
-=======
                   <Button maxHeight="-Infinity" maxWidth="100.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToClientView" prefHeight="100.0" prefWidth="100.0" text="Clients" textAlignment="CENTER" wrapText="true" />
-      		<Button fx:id="profileViewButton" maxHeight="-Infinity" maxWidth="100.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToProfileView" prefHeight="100.0" prefWidth="100.0" text="Profile" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS" />
-      		<Button fx:id="heartRateViewButton" maxWidth="100.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToDataView" prefHeight="100.0" prefWidth="100.0" text="Data" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS" />
-<<<<<<< 964f20fe8aa0de0b49e7a1c4f8afade4200e773f
->>>>>>> Change to DataView
-=======
->>>>>>> Rename to DataView
-
+            
                   <Button fx:id="thresholdsViewButton" maxWidth="110.0" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#goToThresholdsView" prefHeight="100.0" prefWidth="110.0" text="Thresholds" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="13.0" />
