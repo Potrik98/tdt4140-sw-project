@@ -39,6 +39,7 @@ public class DataGraph {
         graph.setHorizontalGridLinesVisible(true);
         graph.setLegendVisible(false);
         graph.setCreateSymbols(false);
+        graph.setPrefWidth(880.0);
 
         upperBound = LocalDateTime.now();
         lowerBound = upperBound.minusMonths(1);

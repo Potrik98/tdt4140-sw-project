@@ -75,8 +75,10 @@ public class DataViewController implements Initializable {
 	}
 
 	@FXML
-	private void handleClearButtonAction(final ActionEvent event) {
-		dataGraph.clear();
+	public void plotDataLastQuarter(final ActionEvent actionEvent) {
+		timePeriodLabel.setText("Last 15 Minutes");
+		final LocalDateTime now = LocalDateTime.now();
+		dataGraph.setRange(now.minusMinutes(15), now);
 	}
 
 	public void setfxAppController(FxAppController controller) {
