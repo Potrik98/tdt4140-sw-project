@@ -44,7 +44,7 @@ public class UserResource {
             return "";
         }
     	
-    	final List<Notification> notifications = notificationDBManager.getNotificationByUserId(userId);
+    	final List<Notification> notifications = notificationDBManager.getNotificationsByUserId(userId);
     	final List<DataPoint> datapoints = dataDBManager.getDataByUserId(userId);
     	final User userWithData = User.from(user.get())
     			.notifications(notifications)
@@ -102,7 +102,7 @@ public class UserResource {
     	System.out.println("Notifications of userId: " + userId);
     	res.status(HttpStatus.OK_200);
     	res.type("application/json");
-    	return User.mapper.writeValueAsString(notificationDBManager.getNotificationByUserId(userId));
+    	return User.mapper.writeValueAsString(notificationDBManager.getNotificationsByUserId(userId));
     }
 
     public static String getTimeFiltersOfUser(Request req, Response res) throws Exception {

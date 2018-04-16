@@ -69,7 +69,7 @@ public class AnalyzerIntegrationTest {
         dataClient.createDataPoint(dataPointOtherDataTypeValueOverMaxPulse);
 
         final List<Notification> notificationsForUser =
-                notificationClient.getNotificationByUserId(user.getId());
+                notificationClient.getNotificationsByUserId(user.getId());
 
         assertThat(notificationsForUser).hasSize(1);
 
@@ -143,7 +143,7 @@ public class AnalyzerIntegrationTest {
         dataClient.createDataPoint(dataPointOfAnotherDataType);
 
         final List<Notification> notificationsForUser =
-                notificationClient.getNotificationByUserId(user.getId());
+                notificationClient.getNotificationsByUserId(user.getId());
 
         assertThat(notificationsForUser).hasSize(2);
 

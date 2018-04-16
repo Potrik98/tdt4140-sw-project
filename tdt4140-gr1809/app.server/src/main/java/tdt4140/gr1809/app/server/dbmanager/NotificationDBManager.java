@@ -16,9 +16,10 @@ public class NotificationDBManager extends DBManager {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public List<Notification> getNotificationByUserId(final UUID userId) throws SQLException {
+	public List<Notification> getNotificationsByUserId(final UUID userId) throws SQLException {
     	String query = "select notificationId, userId, message, time from Notifications" +
-				" where userId = :userId:";
+				" where userId = :userId:" +
+				" and deleted = 0";
 		NamedParameterStatement statement = new NamedParameterStatement(query, conn);
 		statement.setString("userId", userId.toString());
 		ResultSet result = statement.getStatement().executeQuery();
