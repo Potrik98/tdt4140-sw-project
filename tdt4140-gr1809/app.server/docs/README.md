@@ -57,6 +57,9 @@ All data is transferred using JSON, and Jackson is used for serialization.
  - `DELETE  /customnotificationthresholds/{thresholdId}`: deletes the custom notification threshold with the thresholdId.
 
 <h3>Class overview:</h3>
+
+[Class diagram](diagram.png)
+
  - `Server`: contains the server main method and routing table
  - dbmanger
    - `DBManager`: abstract class handling the properties of and the connection to the db.
