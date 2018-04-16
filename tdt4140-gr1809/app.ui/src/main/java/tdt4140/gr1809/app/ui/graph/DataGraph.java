@@ -4,6 +4,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Streams;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Side;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -48,7 +49,7 @@ public class DataGraph {
         this.graph = new LineChart<>(new LocalDateTimeAxis(), numberAxis);
         graph.setVerticalGridLinesVisible(true);
         graph.setHorizontalGridLinesVisible(true);
-        graph.setLegendVisible(false);
+        graph.setLegendSide(Side.RIGHT);
         graph.setCreateSymbols(false);
         graph.setPrefWidth(880.0);
 
@@ -123,7 +124,7 @@ public class DataGraph {
                                         ? dataPoint.getValue() / 100.0 : dataPoint.getValue()
                         ))
                         .collect(Collectors.toCollection(FXCollections::observableArrayList));
-        graph.setData(FXCollections.observableArrayList(new XYChart.Series<>(chartData)));
+        graph.setData(FXCollections.observableArrayList(new XYChart.Series<>(dataType.name(), chartData)));
         
         if(showAggregate) {
         	timeOfFirstDataPoint = dataPointsInRange.stream()
@@ -151,12 +152,14 @@ public class DataGraph {
     	        numerableBuilder.numerableOfValue(timeOfFirstDataPoint), statisticValue));
     	generalStatisticSeries.getData().add(new XYChart.Data<>(
     	        numerableBuilder.numerableOfValue(timeOfLastDataPoint), statisticValue));
+    	generalStatisticSeries.setName("General average");
 
         final Series<Numerable<LocalDateTime>, Number> averageSeries = new Series<>();
         averageSeries.getData().add(new XYChart.Data<>(
                 numerableBuilder.numerableOfValue(timeOfFirstDataPoint), avg));
         averageSeries.getData().add(new XYChart.Data<>(
                 numerableBuilder.numerableOfValue(timeOfLastDataPoint), avg));
+        averageSeries.setName("Your average");
 
     	graph.getData().add(generalStatisticSeries);
     	graph.getData().add(averageSeries);
