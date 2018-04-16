@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
@@ -8,7 +9,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <BorderPane prefHeight="750.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.view.NotificationsViewController">
    <left>
@@ -22,7 +22,8 @@
                   <Insets top="50.0" />
                </VBox.margin>
             </Label>
-            <ListView fx:id="NotificationsListView" onKeyReleased="#updateNotification" onMouseClicked="#updateNotification" prefHeight="604.0" prefWidth="388.0" style="-fx-font-size:: 15;" />
+            <ListView fx:id="NotificationsListView" onKeyReleased="#updateNotification" onMouseClicked="#updateNotification" prefHeight="552.0" prefWidth="388.0" style="-fx-font-size:: 15;" />
+            <Button mnemonicParsing="false" onAction="#deleteNotification" prefHeight="38.0" prefWidth="391.0" text="Delete Notification" />
          </children>
          <BorderPane.margin>
             <Insets left="40.0" />

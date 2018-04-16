@@ -2,14 +2,31 @@
 
 The server module has 3 packages:
  - dbmanger: contains DBManagers which communicate with the db and handles storing of all model objects.
- - resource: contains Resources which serves the REST-api endpoints, interperets requests and communicates with the db managers.
+ - resource: contains Resources which serves the REST-api endpoints, interprets requests and communicates with the db managers.
  - module: contains server modules for different logic-related tasks, such as filtering, analyzing or generating statistics.
+
+<h3>Testing:</h3>
+The server module has 3 types of tests:
+ - DBManagerTest: creates a new, empty in-memory test instance of a h2 database, 
+ tests opening db connections,
+ and the functionality of each db manager.
+ - Module tests: tests the logic components of each logic module.
+ - IntegrationTest: tests the entire server stack from client to db manager. 
+ A local host instance of the server is started, with a blank in memory test instance of the database.
+ The client is then opening a webtarget connection to the server, 
+ communication between the client and server over HTTP to the servers REST api is tested,
+ together with serialization of user objects.
+ 
+<h3>Settings</h3>
+Properties files are located under the resources root.
+ - dbconnection.properties: contains the connection info for the database.
 
 <h3>Endpoints overview:</h3>
 All data is transferred using JSON, and Jackson is used for serialization.
 
  - `POST    /user {User object}`: creates an user of the user object.
  - `GET     /user/{userId}`: gets the user with the userId.
+ - `GET     /user/{userId}/data`: gets the user object with all related data.
  - `POST    /user/{userId} {User object}`: updates the user with the data in the user object.
  - `DELETE  /user/{userId}`: deletes the user with the userId.
  - `GET     /user/{userId}/datapoints`: gets a list of data points of the user's data points.
@@ -40,6 +57,9 @@ All data is transferred using JSON, and Jackson is used for serialization.
  - `DELETE  /customnotificationthresholds/{thresholdId}`: deletes the custom notification threshold with the thresholdId.
 
 <h3>Class overview:</h3>
+
+[Class diagram](diagram.png)
+
  - `Server`: contains the server main method and routing table
  - dbmanger
    - `DBManager`: abstract class handling the properties of and the connection to the db.

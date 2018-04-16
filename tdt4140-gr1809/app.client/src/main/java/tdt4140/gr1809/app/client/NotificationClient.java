@@ -18,7 +18,7 @@ public class NotificationClient extends BasicClient {
 		super();
 	}
 	
-	public List<Notification> getNotificationByUserId(UUID userId) {
+	public List<Notification> getNotificationsByUserId(UUID userId) {
 		final Response response = target
                 .path("/user/")
                 .path(userId.toString())

@@ -5,7 +5,6 @@ import static tdt4140.gr1809.app.server.integrationtest.IntegrationTestHelper.us
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.AfterClass;
@@ -57,7 +56,7 @@ public class NotificationIntegrationTest {
 	        		.build();
 	        notificationClient.createNotification(n2);
 	        
-	        List<Notification> notifications = notificationClient.getNotificationByUserId(user.getId());
+	        List<Notification> notifications = notificationClient.getNotificationsByUserId(user.getId());
 	        assertThat(notifications).usingFieldByFieldElementComparator()
 	        		.containsExactly(n1, n2);
 	    }
@@ -94,7 +93,7 @@ public class NotificationIntegrationTest {
 	        
 	        notificationClient.deleteNotification(notification.getId());
 
-	        final List<Notification> retrievedNotification = notificationClient.getNotificationByUserId(notification.getId());
+	        final List<Notification> retrievedNotification = notificationClient.getNotificationsByUserId(user.getId());
 	        assertThat(retrievedNotification).isEmpty();
 	    }
 

@@ -74,7 +74,7 @@ public class AnalyzerTest {
                 dataPointOtherDataTypeValueOverMaxPulse));
 
         final List<Notification> notificationsForUser =
-                notificationDBManager.getNotificationByUserId(user.getId());
+                notificationDBManager.getNotificationsByUserId(user.getId());
 
         assertThat(notificationsForUser).hasSize(1);
 
@@ -125,7 +125,7 @@ public class AnalyzerTest {
                 dataPointTemperatureMediumValue));
 
         final List<Notification> notificationsForUser =
-                notificationDBManager.getNotificationByUserId(user.getId());
+                notificationDBManager.getNotificationsByUserId(user.getId());
 
         assertThat(notificationsForUser).hasSize(2);
 
@@ -206,7 +206,7 @@ public class AnalyzerTest {
         ));
 
         final List<Notification> notificationsForUser =
-                notificationDBManager.getNotificationByUserId(user.getId());
+                notificationDBManager.getNotificationsByUserId(user.getId());
 
         assertThat(notificationsForUser).hasSize(2);
 

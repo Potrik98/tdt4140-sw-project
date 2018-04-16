@@ -22,8 +22,8 @@
                            <children>
                               <TextArea fx:id="NotificationText" layoutX="53.0" layoutY="168.0" prefHeight="222.0" prefWidth="295.0" wrapText="true" />
                               <TextField fx:id="notetime" editable="false" layoutX="53.0" layoutY="133.0" prefHeight="26.0" prefWidth="295.0" />
-                              <Button layoutX="125.0" layoutY="407.0" mnemonicParsing="false" onAction="#createUserNotification" prefHeight="40.0" prefWidth="152.0" text="Notify user" />
-                              <Label layoutX="133.0" layoutY="77.0" text="Notify user">
+                              <Button layoutX="53.0" layoutY="407.0" mnemonicParsing="false" onAction="#createUserNotification" prefHeight="40.0" prefWidth="152.0" text="Notify user" />
+                              <Label layoutX="53.0" layoutY="76.0" prefHeight="40.0" prefWidth="294.0" text="Notify user">
                                  <font>
                                     <Font size="28.0" />
                                  </font>
