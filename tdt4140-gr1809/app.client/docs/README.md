@@ -20,3 +20,8 @@ Properties are located under the resources root.
 [Class diagram](diagram.png)
 
  - `BasicClient`: abstract class handling the loading of client properties and webtarget connections.
+
+<h3>Testing</h3>
+
+Client code are tested in the integration tests.
+See [Server test documentation](../../app.server/src/test/java/tdt4140/gr1809/app/server/README.md)
