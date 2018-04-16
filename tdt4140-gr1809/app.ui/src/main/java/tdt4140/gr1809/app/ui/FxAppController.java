@@ -28,7 +28,7 @@ public class FxAppController implements Initializable{
 	@FXML private VBox userNavbar;
 	@FXML private VBox serviceProviderNavbar;
 
-	@FXML private Button heartRateViewButton;
+	@FXML private Button dataViewButton;
 	@FXML private Button profileViewButton;
 	@FXML private Button thresholdsViewButton;
 	@FXML private Button NotificationsViewButton;
@@ -221,7 +221,7 @@ public class FxAppController implements Initializable{
 	}
 
 	public void disableDataView() {
-		heartRateViewButton.setDisable(true);
+		dataViewButton.setDisable(true);
 		profileViewButton.setDisable(true);
 		thresholdsViewButton.setDisable(true);
 		NotificationsViewButton.setDisable(true);
@@ -229,7 +229,7 @@ public class FxAppController implements Initializable{
 	}
 
 	public void enableDataView() {
-		heartRateViewButton.setDisable(false);
+		dataViewButton.setDisable(false);
 		profileViewButton.setDisable(false);
 		thresholdsViewButton.setDisable(false);
 		NotificationsViewButton.setDisable(false);

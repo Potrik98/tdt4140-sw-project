@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane prefHeight="750.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.view.NotificationsViewController">
    <left>
       <VBox prefHeight="750.0" prefWidth="388.0" spacing="20.0" BorderPane.alignment="CENTER">
@@ -22,7 +21,7 @@
                   <Insets top="50.0" />
                </VBox.margin>
             </Label>
-            <ListView fx:id="NotificationsListView" onKeyReleased="#updateNotification" onMouseClicked="#updateNotification" prefHeight="604.0" prefWidth="388.0" style="-fx-font-size:: 15;" />
+            <ListView fx:id="NotificationsListView" onKeyReleased="#updateNotification" onMouseClicked="#updateNotification" prefHeight="604.0" prefWidth="388.0" />
          </children>
          <BorderPane.margin>
             <Insets left="40.0" />
