@@ -70,7 +70,9 @@ public class DataGraph {
         System.out.println(currentDataType);
         System.out.println(currentDataType + " dffdfd");
         for(int i = 0; i < dataPoints.size(); i++) {
-        	if(dataPoints.get(i).getDataType() == currentDataType) {
+        	if(dataPoints.get(i).getDataType() == currentDataType
+        			&& dataPoints.get(i).getTime().isAfter(lowerBound)
+        			&& dataPoints.get(i).getTime().isBefore(upperBound)) {
         		numPoints++;
         		totalVal += dataPoints.get(i).getValue();
         		if(dataPoints.get(i).getValue() < min) {
