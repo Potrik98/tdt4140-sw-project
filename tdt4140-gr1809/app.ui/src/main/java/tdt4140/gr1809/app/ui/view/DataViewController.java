@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -27,6 +28,9 @@ public class DataViewController implements Initializable {
 
 	@FXML
 	private AnchorPane graphAnchorPane;
+	
+	//@FXML
+	//private CheckBox aggregateCheckbox;
 
 	private DataGraph dataGraph;
 	
@@ -46,6 +50,12 @@ public class DataViewController implements Initializable {
 		dataDropdown.setItems(FXCollections.observableList(Arrays.asList(DataPoint.DataType.values())));
 		dataDropdown.setValue(DataPoint.DataType.HEART_RATE);
 	}
+	
+	
+	//@FXML
+	//private void showOrHideAggregate() {
+		//dataGraph.setShowAggregate(false);
+	//}
 
 	// Methods just to illustrate that we can plot different time intervals.
 	@FXML

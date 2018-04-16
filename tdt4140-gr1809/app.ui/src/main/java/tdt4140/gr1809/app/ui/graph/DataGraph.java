@@ -7,7 +7,10 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
+import tdt4140.gr1809.app.client.StatisticsClient;
 import tdt4140.gr1809.app.core.model.DataPoint;
+import tdt4140.gr1809.app.core.model.Statistic;
 import tdt4140.gr1809.app.core.util.TimeUtils;
 import tdt4140.gr1809.app.core.value.LocalDateTimeNumberConverter;
 import tdt4140.gr1809.app.core.value.Numerable;
@@ -30,6 +33,7 @@ public class DataGraph {
     private DataPoint.DataType currentDataType;
     private LocalDateTime lowerBound;
     private LocalDateTime upperBound;
+    private Boolean showAggregate;
 
     public DataGraph() {
         final NumberAxis numberAxis = new NumberAxis();
@@ -43,6 +47,7 @@ public class DataGraph {
 
         upperBound = LocalDateTime.now();
         lowerBound = upperBound.minusMonths(1);
+        showAggregate = true;
     }
 
     public void setData(final List<DataPoint> dataPoints) {
@@ -54,6 +59,11 @@ public class DataGraph {
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
         plotDataType(currentDataType);
+    }
+    
+    public void setShowAggregate(Boolean show) {
+    	this.showAggregate = show;
+    	plotDataType(currentDataType);
     }
 
     public LineChart<Numerable<LocalDateTime>, Number> getGraph() {
@@ -90,6 +100,19 @@ public class DataGraph {
                         ))
                         .collect(Collectors.toCollection(FXCollections::observableArrayList));
         graph.setData(FXCollections.observableArrayList(new XYChart.Series<>(chartData)));
+        
+        if(showAggregate) {
+        	plotAggregateData(dataType);
+        }
+    }
+    
+    private void plotAggregateData(final DataPoint.DataType dataType) {
+    	StatisticsClient statisticsClient = new StatisticsClient();
+    	Statistic stat = statisticsClient.getStatisticsForDataType(dataType);
+    	Series<Numerable<LocalDateTime>, Number> series = new Series<Numerable<LocalDateTime>, Number>(); 
+    	series.getData().add(new XYChart.Data<Numerable<LocalDateTime>, Number>(numerableBuilder.numerableOfValue(lowerBound), stat.getValue()));
+    	series.getData().add(new XYChart.Data<Numerable<LocalDateTime>, Number>(numerableBuilder.numerableOfValue(upperBound), stat.getValue()));
+    	graph.getData().add(series);
     }
 
     public void clear() {
