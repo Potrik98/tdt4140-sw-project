@@ -8,7 +8,7 @@ The ui module has 4 packages:
  - login: contains classes related to handling of the log in of users and service providers.
  - view: contains view controllers for the different views of the ui.
 
-<h3>Class overview<h3>
+<h3>Class overview</h3>
 
 [Class diagram](diagram.png)
 
