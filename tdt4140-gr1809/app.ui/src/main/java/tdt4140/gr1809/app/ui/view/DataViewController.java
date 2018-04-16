@@ -29,6 +29,14 @@ public class DataViewController implements Initializable {
 	@FXML
 	private AnchorPane graphAnchorPane;
 	
+	@FXML
+	private Label avgLabel;
+	
+	@FXML
+	private Label minLabel;
+	
+	@FXML
+	private Label maxLabel;
 	//@FXML
 	//private CheckBox aggregateCheckbox;
 
@@ -103,12 +111,21 @@ public class DataViewController implements Initializable {
 	@FXML
 	public void selectDataType(final ActionEvent actionEvent) {
 		dataGraph.plotDataType(dataDropdown.getValue());
+		dataGraph.calculateStats(dataDropdown.getValue(), dataClient.getDataPointsForUserId(fxAppController.user.getId()));
+		maxLabel.setText("" + ((int)dataGraph.max));
+		minLabel.setText("" + ((int)dataGraph.min));
+		avgLabel.setText("" + ((int)dataGraph.avg));
 	}
 
 	public void setfxAppController(FxAppController controller) {
 		fxAppController = controller;
 		dataGraph.setData(dataClient.getDataPointsForUserId(fxAppController.user.getId()));
-		dataGraph.plotDataType(DataPoint.DataType.TEMPERATURE);
+		dataGraph.plotDataType(dataDropdown.getValue());
+		dataGraph.calculateStats(dataDropdown.getValue(), dataClient.getDataPointsForUserId(fxAppController.user.getId()));
+		maxLabel.setText("" + ((int)dataGraph.max));
+		minLabel.setText("" + ((int)dataGraph.min));
+		avgLabel.setText("" + ((int)dataGraph.avg));
+		
 		//just to test that the user selection works:
 		System.out.println("User Selected: " + fxAppController.user.getId() );
 	}

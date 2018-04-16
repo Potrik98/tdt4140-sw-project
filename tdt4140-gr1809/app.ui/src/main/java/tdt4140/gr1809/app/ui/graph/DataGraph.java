@@ -34,6 +34,10 @@ public class DataGraph {
     private LocalDateTime lowerBound;
     private LocalDateTime upperBound;
     private Boolean showAggregate;
+    
+    public float max;
+    public float min;
+    public float avg;
 
     public DataGraph() {
         final NumberAxis numberAxis = new NumberAxis();
@@ -53,6 +57,30 @@ public class DataGraph {
     public void setData(final List<DataPoint> dataPoints) {
         dataPointsByDataType = dataPoints.stream()
                 .collect(Collectors.groupingBy(DataPoint::getDataType));
+    }
+    
+    public void calculateStats(DataPoint.DataType dataType, final List<DataPoint> dataPoints) {
+    	currentDataType = dataType;
+    	
+    	min = 999999;
+        max = -999999;
+        avg = 0;
+        int numPoints = 0;
+        float totalVal = 0;
+        System.out.println(currentDataType);
+        System.out.println(currentDataType + " dffdfd");
+        for(int i = 0; i < dataPoints.size(); i++) {
+        	if(dataPoints.get(i).getDataType() == currentDataType) {
+        		numPoints++;
+        		totalVal += dataPoints.get(i).getValue();
+        		if(dataPoints.get(i).getValue() < min) {
+        			min = dataPoints.get(i).getValue();
+        		} else if(dataPoints.get(i).getValue() > max) {
+        			max = dataPoints.get(i).getValue();
+        		}
+        	}
+        }
+        avg = totalVal/numPoints;
     }
 
     public void setRange(final LocalDateTime lowerBound, final LocalDateTime upperBound) {
