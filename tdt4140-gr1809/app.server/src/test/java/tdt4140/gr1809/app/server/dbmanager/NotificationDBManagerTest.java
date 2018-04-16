@@ -9,7 +9,6 @@ import tdt4140.gr1809.app.core.model.User;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -51,7 +50,7 @@ public class NotificationDBManagerTest {
 
         notificationDBManager.createNotification(notification);
 
-        final List<Notification> retrievedNotifications = notificationDBManager.getNotificationByUserId(user.getId());
+        final List<Notification> retrievedNotifications = notificationDBManager.getNotificationsByUserId(user.getId());
 
         assertThat(retrievedNotifications).usingFieldByFieldElementComparator()
                 .containsExactly(notification);
@@ -61,7 +60,7 @@ public class NotificationDBManagerTest {
     public void testGetNotificationInvalidId() throws SQLException {
         final UUID invalidUserId = UUID.randomUUID();
 
-        final List<Notification> retrievedNotification = notificationDBManager.getNotificationByUserId(invalidUserId);
+        final List<Notification> retrievedNotification = notificationDBManager.getNotificationsByUserId(invalidUserId);
 
         assertThat(retrievedNotification).isEmpty();
     }
@@ -84,13 +83,13 @@ public class NotificationDBManagerTest {
 
         notificationDBManager.createNotification(notification);
 
-        final List<Notification> retrievedNotifications = notificationDBManager.getNotificationByUserId(user.getId());
+        final List<Notification> retrievedNotifications = notificationDBManager.getNotificationsByUserId(user.getId());
 
         assertThat(retrievedNotifications).usingFieldByFieldElementComparator()
                 .containsExactly(notification);
         notificationDBManager.deleteNotification(notification.getId());
 
-        final List<Notification> deletedNotification = notificationDBManager.getNotificationByUserId(notification.getId());
+        final List<Notification> deletedNotification = notificationDBManager.getNotificationsByUserId(user.getId());
 
         assertThat(deletedNotification).isEmpty();
     }

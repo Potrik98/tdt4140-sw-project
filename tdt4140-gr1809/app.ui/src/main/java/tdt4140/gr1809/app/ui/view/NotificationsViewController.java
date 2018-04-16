@@ -2,28 +2,19 @@ package tdt4140.gr1809.app.ui.view;
 
 import javafx.collections.FXCollections;
 
-import javafx.event.ActionEvent;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.collections.*;
-import javafx.util.StringConverter;
 import tdt4140.gr1809.app.client.NotificationClient;
-import tdt4140.gr1809.app.client.UserClient;
 import tdt4140.gr1809.app.ui.FxAppController;
 import tdt4140.gr1809.app.core.model.*;
 
-import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.time.format.TextStyle;
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.UUID;
 
 public class NotificationsViewController implements Initializable{
 
@@ -57,7 +48,7 @@ public class NotificationsViewController implements Initializable{
 	
 	public void setfxAppController(FxAppController controller) {
 		fxAppController = controller;
-		notificationList = FXCollections.observableArrayList(client.getNotificationByUserId(fxAppController.user.getId()));
+		notificationList = FXCollections.observableArrayList(client.getNotificationsByUserId(fxAppController.user.getId()));
 		System.out.println(notificationList);
 		NotificationsListView.setItems(notificationList);
 		NotificationsListView.setCellFactory(param -> new ListCell<Notification>() {
