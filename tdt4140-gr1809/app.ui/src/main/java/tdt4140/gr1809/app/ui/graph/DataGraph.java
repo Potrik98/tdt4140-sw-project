@@ -16,7 +16,7 @@ import tdt4140.gr1809.app.core.value.LocalDateTimeNumberConverter;
 import tdt4140.gr1809.app.core.value.Numerable;
 
 import java.time.LocalDateTime;
-import java.util.IntSummaryStatistics;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -38,8 +38,8 @@ public class DataGraph {
     private LocalDateTime timeOfLastDataPoint;
     private Boolean showAggregate;
     
-    public int max;
-    public int min;
+    public double max;
+    public double min;
     public double avg;
 
     public DataGraph() {
@@ -63,8 +63,11 @@ public class DataGraph {
     }
     
     private void calculateStats(final List<DataPoint> dataPoints) {
-    	final IntSummaryStatistics statistics = dataPoints.stream()
-                .collect(Collectors.summarizingInt(DataPoint::getValue));
+    	final DoubleSummaryStatistics statistics = dataPoints.stream()
+                .collect(Collectors.summarizingDouble(dataPoint -> (
+                        dataPoint.getDataType() == DataPoint.DataType.TEMPERATURE
+                                ? dataPoint.getValue() / 100.0
+                                : dataPoint.getValue())));
     	avg = statistics.getAverage();
     	min = statistics.getMin();
     	max = statistics.getMax();
@@ -140,11 +143,14 @@ public class DataGraph {
         final StatisticsClient statisticsClient = new StatisticsClient();
 
     	final Statistic generalStatistic = statisticsClient.getStatisticsForDataType(dataType);
+    	final double statisticValue = dataType == DataPoint.DataType.TEMPERATURE
+                ? generalStatistic.getValue() / 100.0
+                : generalStatistic.getValue();
     	final Series<Numerable<LocalDateTime>, Number> generalStatisticSeries = new Series<>();
     	generalStatisticSeries.getData().add(new XYChart.Data<>(
-    	        numerableBuilder.numerableOfValue(timeOfFirstDataPoint), generalStatistic.getValue()));
+    	        numerableBuilder.numerableOfValue(timeOfFirstDataPoint), statisticValue));
     	generalStatisticSeries.getData().add(new XYChart.Data<>(
-    	        numerableBuilder.numerableOfValue(timeOfLastDataPoint), generalStatistic.getValue()));
+    	        numerableBuilder.numerableOfValue(timeOfLastDataPoint), statisticValue));
 
         final Series<Numerable<LocalDateTime>, Number> averageSeries = new Series<>();
         averageSeries.getData().add(new XYChart.Data<>(
