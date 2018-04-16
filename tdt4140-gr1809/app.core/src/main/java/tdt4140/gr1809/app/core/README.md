@@ -1,3 +1,3 @@
 # Source package for core code
 
-See documentation: [docs](../../../../../../../docs/README.md)
+[Documentation](../../../../../../../docs/README.md)
