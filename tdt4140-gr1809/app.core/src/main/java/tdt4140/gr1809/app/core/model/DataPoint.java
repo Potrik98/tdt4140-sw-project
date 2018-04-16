@@ -14,6 +14,10 @@ public class DataPoint {
 		STEPS(Duration.of(1, ChronoUnit.DAYS)),
 		TEMPERATURE(Duration.of(1, ChronoUnit.MINUTES)),
 		HEART_RATE(Duration.of(10, ChronoUnit.SECONDS));
+
+		/*
+		 * How often a data type is measured
+		 */
 		public final Duration timePeriod;
 		private DataType(final Duration timePeriod) {
 			this.timePeriod = timePeriod;

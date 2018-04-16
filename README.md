@@ -26,11 +26,11 @@ Etter at du har logget inn har du muligheten til å få en grafisk framstilling 
 <h3>Oversikt</h3>
 
 Programmet består av følgende moduler:
- - app.core : Kjernemodul som inneholder modellklasser og verktøy som er nyttig i hele prosjektet
+ - [app.core](tdt4140-gr1809/app.core/docs/README.md) : Kjernemodul som inneholder modellklasser og verktøy som er nyttig i hele prosjektet
  - [app.server](tdt4140-gr1809/app.server/docs/README.md) : Modul som inneholder kode som kjører på serveren, som håndterer serverens REST-api, og databasekommunikasjon.
- - app.client : Modul som inneholder klienter som kommuniserer med serverens REST-api over HTTP, som et abstraksjonslag mellom serveren og koden som bruker systemet, og sørger for at informasjon blir overført.
- - app.ui : Modul som inneholder koden for brukergrensesnittet. Håndterer all kommunikasjon med brukeren, og benytter seg av klientene til å håndere logikk.
- - app.datagen : En frittstående modul som tjenestegjør som datagenerator, istedet for en eventuell chip eller sensor. Denne kjører på egenhånd, og bruker klientene til å sende sine data direkte til serveren.
+ - [app.client](tdt4140-gr1809/app.client/docs/README.md) : Modul som inneholder klienter som kommuniserer med serverens REST-api over HTTP, som et abstraksjonslag mellom serveren og koden som bruker systemet, og sørger for at informasjon blir overført.
+ - [app.ui](tdt4140-gr1809/app.ui/docs/README.md) : Modul som inneholder koden for brukergrensesnittet. Håndterer all kommunikasjon med brukeren, og benytter seg av klientene til å håndere logikk.
+ - [app.datagen](tdt4140-gr1809/app.datagen/docs/README.md) : En frittstående modul som tjenestegjør som datagenerator, istedet for en eventuell chip eller sensor. Denne kjører på egenhånd, og bruker klientene til å sende sine data direkte til serveren.
 
 <h3>Tekniske forutsetninger</h3>
 
