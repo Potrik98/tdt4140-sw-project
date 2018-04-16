@@ -6,13 +6,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
+import tdt4140.gr1809.app.client.DataClient;
 import tdt4140.gr1809.app.client.UserClient;
+import tdt4140.gr1809.app.core.model.DataPoint;
 import tdt4140.gr1809.app.core.model.User;
+import tdt4140.gr1809.app.datagen.generator.Generator;
 import tdt4140.gr1809.app.ui.FxAppController;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class RegisterViewController implements Initializable {
@@ -55,6 +59,11 @@ public class RegisterViewController implements Initializable {
 			try{
 				client.createUser(user);
 				System.out.println("Created user: " + user.getId());
+				DataClient dataClient = new DataClient();
+				Arrays.stream(DataPoint.DataType.values())
+						.forEach(dataType -> dataClient.createDataPoints(
+								Generator.getDataGenerator(user.getId(), dataType)
+										.generateDataPoints(125)));
 				fxAppController.user = user;
 				fxAppController.goToLoginView(null);
 			}
