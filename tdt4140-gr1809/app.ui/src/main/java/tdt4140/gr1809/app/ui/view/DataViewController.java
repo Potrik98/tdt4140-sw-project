@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -27,6 +28,17 @@ public class DataViewController implements Initializable {
 
 	@FXML
 	private AnchorPane graphAnchorPane;
+	
+	@FXML
+	private Label avgLabel;
+	
+	@FXML
+	private Label minLabel;
+	
+	@FXML
+	private Label maxLabel;
+	//@FXML
+	//private CheckBox aggregateCheckbox;
 
 	private DataGraph dataGraph;
 	
@@ -46,6 +58,12 @@ public class DataViewController implements Initializable {
 		dataDropdown.setItems(FXCollections.observableList(Arrays.asList(DataPoint.DataType.values())));
 		dataDropdown.setValue(DataPoint.DataType.HEART_RATE);
 	}
+	
+	
+	//@FXML
+	//private void showOrHideAggregate() {
+		//dataGraph.setShowAggregate(false);
+	//}
 
 	// Methods just to illustrate that we can plot different time intervals.
 	@FXML
@@ -53,6 +71,7 @@ public class DataViewController implements Initializable {
 		timePeriodLabel.setText("Last Hour");
 		final LocalDateTime now = LocalDateTime.now();
 		dataGraph.setRange(now.minusHours(1), now);
+		updateStatisticsLabels();
 	}
 
 	@FXML
@@ -60,6 +79,7 @@ public class DataViewController implements Initializable {
 		timePeriodLabel.setText("24 Hours");
 		final LocalDateTime now = LocalDateTime.now();
 		dataGraph.setRange(now.minusHours(24), now);
+		updateStatisticsLabels();
 	}
 
 	@FXML
@@ -67,6 +87,7 @@ public class DataViewController implements Initializable {
 		timePeriodLabel.setText("Last Week");
 		final LocalDateTime now = LocalDateTime.now();
 		dataGraph.setRange(now.minusWeeks(1), now);
+		updateStatisticsLabels();
 	}
 
 	@FXML
@@ -74,6 +95,7 @@ public class DataViewController implements Initializable {
 		timePeriodLabel.setText("Last Month");
 		final LocalDateTime now = LocalDateTime.now();
 		dataGraph.setRange(now.minusMonths(1), now);
+		updateStatisticsLabels();
 	}
 
 	@FXML
@@ -81,6 +103,7 @@ public class DataViewController implements Initializable {
 		timePeriodLabel.setText("Last Year");
 		final LocalDateTime now = LocalDateTime.now();
 		dataGraph.setRange(now.minusYears(1), now);
+		updateStatisticsLabels();
 	}
 
 	@FXML
@@ -88,17 +111,27 @@ public class DataViewController implements Initializable {
 		timePeriodLabel.setText("Last 15 Minutes");
 		final LocalDateTime now = LocalDateTime.now();
 		dataGraph.setRange(now.minusMinutes(15), now);
+		updateStatisticsLabels();
 	}
 
 	@FXML
 	public void selectDataType(final ActionEvent actionEvent) {
 		dataGraph.plotDataType(dataDropdown.getValue());
+		updateStatisticsLabels();
+	}
+
+	private void updateStatisticsLabels() {
+		maxLabel.setText("" + dataGraph.max);
+		minLabel.setText("" + dataGraph.min);
+		avgLabel.setText("" + ((int)dataGraph.avg));
 	}
 
 	public void setfxAppController(FxAppController controller) {
 		fxAppController = controller;
 		dataGraph.setData(dataClient.getDataPointsForUserId(fxAppController.user.getId()));
-		dataGraph.plotDataType(DataPoint.DataType.TEMPERATURE);
+		dataGraph.plotDataType(dataDropdown.getValue());
+		updateStatisticsLabels();
+		
 		//just to test that the user selection works:
 		System.out.println("User Selected: " + fxAppController.user.getId() );
 	}
