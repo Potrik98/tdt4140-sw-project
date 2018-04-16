@@ -71,6 +71,7 @@ public class DataViewController implements Initializable {
 		timePeriodLabel.setText("Last Hour");
 		final LocalDateTime now = LocalDateTime.now();
 		dataGraph.setRange(now.minusHours(1), now);
+		updateStatisticsLabels();
 	}
 
 	@FXML
@@ -78,6 +79,7 @@ public class DataViewController implements Initializable {
 		timePeriodLabel.setText("24 Hours");
 		final LocalDateTime now = LocalDateTime.now();
 		dataGraph.setRange(now.minusHours(24), now);
+		updateStatisticsLabels();
 	}
 
 	@FXML
@@ -85,6 +87,7 @@ public class DataViewController implements Initializable {
 		timePeriodLabel.setText("Last Week");
 		final LocalDateTime now = LocalDateTime.now();
 		dataGraph.setRange(now.minusWeeks(1), now);
+		updateStatisticsLabels();
 	}
 
 	@FXML
@@ -92,6 +95,7 @@ public class DataViewController implements Initializable {
 		timePeriodLabel.setText("Last Month");
 		final LocalDateTime now = LocalDateTime.now();
 		dataGraph.setRange(now.minusMonths(1), now);
+		updateStatisticsLabels();
 	}
 
 	@FXML
@@ -99,6 +103,7 @@ public class DataViewController implements Initializable {
 		timePeriodLabel.setText("Last Year");
 		final LocalDateTime now = LocalDateTime.now();
 		dataGraph.setRange(now.minusYears(1), now);
+		updateStatisticsLabels();
 	}
 
 	@FXML
@@ -106,13 +111,18 @@ public class DataViewController implements Initializable {
 		timePeriodLabel.setText("Last 15 Minutes");
 		final LocalDateTime now = LocalDateTime.now();
 		dataGraph.setRange(now.minusMinutes(15), now);
+		updateStatisticsLabels();
 	}
 
 	@FXML
 	public void selectDataType(final ActionEvent actionEvent) {
 		dataGraph.plotDataType(dataDropdown.getValue());
-		maxLabel.setText("" + ((int)dataGraph.max));
-		minLabel.setText("" + ((int)dataGraph.min));
+		updateStatisticsLabels();
+	}
+
+	private void updateStatisticsLabels() {
+		maxLabel.setText("" + dataGraph.max);
+		minLabel.setText("" + dataGraph.min);
 		avgLabel.setText("" + ((int)dataGraph.avg));
 	}
 
@@ -120,9 +130,7 @@ public class DataViewController implements Initializable {
 		fxAppController = controller;
 		dataGraph.setData(dataClient.getDataPointsForUserId(fxAppController.user.getId()));
 		dataGraph.plotDataType(dataDropdown.getValue());
-		maxLabel.setText("" + ((int)dataGraph.max));
-		minLabel.setText("" + ((int)dataGraph.min));
-		avgLabel.setText("" + ((int)dataGraph.avg));
+		updateStatisticsLabels();
 		
 		//just to test that the user selection works:
 		System.out.println("User Selected: " + fxAppController.user.getId() );

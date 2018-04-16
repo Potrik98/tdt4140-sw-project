@@ -34,8 +34,8 @@ public class DataGraph {
     private DataPoint.DataType currentDataType;
     private LocalDateTime lowerBound;
     private LocalDateTime upperBound;
-    private LocalDateTime dataLowestValue;
-    private LocalDateTime dataHighestValue;
+    private LocalDateTime timeOfFirstDataPoint;
+    private LocalDateTime timeOfLastDataPoint;
     private Boolean showAggregate;
     
     public int max;
@@ -62,10 +62,8 @@ public class DataGraph {
                 .collect(Collectors.groupingBy(DataPoint::getDataType));
     }
     
-    private void calculateStats(DataPoint.DataType dataType, final List<DataPoint> dataPoints) {
-    	currentDataType = dataType;
-    	
-    	final IntSummaryStatistics statistics = dataPointsByDataType.get(dataType).stream()
+    private void calculateStats(final List<DataPoint> dataPoints) {
+    	final IntSummaryStatistics statistics = dataPoints.stream()
                 .collect(Collectors.summarizingInt(DataPoint::getValue));
     	avg = statistics.getAverage();
     	min = statistics.getMin();
@@ -93,11 +91,16 @@ public class DataGraph {
      * @param dataType Data type to plot
      */
     public void plotDataType(final DataPoint.DataType dataType) {
+        System.out.println("Plotting data type " + dataType);
         currentDataType = dataType;
         final List<DataPoint> dataPointsInRange = dataPointsByDataType.get(dataType).stream()
                 .filter(dataPoint -> dataPoint.getTime().isAfter(lowerBound)
                         && dataPoint.getTime().isBefore(upperBound))
                 .collect(Collectors.toList());
+
+        /*
+         * If there are too many data points, aggregate some of them
+         */
         final int aggregation = (int) Math.ceil((double) dataPointsInRange.size() / MAX_DATA_POINTS);
         final List<DataPoint> aggregatedDataPoints =
                 Streams.stream(Iterables.partition(dataPointsInRange, aggregation))
@@ -108,6 +111,7 @@ public class DataGraph {
                                         dataPoints.stream().map(DataPoint::getTime).collect(Collectors.toList())))
                                 .build())
                         .collect(Collectors.toList());
+
         final ObservableList<XYChart.Data<Numerable<LocalDateTime>, Number>> chartData =
                 aggregatedDataPoints.stream()
                         .map(dataPoint -> new XYChart.Data<Numerable<LocalDateTime>, Number>(
@@ -119,26 +123,37 @@ public class DataGraph {
         graph.setData(FXCollections.observableArrayList(new XYChart.Series<>(chartData)));
         
         if(showAggregate) {
-        	dataLowestValue = dataPointsInRange.stream()
-        		    .map(dataPoint -> dataPoint.getTime())
+        	timeOfFirstDataPoint = dataPointsInRange.stream()
+        		    .map(DataPoint::getTime)
         		    .min(LocalDateTime::compareTo)
-        		    .orElse(null);
-        	dataHighestValue = dataPointsInRange.stream()
-        		    .map(dataPoint -> dataPoint.getTime())
+        		    .orElse(LocalDateTime.now());
+        	timeOfLastDataPoint = dataPointsInRange.stream()
+        		    .map(DataPoint::getTime)
         		    .max(LocalDateTime::compareTo)
-        		    .orElse(null);
+        		    .orElse(LocalDateTime.now());
+        	calculateStats(dataPointsInRange);
         	plotAggregateData(dataType);
-        	calculateStats(dataType, dataPointsInRange);
         }
     }
     
     private void plotAggregateData(final DataPoint.DataType dataType) {
-    	StatisticsClient statisticsClient = new StatisticsClient();
-    	Statistic stat = statisticsClient.getStatisticsForDataType(dataType);
-    	Series<Numerable<LocalDateTime>, Number> series = new Series<Numerable<LocalDateTime>, Number>(); 
-    	series.getData().add(new XYChart.Data<Numerable<LocalDateTime>, Number>(numerableBuilder.numerableOfValue(dataLowestValue), stat.getValue()));
-    	series.getData().add(new XYChart.Data<Numerable<LocalDateTime>, Number>(numerableBuilder.numerableOfValue(dataHighestValue), stat.getValue()));
-    	graph.getData().add(series);
+        final StatisticsClient statisticsClient = new StatisticsClient();
+
+    	final Statistic generalStatistic = statisticsClient.getStatisticsForDataType(dataType);
+    	final Series<Numerable<LocalDateTime>, Number> generalStatisticSeries = new Series<>();
+    	generalStatisticSeries.getData().add(new XYChart.Data<>(
+    	        numerableBuilder.numerableOfValue(timeOfFirstDataPoint), generalStatistic.getValue()));
+    	generalStatisticSeries.getData().add(new XYChart.Data<>(
+    	        numerableBuilder.numerableOfValue(timeOfLastDataPoint), generalStatistic.getValue()));
+
+        final Series<Numerable<LocalDateTime>, Number> averageSeries = new Series<>();
+        averageSeries.getData().add(new XYChart.Data<>(
+                numerableBuilder.numerableOfValue(timeOfFirstDataPoint), avg));
+        averageSeries.getData().add(new XYChart.Data<>(
+                numerableBuilder.numerableOfValue(timeOfLastDataPoint), avg));
+
+    	graph.getData().add(generalStatisticSeries);
+    	graph.getData().add(averageSeries);
     }
 
     public void clear() {
