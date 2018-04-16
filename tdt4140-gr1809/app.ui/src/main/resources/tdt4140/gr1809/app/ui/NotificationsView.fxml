@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
@@ -21,7 +22,8 @@
                   <Insets top="50.0" />
                </VBox.margin>
             </Label>
-            <ListView fx:id="NotificationsListView" onKeyReleased="#updateNotification" onMouseClicked="#updateNotification" prefHeight="604.0" prefWidth="388.0" />
+            <ListView fx:id="NotificationsListView" onKeyReleased="#updateNotification" onMouseClicked="#updateNotification" prefHeight="552.0" prefWidth="388.0" style="-fx-font-size:: 15;" />
+            <Button mnemonicParsing="false" onAction="#deleteNotification" prefHeight="38.0" prefWidth="391.0" text="Delete Notification" />
          </children>
          <BorderPane.margin>
             <Insets left="40.0" />

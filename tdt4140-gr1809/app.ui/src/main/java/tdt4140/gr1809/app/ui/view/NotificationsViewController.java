@@ -48,6 +48,12 @@ public class NotificationsViewController implements Initializable{
 			itemDateTime.setText(note.getTime().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + " at " + note.getTime().format(DateTimeFormatter.ofPattern("HH:mm")));
 		}
 	}
+	@FXML
+	public void deleteNotification() throws IOException {
+		Notification note = NotificationsListView.getFocusModel().getFocusedItem();
+		client.deleteNotification(note.getId());
+		fxAppController.goToNotificationsView(null);
+	}
 	
 	public void setfxAppController(FxAppController controller) {
 		fxAppController = controller;
