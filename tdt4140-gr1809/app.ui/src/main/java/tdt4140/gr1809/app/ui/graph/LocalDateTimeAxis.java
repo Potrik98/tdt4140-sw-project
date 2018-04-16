@@ -14,6 +14,11 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Objects;
 
+/**
+ * A specialization of NumerableAxis
+ * with formatting of the LocalDateTime objects,
+ * and snapping to tick units when auto ranging.
+ */
 public class LocalDateTimeAxis extends NumerableAxis<LocalDateTime> {
     private static final NumberConverter<LocalDateTime> localDateTimeNumberConverter =
             new LocalDateTimeNumberConverter();
