@@ -1,49 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="750" maxWidth="880" minHeight="400.0" minWidth="600.0" prefHeight="750" prefWidth="880" styleClass="root" stylesheets="" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1809.app.ui.view.ServiceProviderViewController">
    <children>
-      <VBox layoutX="276.0" prefHeight="750.0" prefWidth="327.0">
-         <children>
-            <HBox alignment="CENTER" prefHeight="72.0" prefWidth="327.0">
+      <BorderPane prefHeight="750.0" prefWidth="880.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label prefHeight="30.0" prefWidth="153.0" text="Service Providers">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
+                  <VBox prefHeight="750.0" prefWidth="283.0">
+                     <children>
+                        <AnchorPane prefHeight="400.0" prefWidth="283.0">
+                           <children>
+                              <TextField fx:id="serviceproviderID" layoutX="47.0" layoutY="212.0" prefHeight="26.0" prefWidth="189.0" />
+                              <Button layoutX="66.0" layoutY="265.0" mnemonicParsing="false" onAction="#grantServiceProviderAccess" prefHeight="38.0" prefWidth="150.0" text="Grant Access" />
+                              <Label layoutX="63.0" layoutY="123.0" text="Grant access">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="750.0" prefWidth="283.0">
+                     <children>
+                        <AnchorPane prefHeight="400.0" prefWidth="283.0">
+                           <children>
+                              <Button layoutX="66.0" layoutY="265.0" mnemonicParsing="false" onAction="#revokeServiceProviderAccess" prefHeight="38.0" prefWidth="150.0" text="Revoke Access" />
+                              <ComboBox fx:id="ServiceProvidersComboBox" layoutX="47.0" layoutY="212.0" prefHeight="26.0" prefWidth="189.0" />
+                              <Label layoutX="53.0" layoutY="122.0" text="Revoke access">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
                </children>
             </HBox>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfeffd" height="207.0" stroke="BLACK" strokeType="INSIDE" width="328.0" />
-                  <Label layoutX="68.0" layoutY="14.0" prefHeight="46.0" prefWidth="190.0" text="Service providers who have access to your data:" textAlignment="CENTER" wrapText="true" />
-                  <ComboBox fx:id="ServiceProvidersComboBox" layoutX="88.0" layoutY="74.0" prefWidth="150.0" />
-                  <Button layoutX="88.0" layoutY="125.0" mnemonicParsing="false" onAction="#revokeServiceProviderAccess" prefHeight="38.0" prefWidth="150.0" text="Revoke Access" />
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfeffd" height="207.0" stroke="BLACK" strokeType="INSIDE" width="328.0" AnchorPane.topAnchor="0.0" />
-                  <Label layoutX="86.0" layoutY="14.0" prefHeight="46.0" prefWidth="154.0" text="Grant serviceprovider access to user:" textAlignment="CENTER" wrapText="true" />
-                  <Button layoutX="88.0" layoutY="125.0" mnemonicParsing="false" onAction="#grantServiceProviderAccess" prefHeight="38.0" prefWidth="150.0" text="Grant Access" />
-                  <TextField fx:id="serviceproviderID" layoutX="90.0" layoutY="80.0" />
-               </children>
-               <padding>
-                  <Insets top="2.0" />
-               </padding>
-            </AnchorPane>
-         </children>
-      </VBox>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>
