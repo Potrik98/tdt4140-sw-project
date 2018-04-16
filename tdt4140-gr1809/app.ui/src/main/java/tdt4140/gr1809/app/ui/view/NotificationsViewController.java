@@ -10,6 +10,7 @@ import tdt4140.gr1809.app.client.NotificationClient;
 import tdt4140.gr1809.app.ui.FxAppController;
 import tdt4140.gr1809.app.core.model.*;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
