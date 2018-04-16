@@ -34,6 +34,8 @@ public class DataGraph {
     private DataPoint.DataType currentDataType;
     private LocalDateTime lowerBound;
     private LocalDateTime upperBound;
+    private LocalDateTime dataLowestValue;
+    private LocalDateTime dataHighestValue;
     private Boolean showAggregate;
     
     public int max;
@@ -117,6 +119,14 @@ public class DataGraph {
         graph.setData(FXCollections.observableArrayList(new XYChart.Series<>(chartData)));
         
         if(showAggregate) {
+        	dataLowestValue = dataPointsInRange.stream()
+        		    .map(dataPoint -> dataPoint.getTime())
+        		    .min(LocalDateTime::compareTo)
+        		    .orElse(null);
+        	dataHighestValue = dataPointsInRange.stream()
+        		    .map(dataPoint -> dataPoint.getTime())
+        		    .max(LocalDateTime::compareTo)
+        		    .orElse(null);
         	plotAggregateData(dataType);
         	calculateStats(dataType, dataPointsInRange);
         }
@@ -126,8 +136,8 @@ public class DataGraph {
     	StatisticsClient statisticsClient = new StatisticsClient();
     	Statistic stat = statisticsClient.getStatisticsForDataType(dataType);
     	Series<Numerable<LocalDateTime>, Number> series = new Series<Numerable<LocalDateTime>, Number>(); 
-    	series.getData().add(new XYChart.Data<Numerable<LocalDateTime>, Number>(numerableBuilder.numerableOfValue(lowerBound), stat.getValue()));
-    	series.getData().add(new XYChart.Data<Numerable<LocalDateTime>, Number>(numerableBuilder.numerableOfValue(upperBound), stat.getValue()));
+    	series.getData().add(new XYChart.Data<Numerable<LocalDateTime>, Number>(numerableBuilder.numerableOfValue(dataLowestValue), stat.getValue()));
+    	series.getData().add(new XYChart.Data<Numerable<LocalDateTime>, Number>(numerableBuilder.numerableOfValue(dataHighestValue), stat.getValue()));
     	graph.getData().add(series);
     }
 
