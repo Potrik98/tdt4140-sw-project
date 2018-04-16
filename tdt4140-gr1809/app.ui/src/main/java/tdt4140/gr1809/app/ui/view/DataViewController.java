@@ -111,7 +111,6 @@ public class DataViewController implements Initializable {
 	@FXML
 	public void selectDataType(final ActionEvent actionEvent) {
 		dataGraph.plotDataType(dataDropdown.getValue());
-		dataGraph.calculateStats(dataDropdown.getValue(), dataClient.getDataPointsForUserId(fxAppController.user.getId()));
 		maxLabel.setText("" + ((int)dataGraph.max));
 		minLabel.setText("" + ((int)dataGraph.min));
 		avgLabel.setText("" + ((int)dataGraph.avg));
@@ -121,7 +120,6 @@ public class DataViewController implements Initializable {
 		fxAppController = controller;
 		dataGraph.setData(dataClient.getDataPointsForUserId(fxAppController.user.getId()));
 		dataGraph.plotDataType(dataDropdown.getValue());
-		dataGraph.calculateStats(dataDropdown.getValue(), dataClient.getDataPointsForUserId(fxAppController.user.getId()));
 		maxLabel.setText("" + ((int)dataGraph.max));
 		minLabel.setText("" + ((int)dataGraph.min));
 		avgLabel.setText("" + ((int)dataGraph.avg));

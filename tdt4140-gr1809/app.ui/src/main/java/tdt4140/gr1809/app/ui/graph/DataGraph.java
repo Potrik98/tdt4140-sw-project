@@ -16,6 +16,7 @@ import tdt4140.gr1809.app.core.value.LocalDateTimeNumberConverter;
 import tdt4140.gr1809.app.core.value.Numerable;
 
 import java.time.LocalDateTime;
+import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -35,9 +36,9 @@ public class DataGraph {
     private LocalDateTime upperBound;
     private Boolean showAggregate;
     
-    public float max;
-    public float min;
-    public float avg;
+    public int max;
+    public int min;
+    public double avg;
 
     public DataGraph() {
         final NumberAxis numberAxis = new NumberAxis();
@@ -59,28 +60,14 @@ public class DataGraph {
                 .collect(Collectors.groupingBy(DataPoint::getDataType));
     }
     
-    public void calculateStats(DataPoint.DataType dataType, final List<DataPoint> dataPoints) {
+    private void calculateStats(DataPoint.DataType dataType, final List<DataPoint> dataPoints) {
     	currentDataType = dataType;
     	
-    	min = 999999;
-        max = -999999;
-        avg = 0;
-        int numPoints = 0;
-        float totalVal = 0;
-        for(int i = 0; i < dataPoints.size(); i++) {
-        	if(dataPoints.get(i).getDataType() == currentDataType
-        			&& dataPoints.get(i).getTime().isAfter(lowerBound)
-        			&& dataPoints.get(i).getTime().isBefore(upperBound)) {
-        		numPoints++;
-        		totalVal += dataPoints.get(i).getValue();
-        		if(dataPoints.get(i).getValue() < min) {
-        			min = dataPoints.get(i).getValue();
-        		} else if(dataPoints.get(i).getValue() > max) {
-        			max = dataPoints.get(i).getValue();
-        		}
-        	}
-        }
-        avg = totalVal/numPoints;
+    	final IntSummaryStatistics statistics = dataPointsByDataType.get(dataType).stream()
+                .collect(Collectors.summarizingInt(DataPoint::getValue));
+    	avg = statistics.getAverage();
+    	min = statistics.getMin();
+    	max = statistics.getMax();
     }
 
     public void setRange(final LocalDateTime lowerBound, final LocalDateTime upperBound) {
@@ -131,6 +118,7 @@ public class DataGraph {
         
         if(showAggregate) {
         	plotAggregateData(dataType);
+        	calculateStats(dataType, dataPointsInRange);
         }
     }
     
