@@ -19,6 +19,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
+/**
+ * Extension of ValueAxis,
+ * to support Numerable types.
+ * @param <T>
+ */
 public class NumerableAxis<T> extends ValueAxis<Numerable<T>> {
     protected final Numerable.NumerableBuilder<T> numerableBuilder;
 
